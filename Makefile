@@ -24,7 +24,7 @@
 all: testInvader testLecture
 
 testInvader:
-	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestInvader.java
+	javac -d bin -classpath lib/gui.jar -sourcepath src src/TestInvader.java
 
 testLecture:
 	javac -d bin -sourcepath src src/TestLecteurDonnees.java
@@ -35,7 +35,7 @@ testLecture:
 # ou bien lancer l'execution en passant par ce Makefile:
 #   > make exeInvader
 exeInvader: 
-	java -classpath bin:bin/gui.jar TestInvader
+	java -classpath bin:lib/gui.jar TestInvader
 
 exeLecture: 
 	java -classpath bin TestLecteurDonnees cartes/carteSujet.map
