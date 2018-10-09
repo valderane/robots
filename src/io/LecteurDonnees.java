@@ -1,7 +1,13 @@
 package io;
 
 import carte.NatureTerrain;
+import robots.Drone;
+import robots.RobotAChenilles;
+import robots.RobotAPattes;
+import robots.RobotARoues;
 
+import java.awt.Color;
+import java.awt.Robot;
 import java.io.*;
 import java.util.*;
 import java.util.zip.DataFormatException;
@@ -315,7 +321,7 @@ public class LecteurDonnees {
             int nbRobots = scanner.nextInt();
             System.out.println("Nb de robots = " + nbRobots);
             for (int i = 0; i < nbRobots; i++) {
-                lireRobot(i);
+                ecrireRobot(donnees);
             }
 
         } catch (NoSuchElementException e) {
@@ -366,19 +372,38 @@ public class LecteurDonnees {
      * Lit et affiche les donnees du i-eme robot.
      * @param i
      */
-    private void ecrireRobot(int i, DonneesSimulation donnees) throws DataFormatException {
+    private void ecrireRobot(DonneesSimulation donnees) throws DataFormatException {
         ignorerCommentaires();
-        System.out.print("Robot " + i + ": ");
 
         try {
             int lig = scanner.nextInt();
             int col = scanner.nextInt();
-            System.out.print("position = (" + lig + "," + col + ");");
             String type = scanner.next();
-
-            System.out.print("\t type = " + type);
-
-
+            
+            Carte carte = donnees.getCarte();
+            
+            switch (type) {     
+                case "DRONE":
+                	Drone drone = new Drone(carte.getCase(lig, col));
+                	donnees.addRobot(drone);
+                    break;
+                case "ROUES":
+                	RobotARoues roues = new RobotARoues(carte.getCase(lig, col));
+                	donnees.addRobot(roues);
+                	break;
+                case "PATTES":
+                	RobotAPattes pattes = new RobotAPattes(carte.getCase(lig, col));
+                    donnees.addRobot(pattes);
+                	break;
+                case "CHENILLES":
+                	RobotAChenilles chenille = new RobotAChenilles(carte.getCase(lig, col));
+                    donnees.addRobot(chenille);
+                	break;
+                    
+                default: 
+                    break;
+            }
+            
             // lecture eventuelle d'une vitesse du robot (entier)
             System.out.print("; \t vitesse = ");
             String s = scanner.findInLine("(\\d+)");	// 1 or more digit(s) ?

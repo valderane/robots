@@ -7,33 +7,28 @@ public abstract class Robot{
 
 
     protected Case position;
+    protected int vitesse;
 
     public Robot(Case c){
-
+    		this.position = c;
     }
 
     public Case getPosition(){
-    	return null;
-        //TODO
+    	return this.position;
     }
 
     public void setPosition(Case c){
     	this.position = c;
     	//TODO
     }
-
-    public double getVitesse(NatureTerrain nat){
-        return 0;
-    	//TODO
+    public void setVitesse(int vitesse) {
+    	this.vitesse = vitesse;
     }
 
-    public void deverserEau(int vol){
-        //TODO
-    }
+    public abstract double getVitesse(NatureTerrain nat);
 
-    public void remplirReservoir(){
-        //TODO
-    }
-
+    public abstract void deverserEau(int vol);
+    
+    public abstract void remplirReservoir();
 
 }
