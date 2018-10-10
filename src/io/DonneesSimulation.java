@@ -1,6 +1,7 @@
 package io;
 
 import carte.Carte;
+import carte.Incendie;
 import robots.Robot;
 
 import java.util.HashSet;
@@ -10,10 +11,12 @@ public class DonneesSimulation{
 
     private Carte carte;
     private HashSet<Robot> robots;
-    //TODO
+    private HashSet<Incendie> incendies;
     
     public DonneesSimulation(){
         this.robots = new HashSet<Robot>();
+        this.incendies = new HashSet<Incendie>();
+
         //TODO
     }
     
@@ -31,6 +34,14 @@ public class DonneesSimulation{
     
     public void addRobot(Robot r) {
     	this.robots.add(r);
+    }
+    
+    public HashSet<Incendie> getIncendies(){
+    	return this.incendies;
+    }
+    
+    public void addIncendie(Incendie incendie) {
+    	this.incendies.add(incendie);
     }
 
 }

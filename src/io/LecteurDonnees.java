@@ -12,6 +12,7 @@ import java.io.*;
 import java.util.*;
 import java.util.zip.DataFormatException;
 import carte.Carte;
+import carte.Incendie;
 
 /**
  * Lecteur de cartes au format spectifié dans le sujet.
@@ -284,6 +285,8 @@ public class LecteurDonnees {
             }
             verifieLigneTerminee();
 
+            Incendie incendie = new Incendie(intensite, donnees.getCarte().getCase(lig, col));    
+            donnees.addIncendie(incendie);
             System.out.println("position = (" + lig + "," + col
                     + ");\t intensite = " + intensite);
 
@@ -378,25 +381,40 @@ public class LecteurDonnees {
         try {
             int lig = scanner.nextInt();
             int col = scanner.nextInt();
+            int vitesse = -1;
             String type = scanner.next();
             
             Carte carte = donnees.getCarte();
             
+            String s = scanner.findInLine("(\\d+)");	// 1 or more digit(s) ?
+            if (s != null) {
+            	vitesse = Integer.parseInt(s);
+            }
+            verifieLigneTerminee();
+            
             switch (type) {     
                 case "DRONE":
                 	Drone drone = new Drone(carte.getCase(lig, col));
+                	if(vitesse != 1)
+                		drone.setVitesse(vitesse);
                 	donnees.addRobot(drone);
                     break;
                 case "ROUES":
                 	RobotARoues roues = new RobotARoues(carte.getCase(lig, col));
+                	if(vitesse != 1)
+                		roues.setVitesse(vitesse);
                 	donnees.addRobot(roues);
                 	break;
                 case "PATTES":
                 	RobotAPattes pattes = new RobotAPattes(carte.getCase(lig, col));
+                	if(vitesse != 1)
+                		pattes.setVitesse(vitesse);
                     donnees.addRobot(pattes);
                 	break;
                 case "CHENILLES":
                 	RobotAChenilles chenille = new RobotAChenilles(carte.getCase(lig, col));
+                	if(vitesse != 1)
+                		chenille.setVitesse(vitesse);
                     donnees.addRobot(chenille);
                 	break;
                     
@@ -405,19 +423,8 @@ public class LecteurDonnees {
             }
             
             // lecture eventuelle d'une vitesse du robot (entier)
-            System.out.print("; \t vitesse = ");
-            String s = scanner.findInLine("(\\d+)");	// 1 or more digit(s) ?
-            // pour lire un flottant:    ("(\\d+(\\.\\d+)?)");
-
-            if (s == null) {
-                System.out.print("valeur par defaut");
-            } else {
-                int vitesse = Integer.parseInt(s);
-                System.out.print(vitesse);
-            }
+           
             verifieLigneTerminee();
-
-            System.out.println();
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format de robot invalide. "
