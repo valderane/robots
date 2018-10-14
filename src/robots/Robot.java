@@ -1,5 +1,7 @@
 package robots;
 
+import java.util.zip.DataFormatException;
+
 import carte.Case;
 import carte.NatureTerrain;
 
@@ -21,10 +23,8 @@ public abstract class Robot{
     	this.position = c;
     	//TODO
     }
-    public void setVitesse(int vitesse) {
-    	this.vitesse = vitesse;
-    }
-
+    public abstract void setVitesse(int vitesse) throws DataFormatException;
+    
     public abstract double getVitesse(NatureTerrain nat);
 
     public abstract void deverserEau(int vol);

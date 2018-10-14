@@ -391,29 +391,29 @@ public class LecteurDonnees {
             	vitesse = Integer.parseInt(s);
             }
             verifieLigneTerminee();
-            
+            try {          
             switch (type) {     
                 case "DRONE":
                 	Drone drone = new Drone(carte.getCase(lig, col));
-                	if(vitesse != 1)
+                	if(vitesse != -1)
                 		drone.setVitesse(vitesse);
                 	donnees.addRobot(drone);
                     break;
                 case "ROUES":
                 	RobotARoues roues = new RobotARoues(carte.getCase(lig, col));
-                	if(vitesse != 1)
+                	if(vitesse != -1)
                 		roues.setVitesse(vitesse);
                 	donnees.addRobot(roues);
                 	break;
                 case "PATTES":
                 	RobotAPattes pattes = new RobotAPattes(carte.getCase(lig, col));
-                	if(vitesse != 1)
+                	if(vitesse != -1)
                 		pattes.setVitesse(vitesse);
                     donnees.addRobot(pattes);
                 	break;
                 case "CHENILLES":
                 	RobotAChenilles chenille = new RobotAChenilles(carte.getCase(lig, col));
-                	if(vitesse != 1)
+                	if(vitesse != -1)
                 		chenille.setVitesse(vitesse);
                     donnees.addRobot(chenille);
                 	break;
@@ -421,9 +421,9 @@ public class LecteurDonnees {
                 default: 
                     break;
             }
-            
-            // lecture eventuelle d'une vitesse du robot (entier)
-           
+            }catch (DataFormatException e) {
+            	System.err.println(e);
+            }
             verifieLigneTerminee();
 
         } catch (NoSuchElementException e) {

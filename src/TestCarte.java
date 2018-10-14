@@ -80,6 +80,7 @@ class Plateau implements Simulable{
     public static final Color COULEUR_ROCHE = Color.decode("#996633");
     public static final Color COULEUR_FORET = Color.decode("#009933");
     public static final Color COULEUR_EAU = Color.decode("#0099ff");
+    public static final Color COULEUR_BORDURE = Color.BLACK;
     
     public static final Color COULEUR_INCENDIE = Color.decode("#ff0000");
 
@@ -123,7 +124,7 @@ class Plateau implements Simulable{
         
         this.dessinerCases(carte);
         this.dessinerRobots(this.donneesSimu.getRobots());
-        this.dessinerIncendie(this.donneesSimu.getIncendies());
+        this.dessinerIncendies(this.donneesSimu.getIncendies());
         
     }
     
@@ -164,7 +165,7 @@ class Plateau implements Simulable{
                   }
           		
                   //x et y sont le centre du rectangle
-                  gui.addGraphicalElement(new Rectangle(x, y, color, color, TAILLE_CASE));
+                  gui.addGraphicalElement(new Rectangle(x, y, Plateau.COULEUR_BORDURE, color, TAILLE_CASE));
           	}
           }   	
     }
@@ -195,7 +196,7 @@ class Plateau implements Simulable{
         }     
   }
     
-    private void dessinerIncendie(HashSet<Incendie> incendies) {
+    private void dessinerIncendies(HashSet<Incendie> incendies) {
         
     	int x, y;
         
