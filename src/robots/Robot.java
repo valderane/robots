@@ -9,7 +9,6 @@ public abstract class Robot{
 
 
     protected Case position;
-    protected int vitesse;
 
     public Robot(Case c){
     		this.position = c;
@@ -23,7 +22,6 @@ public abstract class Robot{
     	this.position = c;
     	//TODO
     }
-    public abstract void setVitesse(int vitesse) throws DataFormatException;
     
     public abstract double getVitesse(NatureTerrain nat);
 

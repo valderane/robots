@@ -12,15 +12,15 @@ public class Carte{
     private Case[][] cases;
 
     public Carte(){
-        this.tailleCases = 0;
-        this.nbLignes = 0;
-        this.nbColonnes = 0;
+        this.setTailleCases(0);
+        this.setNbLignes(0);
+        this.setNbColonnes(0);
     }
 
     public Carte(int nbLignes, int nbColonnes, int tailleCases){
-        this.tailleCases = tailleCases;
-        this.nbLignes = nbLignes;
-        this.nbColonnes = nbColonnes;
+        this.setTailleCases(tailleCases);
+        this.setNbLignes(nbLignes);
+        this.setNbColonnes(nbColonnes);
         this.cases = new Case[this.nbLignes][this.nbColonnes];
     }
 

@@ -24,19 +24,12 @@ import gui.Text;
 public class TestCarte{
 
     public static void main(String[] args) {
-        int nlig = 5;
-        int ncol = 6;
-        int tailleCases = 1000;
-        Carte c = new Carte(nlig, ncol, tailleCases);
-        
+    
         try {
+        	
+        	//lecture des données dans le fichier carteSujet.map
             DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
-            
-            Carte carte = data.getCarte();
-            System.out.println("Carte : nlignes = "+carte.getNbLignes()+", ncol = "
-            		+ " "+carte.getNbColonnes()+", taille de cases = "+carte.getTailleCases());
-            System.out.println(carte.getCase(2, 3));
-            
+                    
             // crée la fenêtre graphique dans laquelle dessiner
             GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);
             // crée l'invader, en l'associant à la fenêtre graphique précédente
@@ -52,6 +45,12 @@ public class TestCarte{
 
 }
 
+/**
+ * Représente le plateau de jeu
+ * 
+ * @author 
+ *
+ */
 class Plateau implements Simulable{
 
     /** L'interface graphique associée */
@@ -68,21 +67,21 @@ class Plateau implements Simulable{
     private DonneesSimulation donneesSimu;
     
     /** Constantes **/
-    public static final Color COULEUR_ERREUR = Color.PINK;  
+    private final Color COULEUR_ERREUR = Color.PINK;  
     
-    public static final Color COULEUR_DRONE = Color.decode("#99ff99");  
-    public static final Color COULEUR_ROBOT_A_ROUES = Color.decode("#cc66ff");
-    public static final Color COULEUR_ROBOT_A_CHENILLES = Color.decode("#33cccc");
-    public static final Color COULEUR_ROBOT_A_PATTES = Color.decode("#ccc000");
+    private final Color COULEUR_DRONE = Color.decode("#99ff99");  
+    private final Color COULEUR_ROBOT_A_ROUES = Color.decode("#cc66ff");
+    private final Color COULEUR_ROBOT_A_CHENILLES = Color.decode("#33cccc");
+    private final Color COULEUR_ROBOT_A_PATTES = Color.decode("#ccc000");
     
-    public static final Color COULEUR_TERRAIN_LIBRE = Color.decode("#ffffff");
-    public static final Color COULEUR_HABITAT = Color.decode("#ffff99");
-    public static final Color COULEUR_ROCHE = Color.decode("#996633");
-    public static final Color COULEUR_FORET = Color.decode("#009933");
-    public static final Color COULEUR_EAU = Color.decode("#0099ff");
-    public static final Color COULEUR_BORDURE = Color.BLACK;
+    private final Color COULEUR_TERRAIN_LIBRE = Color.decode("#ffffff");
+    private final Color COULEUR_HABITAT = Color.decode("#ffff99");
+    private final Color COULEUR_ROCHE = Color.decode("#996633");
+    private final Color COULEUR_FORET = Color.decode("#009933");
+    private final Color COULEUR_EAU = Color.decode("#0099ff");
+    private final Color COULEUR_BORDURE = Color.BLACK;
     
-    public static final Color COULEUR_INCENDIE = Color.decode("#ff0000");
+    private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
 
 
 
@@ -144,28 +143,28 @@ class Plateau implements Simulable{
           		
                   switch (c.getNature()) {
                       case EAU:
-                      	color = Plateau.COULEUR_EAU;
+                      	color = this.COULEUR_EAU;
                           break;
                       case FORET:
-                      	color = Plateau.COULEUR_FORET;
+                      	color = this.COULEUR_FORET;
                           break;
                       case ROCHE:
-                      	color = Plateau.COULEUR_ROCHE;
+                      	color = this.COULEUR_ROCHE;
                           break;
                       case TERRAIN_LIBRE:
-                      	color = Plateau.COULEUR_TERRAIN_LIBRE;
+                      	color = this.COULEUR_TERRAIN_LIBRE;
                           break;
                       case HABITAT:
-                      	color = Plateau.COULEUR_HABITAT;
+                      	color = this.COULEUR_HABITAT;
                           break;
                           
                       default: 
-                      	color = Plateau.COULEUR_ERREUR;
+                      	color = this.COULEUR_ERREUR;
                           break;
                   }
           		
                   //x et y sont le centre du rectangle
-                  gui.addGraphicalElement(new Rectangle(x, y, Plateau.COULEUR_BORDURE, color, TAILLE_CASE));
+                  gui.addGraphicalElement(new Rectangle(x, y, this.COULEUR_BORDURE, color, TAILLE_CASE));
           	}
           }   	
     }
@@ -173,20 +172,19 @@ class Plateau implements Simulable{
     private void dessinerRobots(HashSet<robots.Robot> robots) {
       
         Color color;
-        Case c;
         int x, y;
         
         for (robots.Robot robot : robots) {
         	 if(robot instanceof Drone)
-        		 color = Plateau.COULEUR_DRONE;
+        		 color = this.COULEUR_DRONE;
         	 else if(robot instanceof RobotAChenilles)
-        		 color = Plateau.COULEUR_ROBOT_A_CHENILLES;
+        		 color = this.COULEUR_ROBOT_A_CHENILLES;
         	 else if(robot instanceof RobotAPattes)
-        		 color = Plateau.COULEUR_ROBOT_A_PATTES;
+        		 color = this.COULEUR_ROBOT_A_PATTES;
         	 else if(robot instanceof RobotARoues)
-        		 color = Plateau.COULEUR_ROBOT_A_ROUES;
+        		 color = this.COULEUR_ROBOT_A_ROUES;
         	 else
-        		 color = Plateau.COULEUR_ERREUR;
+        		 color = this.COULEUR_ERREUR;
         	 
         	 x = robot.getPosition().getColonne() * TAILLE_CASE + TAILLE_CASE/2;
         	 y = robot.getPosition().getLigne() * TAILLE_CASE + TAILLE_CASE/2;
@@ -205,7 +203,7 @@ class Plateau implements Simulable{
         	 x = incendie.getPosition().getColonne() * TAILLE_CASE + TAILLE_CASE/2;
         	 y = incendie.getPosition().getLigne() * TAILLE_CASE + TAILLE_CASE/2;
 
-        	 gui.addGraphicalElement(new Oval(x, y, Plateau.COULEUR_INCENDIE, Plateau.COULEUR_INCENDIE, TAILLE_CASE/4));
+        	 gui.addGraphicalElement(new Oval(x, y, this.COULEUR_INCENDIE, this.COULEUR_INCENDIE, TAILLE_CASE/4));
         }     
   }
 }

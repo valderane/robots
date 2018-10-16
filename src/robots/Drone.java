@@ -7,23 +7,30 @@ import carte.NatureTerrain;
 
 public class Drone extends Robot {
 
-	public static final int VITESSE_PAR_DEFAUT = 100;
-	public static final int VITESSE_MAX = 150;
+	/**
+	 * Constantes
+	 */
+	private final double VITESSE_PAR_DEFAUT = 100.0;
+	private final double VITESSE_MAX = 150.0;
+	
+	/**
+	 * Attributs
+	 */
+    protected double vitesse;
 
 	
 	public Drone(Case c) {
 		super(c);
-		this.vitesse = Drone.VITESSE_PAR_DEFAUT;
+		this.vitesse = this.VITESSE_PAR_DEFAUT;
 	}
 	
 	public Drone(Case c, int vitesse) throws DataFormatException{
 		super(c);
 		this.setVitesse(vitesse);
 	}
-	
-	@Override
-	public void setVitesse(int vitesse) throws DataFormatException {
-		if(0 > vitesse || vitesse > Drone.VITESSE_MAX) {
+
+	public void setVitesse(double vitesse) throws DataFormatException {
+		if(0 > vitesse || vitesse > this.VITESSE_MAX) {
 			 throw new DataFormatException("Vitesse de drone invalide :"+vitesse);
 		}
 		this.vitesse = vitesse;

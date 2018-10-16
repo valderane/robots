@@ -7,17 +7,25 @@ import carte.NatureTerrain;
 
 public class RobotARoues extends Robot {
 
-	public static final int VITESSE_PAR_DEFAUT = 80;
+	private final double VITESSE_PAR_DEFAUT = 80.0;
+	/**
+	 * Attributs
+	 */
+    protected double vitesse;
+
 	
 	public RobotARoues(Case c) {
 		super(c);
-		this.vitesse = RobotARoues.VITESSE_PAR_DEFAUT;
+		try {
+			this.setVitesse(this.VITESSE_PAR_DEFAUT);
+		}catch(DataFormatException e){
+			System.err.println(e);
+		}
 	}
 	
 	
-	@Override
-	public void setVitesse(int vitesse) throws DataFormatException {
-		if(0 > vitesse) {
+	public void setVitesse(double vitesse) throws DataFormatException {
+		if(vitesse < 0) {
 			 throw new DataFormatException("Vitesse de robot à roues invalide :"+vitesse);
 		}
 		this.vitesse = vitesse;

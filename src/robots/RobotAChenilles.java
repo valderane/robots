@@ -7,12 +7,21 @@ import carte.NatureTerrain;
 
 public class RobotAChenilles extends Robot {
 
-	public static final int VITESSE_PAR_DEFAUT = 60;
-	public static final int VITESSE_MAX = 80;
+	private final double VITESSE_PAR_DEFAUT = 60;
+	private final double VITESSE_MAX = 80;
+	
+	/**
+	 * attributs
+	 */
+	protected double vitesse; 
 	
 	public RobotAChenilles(Case c) {
 		super(c);
-		this.vitesse = RobotAChenilles.VITESSE_PAR_DEFAUT;
+		try {
+			this.setVitesse(this.VITESSE_PAR_DEFAUT);
+		}catch(DataFormatException e){
+			System.err.println(e);
+		}
 	}
 	
 	public RobotAChenilles(Case c, int vitesse) throws DataFormatException {
@@ -20,10 +29,10 @@ public class RobotAChenilles extends Robot {
 		this.setVitesse(vitesse);
 	}
 	
-	@Override
-	public void setVitesse(int vitesse) throws DataFormatException {
+
+	public void setVitesse(double vitesse) throws DataFormatException {
 		
-		if(0 > vitesse || vitesse > RobotAChenilles.VITESSE_MAX) {
+		if(vitesse < 0 || vitesse > this.VITESSE_MAX) {
 			 throw new DataFormatException("Vitesse de robot à chenilles invalide :"+vitesse);
 		}
 		this.vitesse = vitesse;

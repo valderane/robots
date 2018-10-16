@@ -179,7 +179,7 @@ public class LecteurDonnees {
     }
 
     /**
-     * Lit et affiche les donnees d'une case.
+     * Lit et stocke les donnees d'une case dans une class DonneesSimulation.
      */
     private void ecrireCase(int lig, int col, DonneesSimulation donnees) throws DataFormatException {
         ignorerCommentaires();
@@ -226,7 +226,7 @@ public class LecteurDonnees {
     }
 
     /**
-     * Lit et affiche les donnees des incendies.
+     * Lit et stocke les donnees des incendies dans une class DonneesSimulation.
      */
     private void ecrireIncendies(DonneesSimulation donnees) throws DataFormatException {
         ignorerCommentaires();
@@ -316,7 +316,7 @@ public class LecteurDonnees {
     }
 
     /**
-     * Lit et affiche les donnees des robots.
+     * Lit et stocke les donnees des robots dans une class DonneesSimulation.
      */
     private void ecrireRobots(DonneesSimulation donnees) throws DataFormatException {
         ignorerCommentaires();
@@ -372,7 +372,7 @@ public class LecteurDonnees {
     }
 
     /**
-     * Lit et affiche les donnees du i-eme robot.
+     * Lit et stocke les donnees du robot suivant dans une class DonneesSimulation.
      * @param i
      */
     private void ecrireRobot(DonneesSimulation donnees) throws DataFormatException {
@@ -407,8 +407,6 @@ public class LecteurDonnees {
                 	break;
                 case "PATTES":
                 	RobotAPattes pattes = new RobotAPattes(carte.getCase(lig, col));
-                	if(vitesse != -1)
-                		pattes.setVitesse(vitesse);
                     donnees.addRobot(pattes);
                 	break;
                 case "CHENILLES":
