@@ -66,14 +66,56 @@ public class Carte{
         this.tailleCases = tailleCases;
     }
 
+    
     public boolean voisinExiste(Case src, Direction dir){
-        return false;
-        //TODO
+    	boolean existe = false;
+    	
+    	switch(dir)
+    	{
+    	case NORD:
+    		existe = (src.getLigne() - 1) >= 0;
+    		break;
+    	case SUD:
+    		existe = (src.getLigne() + 1) < nbLignes;
+    		break;
+    	case EST:	
+    		existe = (src.getColonne() + 1) < nbColonnes;
+    		break;
+    	case OUEST:	
+    		existe = (src.getColonne() - 1) >= 0;
+    		break;    		
+    	}
+        return existe;
+        
     }
 
+    //retourne le voisin de la  case (pas copie)
     public Case getVoisin(Case src, Direction dir){
-        return null;
-        //TODO
+        
+    	Case voisin = null;
+    	
+    	if (this.voisinExiste(src, dir))
+    	{
+
+        	switch(dir)
+        	{
+        	case NORD:
+        		voisin = this.getCase(src.getLigne() - 1, src.getColonne());
+        		break;
+        	case SUD:
+        		voisin = this.getCase(src.getLigne() + 1, src.getColonne());
+        		break;
+        	case EST:	
+        		voisin = this.getCase(src.getLigne(), src.getColonne() - 1);
+        		break;
+        	case OUEST:	
+        		voisin = this.getCase(src.getLigne(), src.getColonne() + 1);
+        		break;    		
+        	}
+    	}
+    	
+  
+    	return voisin;
     }
 
 

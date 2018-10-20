@@ -7,6 +7,8 @@ import carte.NatureTerrain;
 
 public class RobotAChenilles extends Robot {
 
+
+
 	private final double VITESSE_PAR_DEFAUT = 60;
 	private final double VITESSE_MAX = 80;
 	
@@ -60,6 +62,13 @@ public class RobotAChenilles extends Robot {
 	public void remplirReservoir() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean appartientTerrainRobot(NatureTerrain nature) {
+		if (nature == NatureTerrain.EAU | nature == NatureTerrain.ROCHE) 
+			return false;
+		return true;
 	}
 
 

@@ -54,6 +54,12 @@ public class Drone extends Robot {
 		
 	}
 
+	@Override
+	//le drone peut aller partout
+	public boolean appartientTerrainRobot(NatureTerrain nature) {		
+		return true;
+	}
+
 
 
 }
