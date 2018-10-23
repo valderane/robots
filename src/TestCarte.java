@@ -1,25 +1,24 @@
+import java.awt.Color;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.zip.DataFormatException;
-import java.awt.Color;
-import java.awt.Robot;
 
 import carte.Carte;
 import carte.Case;
 import carte.Incendie;
-import carte.NatureTerrain;
+import evenements.Evenement;
+import gui.GUISimulator;
+import gui.Oval;
+import gui.Rectangle;
+import gui.Simulable;
+import io.DonneesSimulation;
 import io.LecteurDonnees;
 import robots.Drone;
 import robots.RobotAChenilles;
 import robots.RobotAPattes;
 import robots.RobotARoues;
-import io.DonneesSimulation;
-
-import gui.GUISimulator;
-import gui.Oval;
-import gui.Rectangle;
-import gui.Simulable;
-import gui.Text;
 
 public class TestCarte{
 
@@ -83,8 +82,12 @@ class Plateau implements Simulable{
     
     private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
 
-
-
+    //évenements sont dans dictionnaire. triés selon leur date d'éxextution.
+    //ils sont dans des tableaux d'évenement.
+    
+    private HashMap<Long, ArrayList<Evenement>> dicoEvenements;
+    
+    private long dateSimulation;
 
     /**
      * Crée un Invader et le dessine.
@@ -97,11 +100,16 @@ class Plateau implements Simulable{
         this.gui = gui;
         gui.setSimulable(this);				// association a la gui!
         this.donneesSimu = donneesSimu;
-        
-        draw();
+        this.dateSimulation = 0;
+        dicoEvenements = new HashMap<Long,ArrayList<Evenement>>();
+;        draw();
     }
 
-
+    public void ajoutEvenement(Evenement evenement) {
+    	//TODO ? TYPE?
+    	//this.dicoEvenements[evenement.getDate()].add(evenement);
+    }
+    
     @Override
     public void next() {
     	//TODO

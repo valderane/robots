@@ -51,4 +51,12 @@ public class RobotARoues extends Robot {
 	}
 
 
+	@Override
+	public boolean appartientTerrainRobot(NatureTerrain nature) {
+		if (nature == NatureTerrain.TERRAIN_LIBRE | nature == NatureTerrain.HABITAT)
+			return true;
+		return false;
+	}
+
+
 }

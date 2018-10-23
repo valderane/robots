@@ -11,7 +11,15 @@ public class Case{
         this.nature = nature;
     }
 
-    public int getLigne(){
+    public void setLigne(int ligne) {
+		this.ligne = ligne;
+	}
+
+	public void setColonne(int colonne) {
+		this.colonne = colonne;
+	}
+
+	public int getLigne(){
         return this.ligne;
     }
 

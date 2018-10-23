@@ -38,5 +38,12 @@ public class RobotAPattes extends Robot {
 		
 	}
 
+	@Override
+	public boolean appartientTerrainRobot(NatureTerrain nature) {
+		if (nature == NatureTerrain.EAU) 
+			return false;
+		return true;
+	}
+
 
 }
