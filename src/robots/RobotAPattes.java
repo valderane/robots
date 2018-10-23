@@ -1,7 +1,5 @@
 package robots;
 
-import java.util.zip.DataFormatException;
-
 import carte.Case;
 import carte.NatureTerrain;
 
@@ -12,6 +10,9 @@ public class RobotAPattes extends Robot {
 	
 	public RobotAPattes(Case c) {
 		super(c);
+		//this.capacite_remplir_ms = 5000*3600;
+		this.capacite_vider_litre = 10;
+		this.capacite_vider_ms = 1000;
 	}
 		
 	@Override
@@ -26,11 +27,6 @@ public class RobotAPattes extends Robot {
 		return this.VITESSE_PAR_DEFAUT;
 	}
 
-	@Override
-	public void deverserEau(int vol) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void remplirReservoir() {
