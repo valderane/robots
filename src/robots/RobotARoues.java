@@ -16,6 +16,10 @@ public class RobotARoues extends Robot {
 	
 	public RobotARoues(Case c) {
 		super(c);
+		this.capacite_remplir_ms = 10000;
+		this.capacite_vider_litre = 100;
+		this.capacite_vider_ms = 5000;
+		
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);
 		}catch(DataFormatException e){
@@ -38,11 +42,7 @@ public class RobotARoues extends Robot {
 		return 0;//vitesse nulle afin d'empêcher les déplacements sur d'autres natures de terrain.
 	}
 
-	@Override
-	public void deverserEau(int vol) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void remplirReservoir() {

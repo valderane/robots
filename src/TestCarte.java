@@ -101,13 +101,15 @@ class Plateau implements Simulable{
         gui.setSimulable(this);				// association a la gui!
         this.donneesSimu = donneesSimu;
         this.dateSimulation = 0;
+        
         dicoEvenements = new HashMap<Long,ArrayList<Evenement>>();
-;        draw();
+        
+;       draw();
     }
 
     public void ajoutEvenement(Evenement evenement) {
-    	//TODO ? TYPE?
-    	//this.dicoEvenements[evenement.getDate()].add(evenement);
+    	
+    	//this.dicoEvenements[(int) evenement.getDate()]//
     }
     
     @Override

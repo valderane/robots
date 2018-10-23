@@ -11,7 +11,9 @@ public class RobotAChenilles extends Robot {
 
 	private final double VITESSE_PAR_DEFAUT = 60;
 	private final double VITESSE_MAX = 80;
-	
+
+
+
 	/**
 	 * attributs
 	 */
@@ -19,6 +21,10 @@ public class RobotAChenilles extends Robot {
 	
 	public RobotAChenilles(Case c) {
 		super(c);
+		
+		this.capacite_remplir_ms = 5000;
+		this.capacite_vider_litre = 100;
+		this.capacite_vider_ms = 8000;
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);
 		}catch(DataFormatException e){
@@ -28,6 +34,9 @@ public class RobotAChenilles extends Robot {
 	
 	public RobotAChenilles(Case c, int vitesse) throws DataFormatException {
 		super(c);
+		this.capacite_remplir_ms = 5000;
+		this.capacite_vider_litre = 100;
+		this.capacite_vider_ms = 8000;
 		this.setVitesse(vitesse);
 	}
 	
@@ -52,11 +61,7 @@ public class RobotAChenilles extends Robot {
 		return this.vitesse;
 	}
 
-	@Override
-	public void deverserEau(int vol) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void remplirReservoir() {
@@ -71,5 +76,6 @@ public class RobotAChenilles extends Robot {
 		return true;
 	}
 
-
+	
+	
 }

@@ -21,11 +21,18 @@ public class Drone extends Robot {
 	
 	public Drone(Case c) {
 		super(c);
+		this.capacite_remplir_ms = 5000*3600;
+		this.capacite_vider_litre = this.reservoir_eau;
+		this.capacite_vider_ms = 30000;
 		this.vitesse = this.VITESSE_PAR_DEFAUT;
 	}
 	
 	public Drone(Case c, int vitesse) throws DataFormatException{
 		super(c);
+
+		this.capacite_remplir_ms = 5000*3600;
+		this.capacite_vider_litre = this.reservoir_eau;
+		this.capacite_vider_ms = 30000;
 		this.setVitesse(vitesse);
 	}
 
@@ -42,11 +49,6 @@ public class Drone extends Robot {
 		return this.vitesse;
 	}
 
-	@Override
-	public void deverserEau(int vol) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void remplirReservoir() {

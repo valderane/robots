@@ -9,7 +9,17 @@ public abstract class Robot{
 
 
     protected Case position;
-
+    /*qqté d'eau max que peut tranqporter le robot*/
+    protected int reservoir_eau;
+    
+	//capacité vider_litre en capacité vider_ms 
+	protected int capacite_vider_litre;
+	protected int capacite_vider_ms;
+	//temps qu'il faut pour remplie tout le reservoir
+    protected int capacite_remplir_ms;
+	
+  
+ 
     public Robot(Case c){
     		this.position = c;
     }
@@ -56,11 +66,30 @@ public abstract class Robot{
     	}
       }
    }
+    //commun a tous les robots.
+    //l'evenement qui appelle cette métohe doit vérifier de quel robot il s'agit + selon le pas.
+    public  void deverserEau(int vol) {
+    	this.reservoir_eau -= vol;
+    	if (this.reservoir_eau < 0){
+    		this.reservoir_eau = 0;
+    	}
+    }
+
+    public int getCapacite_vider_litre() {
+		return capacite_vider_litre;
+	}
+
+	public int getCapacite_vider_ms() {
+		return capacite_vider_ms;
+	}
+
+	public int getCapacite_remplir_ms() {
+		return capacite_remplir_ms;
+	}
     
     public abstract double getVitesse(NatureTerrain nat);
 
-    public abstract void deverserEau(int vol);
     
     public abstract void remplirReservoir();
-
+    
 }
