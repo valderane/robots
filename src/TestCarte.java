@@ -9,6 +9,7 @@ import carte.Carte;
 import carte.Case;
 import carte.Incendie;
 import evenements.Evenement;
+import evenements.Simulateur;
 import gui.GUISimulator;
 import gui.Oval;
 import gui.Rectangle;
@@ -55,17 +56,14 @@ class Plateau implements Simulable{
     /** L'interface graphique associée */
     private GUISimulator gui;	
 
-    /** Abcisse courante de l'invader (bord gauche) */
-    private int x;
-
-    /** Ordonnée courante de l'invader (bord supérieur) */
-    private int y;
-    
-    private final int TAILLE_CASE = 100;
-
     private DonneesSimulation donneesSimu;
     
+    private Simulateur simulateur;
+    
     /** Constantes **/
+    
+    private final int TAILLE_CASE = 100;
+    
     private final Color COULEUR_ERREUR = Color.PINK;  
     
     private final Color COULEUR_DRONE = Color.decode("#99ff99");  
@@ -82,13 +80,7 @@ class Plateau implements Simulable{
     
     private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
 
-    //évenements sont dans dictionnaire. triés selon leur date d'éxextution.
-    //ils sont dans des tableaux d'évenement.
-    
-    private HashMap<Long, ArrayList<Evenement>> dicoEvenements;
-    
-    private long dateSimulation;
-
+        
     /**
      * Crée un Invader et le dessine.
      * @param gui l'interface graphique associée, dans laquelle se fera le
@@ -100,19 +92,13 @@ class Plateau implements Simulable{
         this.gui = gui;
         gui.setSimulable(this);				// association a la gui!
         this.donneesSimu = donneesSimu;
-        this.dateSimulation = 0;
-        dicoEvenements = new HashMap<Long,ArrayList<Evenement>>();
+        this.simulateur = new Simulateur();
 ;        draw();
-    }
-
-    public void ajoutEvenement(Evenement evenement) {
-    	//TODO ? TYPE?
-    	//this.dicoEvenements[evenement.getDate()].add(evenement);
     }
     
     @Override
     public void next() {
-    	//TODO
+     
     }
 
     @Override
@@ -138,6 +124,7 @@ class Plateau implements Simulable{
     private void dessinerCases(Carte carte) {
     	  int nbLigne = carte.getNbLignes();
           int nbCol = carte.getNbColonnes();
+          int x, y;
           
           Color color;
           Case c;
