@@ -51,6 +51,16 @@ public class Simulateur {
 	public TreeMap<Long, ArrayList<Evenement>> getEvenements() {
 		return evenements;
 	}
+
+
+	public long getDateSimulation() {
+		return dateSimulation;
+	}
+
+
+	public void setDateSimulation(long dateSimulation) {
+		this.dateSimulation = dateSimulation;
+	}
 	
 
 }
