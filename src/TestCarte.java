@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.zip.DataFormatException;
 
 import carte.Carte;
@@ -79,8 +82,10 @@ class Plateau implements Simulable{
     private final Color COULEUR_BORDURE = Color.BLACK;
     
     private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
-
-        
+    
+    //itere sur les clefs
+    private Iterator<Long> iterateurkey;
+    
     /**
      * Crée un Invader et le dessine.
      * @param gui l'interface graphique associée, dans laquelle se fera le
@@ -98,7 +103,12 @@ class Plateau implements Simulable{
     
     @Override
     public void next() {
-     
+    	//recup les clefs //a chaque fois obligé de tout parcourir?
+    	//on ajoute tous les évenements avant d'avancer..
+    	//supprimer les clefs à chaque fois pour ne pas tout reparcourir? 
+         	
+        draw();
+
     }
 
     @Override

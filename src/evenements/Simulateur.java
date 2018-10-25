@@ -46,6 +46,11 @@ public class Simulateur {
 			return true;
 		return false;
 	}
+
+
+	public TreeMap<Long, ArrayList<Evenement>> getEvenements() {
+		return evenements;
+	}
 	
 
 }
