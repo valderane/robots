@@ -54,9 +54,10 @@ public class RobotARoues extends Robot {
 
 	@Override
 	public boolean appartientTerrainRobot(NatureTerrain nature) {
-		if (nature == NatureTerrain.TERRAIN_LIBRE | nature == NatureTerrain.HABITAT)
+		if (nature == NatureTerrain.TERRAIN_LIBRE | nature == NatureTerrain.HABITAT){
 			return true;
-			System.out.println("pas bon");
+		}
+		System.out.println("pas bon");
 		return false;
 	}
 
