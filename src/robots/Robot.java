@@ -7,8 +7,11 @@ import carte.NatureTerrain;
 
 public abstract class Robot{
 
+	protected int type;
+  
 
-    protected Case position;
+
+	protected Case position;
     /*qqté d'eau max que peut tranqporter le robot*/
     protected int reservoir_eau;
     
@@ -45,9 +48,14 @@ public abstract class Robot{
     	if ((carte.voisinExiste(this.getPosition(), direction)) &
 			(this.appartientTerrainRobot(carte.getVoisin(this.getPosition(), direction).getNature())))
     	{
+    		System.out.println("nature:" + this.getPosition());
+    		System.out.println("nature au dessus:" + carte.getVoisin(this.getPosition(), direction));
+    		System.out.println("nature a droite" + carte.getVoisin(this.getPosition(), Direction.EST));
+;
     		switch(direction) {
  
     			case NORD:
+    				System.out.println("direction nord");
     				this.position.setLigne(this.position.getLigne() - 1);
     				break;
     			
@@ -91,5 +99,9 @@ public abstract class Robot{
 
     
     public abstract void remplirReservoir();
+
+	public int getType() {
+		return type;
+	}
     
 }

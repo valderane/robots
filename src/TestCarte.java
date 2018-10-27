@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Robot;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,11 +44,19 @@ public class TestCarte{
             Long dateun = (long) 500;
             Long datedeux = (long) 700;
             Long datetrois = (long) 1900;
+        	robots.Robot mrobot;
 
+            Iterator<robots.Robot> iter_robots = data.getRobots().iterator();
 
-            Evenement_deplacer evt = new Evenement_deplacer(dateun, data.getRobots().iterator().next(), data.getCarte(), Direction.NORD);
-            Evenement_deplacer evt2 = new Evenement_deplacer(datedeux, data.getRobots().iterator().next(), data.getCarte(), Direction.NORD);
-            Evenement_deplacer evt3 = new Evenement_deplacer(datetrois, data.getRobots().iterator().next(), data.getCarte(), Direction.NORD);
+                mrobot = iter_robots.next();
+            	while (mrobot.getType() != 3){
+            		mrobot = iter_robots.next();
+            	}
+            
+
+            Evenement_deplacer evt = new Evenement_deplacer(dateun, mrobot, data.getCarte(), Direction.NORD);
+            Evenement_deplacer evt2 = new Evenement_deplacer(datedeux, mrobot, data.getCarte(), Direction.NORD);
+            Evenement_deplacer evt3 = new Evenement_deplacer(datetrois, mrobot, data.getCarte(), Direction.NORD);
 
             plateau.getSimulateur().ajouteEvenement(evt);
             plateau.getSimulateur().ajouteEvenement(evt2);

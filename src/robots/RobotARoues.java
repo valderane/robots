@@ -19,6 +19,7 @@ public class RobotARoues extends Robot {
 		this.capacite_remplir_ms = 10000;
 		this.capacite_vider_litre = 100;
 		this.capacite_vider_ms = 5000;
+		this.type = 3;
 		
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);
@@ -55,6 +56,7 @@ public class RobotARoues extends Robot {
 	public boolean appartientTerrainRobot(NatureTerrain nature) {
 		if (nature == NatureTerrain.TERRAIN_LIBRE | nature == NatureTerrain.HABITAT)
 			return true;
+			System.out.println("pas bon");
 		return false;
 	}
 

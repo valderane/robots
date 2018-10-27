@@ -25,6 +25,7 @@ public class Evenement_deplacer extends Evenement{
 	//besoin pour calculer qtté remplissage + vitesse deplacement.
 	@Override
 	public void execute(long prochaine_date) {
+		System.out.println(robot);
 		robot.deplacer(direction, carte);
 		}
 }

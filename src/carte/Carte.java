@@ -106,10 +106,10 @@ public class Carte{
         		voisin = this.getCase(src.getLigne() + 1, src.getColonne());
         		break;
         	case EST:	
-        		voisin = this.getCase(src.getLigne(), src.getColonne() - 1);
+        		voisin = this.getCase(src.getLigne(), src.getColonne() + 1);
         		break;
         	case OUEST:	
-        		voisin = this.getCase(src.getLigne(), src.getColonne() + 1);
+        		voisin = this.getCase(src.getLigne(), src.getColonne() - 1);
         		break;    		
         	}
     	}

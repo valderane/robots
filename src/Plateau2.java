@@ -89,14 +89,15 @@ class Plateau2 implements Simulable{
         			for (Evenement evt : evt_a_executer)
         			{
         				evt.execute(prochaine_date);
-        		        draw();
         			}
+        			
         		} //on a dépassé date courante.
         			else {
         				break;
         			}
         	}
         }
+        draw();
     	this.simulateur.setDateSimulation(prochaine_date);
     }
     //TODO 

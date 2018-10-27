@@ -13,6 +13,7 @@ public class RobotAPattes extends Robot {
 		//this.capacite_remplir_ms = 5000*3600;
 		this.capacite_vider_litre = 10;
 		this.capacite_vider_ms = 1000;
+		this.type = 2;
 	}
 		
 	@Override
