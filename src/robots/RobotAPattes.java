@@ -1,5 +1,7 @@
 package robots;
 
+import java.util.zip.DataFormatException;
+
 import carte.Case;
 import carte.NatureTerrain;
 
@@ -13,7 +15,7 @@ public class RobotAPattes extends Robot {
 		//this.capacite_remplir_ms = 5000*3600;
 		this.capacite_vider_litre = 10;
 		this.capacite_vider_ms = 1000;
-		this.type = 2;
+
 	}
 		
 	@Override
@@ -34,6 +36,10 @@ public class RobotAPattes extends Robot {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	// vitesse ne peut pas changer
+	public void setVitesse(double vitesse) throws DataFormatException{};
+
 
 	@Override
 	public boolean appartientTerrainRobot(NatureTerrain nature) {

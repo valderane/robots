@@ -232,6 +232,7 @@ public class LecteurDonnees {
         ignorerCommentaires();
         try {
             int nbIncendies = scanner.nextInt();
+            donnees.initialiserNombreIncendies(nbIncendies);
             System.out.println("Nb d'incendies = " + nbIncendies);
             for (int i = 0; i < nbIncendies; i++) {
                 ecrireIncendie(i, donnees);
@@ -286,7 +287,7 @@ public class LecteurDonnees {
             verifieLigneTerminee();
 
             Incendie incendie = new Incendie(intensite, donnees.getCarte().getCase(lig, col));    
-            donnees.addIncendie(incendie);
+            donnees.setIncendie(i, incendie);
             System.out.println("position = (" + lig + "," + col
                     + ");\t intensite = " + intensite);
 
@@ -322,9 +323,11 @@ public class LecteurDonnees {
         ignorerCommentaires();
         try {
             int nbRobots = scanner.nextInt();
+            donnees.initialiserNombreRobots(nbRobots);
+
             System.out.println("Nb de robots = " + nbRobots);
             for (int i = 0; i < nbRobots; i++) {
-                ecrireRobot(donnees);
+                ecrireRobot(i, donnees);
             }
 
         } catch (NoSuchElementException e) {
@@ -375,7 +378,7 @@ public class LecteurDonnees {
      * Lit et stocke les donnees du robot suivant dans une class DonneesSimulation.
      * @param i
      */
-    private void ecrireRobot(DonneesSimulation donnees) throws DataFormatException {
+    private void ecrireRobot(int numRobot, DonneesSimulation donnees) throws DataFormatException {
         ignorerCommentaires();
 
         try {
@@ -397,23 +400,23 @@ public class LecteurDonnees {
                 	Drone drone = new Drone(carte.getCase(lig, col));
                 	if(vitesse != -1)
                 		drone.setVitesse(vitesse);
-                	donnees.addRobot(drone);
+                	donnees.setRobot(numRobot, drone);
                     break;
                 case "ROUES":
                 	RobotARoues roues = new RobotARoues(carte.getCase(lig, col));
                 	if(vitesse != -1)
                 		roues.setVitesse(vitesse);
-                	donnees.addRobot(roues);
+                	donnees.setRobot(numRobot, roues);
                 	break;
                 case "PATTES":
                 	RobotAPattes pattes = new RobotAPattes(carte.getCase(lig, col));
-                    donnees.addRobot(pattes);
+                    donnees.setRobot(numRobot, pattes);
                 	break;
                 case "CHENILLES":
                 	RobotAChenilles chenille = new RobotAChenilles(carte.getCase(lig, col));
                 	if(vitesse != -1)
                 		chenille.setVitesse(vitesse);
-                    donnees.addRobot(chenille);
+                    donnees.setRobot(numRobot, chenille);
                 	break;
                     
                 default: 

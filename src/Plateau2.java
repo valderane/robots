@@ -1,4 +1,5 @@
 import java.awt.Color;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -13,6 +14,7 @@ import gui.Oval;
 import gui.Rectangle;
 import gui.Simulable;
 import io.DonneesSimulation;
+import robots.Robot;
 import robots.Drone;
 import robots.RobotAChenilles;
 import robots.RobotAPattes;
@@ -164,7 +166,7 @@ class Plateau2 implements Simulable{
           }   	
     }
     
-    private void dessinerRobots(HashSet<robots.Robot> robots) {
+    private void dessinerRobots(Robot[] robots) {
       
         Color color;
         int x, y;
@@ -189,7 +191,7 @@ class Plateau2 implements Simulable{
         }     
   }
     
-    private void dessinerIncendies(HashSet<Incendie> incendies) {
+    private void dessinerIncendies(Incendie[] incendies) {
         
     	int x, y;
         

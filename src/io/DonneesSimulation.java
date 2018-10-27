@@ -10,16 +10,13 @@ import java.util.HashSet;
 public class DonneesSimulation{
 
     private Carte carte;
-    private HashSet<Robot> robots;
-    private HashSet<Incendie> incendies;
+    private Robot[] robots;
+    private Incendie[] incendies;
     
     public DonneesSimulation(){
-        this.robots = new HashSet<Robot>();
-        this.incendies = new HashSet<Incendie>();
 
-        //TODO
     }
-    
+
     public Carte getCarte() {
     	return this.carte;
     }
@@ -28,20 +25,28 @@ public class DonneesSimulation{
     	this.carte = c;
     }
     
-    public HashSet<Robot> getRobots(){
+    void initialiserNombreRobots(int nbRobots) {
+    	this.robots = new Robot[nbRobots];
+    }
+    
+    public Robot[] getRobots(){
     	return this.robots;
     }
     
-    public void addRobot(Robot r) {
-    	this.robots.add(r);
+    public void setRobot(int numRobot, Robot r) {
+    	this.robots[numRobot] = r;
     }
     
-    public HashSet<Incendie> getIncendies(){
+    void initialiserNombreIncendies(int nbIncendies) {
+    	this.incendies = new Incendie[nbIncendies];
+    }
+    
+    public Incendie[] getIncendies(){
     	return this.incendies;
     }
     
-    public void addIncendie(Incendie incendie) {
-    	this.incendies.add(incendie);
+    public void setIncendie(int numIncendie, Incendie incendie) {
+    	this.incendies[numIncendie] = incendie;
     }
 
 }

@@ -17,7 +17,6 @@ public class RobotAChenilles extends Robot {
 	/**
 	 * attributs
 	 */
-	protected double vitesse; 
 	
 	public RobotAChenilles(Case c) {
 		super(c);
@@ -25,7 +24,7 @@ public class RobotAChenilles extends Robot {
 		this.capacite_remplir_ms = 5000;
 		this.capacite_vider_litre = 100;
 		this.capacite_vider_ms = 8000;
-		this.type = 1;
+
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);
 		}catch(DataFormatException e){
@@ -38,7 +37,7 @@ public class RobotAChenilles extends Robot {
 		this.capacite_remplir_ms = 5000;
 		this.capacite_vider_litre = 100;
 		this.capacite_vider_ms = 8000;
-		this.type = 1;
+
 		this.setVitesse(vitesse);
 	}
 	
