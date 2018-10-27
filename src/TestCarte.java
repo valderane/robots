@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Robot;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,23 +36,15 @@ public class TestCarte{
             DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
                     
             // crée la fenêtre graphique dans laquelle dessiner
-            GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);
+            GUISimulator gui = new GUISimulator(1000, 1000, Color.BLACK);
             // crée l'invader, en l'associant à la fenêtre graphique précédente
             Plateau2 plateau = new Plateau2(gui, data);
             
             Long dateun = (long) 500;
             Long datedeux = (long) 700;
             Long datetrois = (long) 1900;
-        	robots.Robot mrobot;
-
-            Iterator<robots.Robot> iter_robots = data.getRobots().iterator();
-
-                mrobot = iter_robots.next();
-            	while (mrobot.getType() != 3){
-            		mrobot = iter_robots.next();
-            	}
-            
-
+        	robots.Robot mrobot = data.getRobots()[2];
+        	
             Evenement_deplacer evt = new Evenement_deplacer(dateun, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt2 = new Evenement_deplacer(datedeux, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt3 = new Evenement_deplacer(datetrois, mrobot, data.getCarte(), Direction.NORD);

@@ -11,7 +11,6 @@ public class RobotARoues extends Robot {
 	/**
 	 * Attributs
 	 */
-    protected double vitesse;
 
 	
 	public RobotARoues(Case c) {
@@ -19,7 +18,6 @@ public class RobotARoues extends Robot {
 		this.capacite_remplir_ms = 10000;
 		this.capacite_vider_litre = 100;
 		this.capacite_vider_ms = 5000;
-		this.type = 3;
 		
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);
@@ -29,6 +27,7 @@ public class RobotARoues extends Robot {
 	}
 	
 	
+	@Override
 	public void setVitesse(double vitesse) throws DataFormatException {
 		if(vitesse < 0) {
 			 throw new DataFormatException("Vitesse de robot à roues invalide :"+vitesse);

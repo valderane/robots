@@ -1,15 +1,13 @@
 package robots;
 
+import java.util.zip.DataFormatException;
+
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
 import carte.NatureTerrain;
 
 public abstract class Robot{
-
-	protected int type;
-  
-
 
 	protected Case position;
     /*qqté d'eau max que peut tranqporter le robot*/
@@ -21,6 +19,8 @@ public abstract class Robot{
 	//temps qu'il faut pour remplie tout le reservoir
     protected int capacite_remplir_ms;
 	
+    protected double vitesse; 
+
   
  
     public Robot(Case c){
@@ -99,9 +99,8 @@ public abstract class Robot{
 
     
     public abstract void remplirReservoir();
+    
+    public abstract void setVitesse(double vitesse)  throws DataFormatException;
 
-	public int getType() {
-		return type;
-	}
     
 }

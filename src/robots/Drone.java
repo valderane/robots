@@ -16,7 +16,6 @@ public class Drone extends Robot {
 	/**
 	 * Attributs
 	 */
-    protected double vitesse;
 
 	
 	public Drone(Case c) {
@@ -25,7 +24,6 @@ public class Drone extends Robot {
 		this.capacite_vider_litre = this.reservoir_eau;
 		this.capacite_vider_ms = 30000;
 		this.vitesse = this.VITESSE_PAR_DEFAUT;
-		this.type = 0;
 	}
 	
 	public Drone(Case c, int vitesse) throws DataFormatException{
@@ -35,7 +33,6 @@ public class Drone extends Robot {
 		this.capacite_vider_litre = this.reservoir_eau;
 		this.capacite_vider_ms = 30000;
 		this.setVitesse(vitesse);
-		this.type = 0;
 	}
 
 	public void setVitesse(double vitesse) throws DataFormatException {
