@@ -63,12 +63,12 @@ public class Evenement_deverser extends Evenement {
 		//robot.capacite_litre * pas de temps  / capacite temps 
 		//Le pas doit être en sec
 		long difference_temps = prochaine_date - this.date;
-		try {
-		robot.deverserEau((int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_ms());
-		}
-		catch (ReservoirVide e) {
-			System.out.println(e);
-		}
+		int volume_a_vide = (int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_ms();
+		int volume_vide = robot.deverserEau(volume_a_vide);
+		/*Le robot n'a plus d'eau -> a prévenir*/
+		if (volume_vide != volume_a_vide)
+			System.out.println(robot + "plus d'eau");
+		/*on baisse intensité incendie #TODO*/
 	}
 	
 	

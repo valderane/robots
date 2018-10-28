@@ -88,15 +88,23 @@ public abstract class Robot{
     	
     	
   	}
-    //commun a tous les robots.
     
-    public  void deverserEau(int vol) throws ReservoirVide {
-    	this.reservoir_eau -= vol;
-    	if (this.reservoir_eau < 0){
+    // Retourne la qqté d'eau deversé (en fct du résevoir du robot)
+    public int deverserEau(int vol) {
+    	int avant_vidage = this.reservoir_eau;
+    	int apres_vidage = this.reservoir_eau - vol;
+    	if (apres_vidage <= 0){
     		this.reservoir_eau = 0;
-    		throw new ReservoirVide("L'eau c'est la vie, dans 10 ans y'en aura plus");
+    		/*on a vidé ce qu'il restait*/
+    		return avant_vidage;
+    	}
+    	else {
+    		this.reservoir_eau = apres_vidage;
+    		return vol;
     	}
     }
+    	
+    
 
     public int getCapacite_vider_litre() {
 		return capacite_vider_litre;
