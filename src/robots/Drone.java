@@ -43,8 +43,8 @@ public class Drone extends Robot {
 	}
 	
 	@Override
+	//Vitesse constante
 	public double getVitesse(NatureTerrain nat) {
-		// TODO Auto-generated method stub
 		return this.vitesse;
 	}
 

@@ -22,12 +22,18 @@ public class Evenement_deplacer extends Evenement{
 	}
 
 	
+//	public int tab[] nombreCaseDepaceEtPositionActuelle(){
+//		
+//	}
+	
+	
 
 	//parametre: pochaine date (date courante + pas) du simulateur.
 	//besoin pour calculer qtté remplissage + vitesse deplacement.
 	@Override
 	public void execute(long prochaine_date) {
 		System.out.println(robot);
+		
 		try {
 		robot.deplacer(direction, carte);
 		}
