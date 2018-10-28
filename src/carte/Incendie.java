@@ -25,4 +25,9 @@ public class Incendie {
 	public void setIntensite(int intensite) {
 		this.intensite = intensite;
 	}
+	
+	 @Override
+	public String toString() {
+		 return "Incendie en " + this.getPosition() + "d'intensité: " + this.intensite;
+	    }
 }

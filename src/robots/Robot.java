@@ -2,6 +2,9 @@ package robots;
 
 import java.util.zip.DataFormatException;
 
+import Exceptions.Exceptions.Exceptions_remplissage.ReservoirVide;
+import Exceptions.Exceptions_deplacement.ProchaineCaseMauvaiseNature;
+import Exceptions.Exceptions_deplacement.RobotSorsCarte;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
@@ -43,43 +46,55 @@ public abstract class Robot{
     
     
     //deplace le robot si il a le droit. Sinon ne fait rien.
-    public void deplacer(Direction direction, Carte carte) {
+    public void deplacer(Direction direction, Carte carte) throws RobotSorsCarte, ProchaineCaseMauvaiseNature  {
     	//Verification qu'on peut le déplacer (case existe + bonne nature)
-    	if ((carte.voisinExiste(this.getPosition(), direction)) &
-			(this.appartientTerrainRobot(carte.getVoisin(this.getPosition(), direction).getNature())))
-    	{
-    		System.out.println("nature:" + this.getPosition());
-    		System.out.println("nature au dessus:" + carte.getVoisin(this.getPosition(), direction));
-    		System.out.println("nature a droite" + carte.getVoisin(this.getPosition(), Direction.EST));
-;
-    		switch(direction) {
- 
-    			case NORD:
-    				System.out.println("direction nord");
-    				this.position.setLigne(this.position.getLigne() - 1);
-    				break;
-    			
-    			case SUD:
-    				this.position.setLigne(this.position.getLigne() + 1);
-    				break;
-    			
-    			case EST:
-    				this.position.setColonne(this.position.getColonne() + 1);
-    				break;
-
-    			case OUEST:
-    				this.position.setColonne(this.position.getColonne()  -1);
-    				break;
+    	if (carte.voisinExiste(this.getPosition(), direction)){
+    		
+    			if (this.appartientTerrainRobot(carte.getVoisin(this.getPosition(), direction).getNature())){
+    				
+		    		System.out.println("nature:" + this.getPosition());
+		    		System.out.println("nature au dessus:" + carte.getVoisin(this.getPosition(), direction));
+		    		System.out.println("nature a droite" + carte.getVoisin(this.getPosition(), Direction.EST));
+				
+		    		switch(direction) {
+		 
+		    			case NORD:
+		    				System.out.println("direction nord");
+		    				this.position.setLigne(this.position.getLigne() - 1);
+		    				break;
+		    			
+		    			case SUD:
+		    				this.position.setLigne(this.position.getLigne() + 1);
+		    				break;
+		    			
+		    			case EST:
+		    				this.position.setColonne(this.position.getColonne() + 1);
+		    				break;
+		
+		    			case OUEST:
+		    				this.position.setColonne(this.position.getColonne()  -1);
+		    				break;
     	
+		    		}
+    			}
+    			else {
+    				throw new ProchaineCaseMauvaiseNature("Mauvaise nature terrain pour prochaine case");
+    			}
     	}
-      }
-   }
+    	
+    	else {
+    		throw new RobotSorsCarte("Robot sors de la carte");
+    	}
+    	
+    	
+  	}
     //commun a tous les robots.
-    //l'evenement qui appelle cette métohe doit vérifier de quel robot il s'agit + selon le pas.
-    public  void deverserEau(int vol) {
+    
+    public  void deverserEau(int vol) throws ReservoirVide {
     	this.reservoir_eau -= vol;
     	if (this.reservoir_eau < 0){
     		this.reservoir_eau = 0;
+    		throw new ReservoirVide("L'eau c'est la vie, dans 10 ans y'en aura plus");
     	}
     }
 

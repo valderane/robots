@@ -1,5 +1,6 @@
 package evenements;
 
+import Exceptions.Exceptions.Exceptions_remplissage.ReservoirVide;
 import carte.Carte;
 import robots.Robot;
 
@@ -62,8 +63,12 @@ public class Evenement_deverser extends Evenement {
 		//robot.capacite_litre * pas de temps  / capacite temps 
 		//Le pas doit être en sec
 		long difference_temps = prochaine_date - this.date;
+		try {
 		robot.deverserEau((int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_ms());
-				
+		}
+		catch (ReservoirVide e) {
+			System.out.println(e);
+		}
 	}
 	
 	

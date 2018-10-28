@@ -56,7 +56,6 @@ public class RobotARoues extends Robot {
 		if (nature == NatureTerrain.TERRAIN_LIBRE | nature == NatureTerrain.HABITAT){
 			return true;
 		}
-		System.out.println("pas bon");
 		return false;
 	}
 

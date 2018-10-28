@@ -1,5 +1,7 @@
 package evenements;
 
+import Exceptions.Exceptions_deplacement.ProchaineCaseMauvaiseNature;
+import Exceptions.Exceptions_deplacement.RobotSorsCarte;
 import carte.Carte;
 import carte.Direction;
 import robots.Robot;
@@ -26,7 +28,16 @@ public class Evenement_deplacer extends Evenement{
 	@Override
 	public void execute(long prochaine_date) {
 		System.out.println(robot);
+		try {
 		robot.deplacer(direction, carte);
+		}
+		catch (RobotSorsCarte e) {
+			System.out.println(e);
+		}
+		catch (ProchaineCaseMauvaiseNature e) {
+			System.out.println(e);
+
+		}
 		}
 }
 

@@ -37,7 +37,7 @@ class Plateau2 implements Simulable{
     
     /** Constantes **/
     
-    private final int TAILLE_CASE = 100;
+    private final int TAILLE_CASE = 50;
     
     private final Color COULEUR_ERREUR = Color.PINK;  
     

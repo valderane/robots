@@ -40,11 +40,24 @@ public class TestCarte{
             // crée l'invader, en l'associant à la fenêtre graphique précédente
             Plateau2 plateau = new Plateau2(gui, data);
             
+            HashMap<Case, Incendie> dico_test = new HashMap<Case, Incendie>();
+            dico_test.put(data.getCarte().getCase(7, 0), data.getIncendies()[0]);
+            dico_test.put(data.getCarte().getCase(7, 1), data.getIncendies()[1]);
+            System.out.println( dico_test.get(data.getCarte().getCase(7, 0)) );
+            
             Long dateun = (long) 500;
             Long datedeux = (long) 700;
             Long datetrois = (long) 1900;
-        	robots.Robot mrobot = data.getRobots()[2];
-        	
+        	robots.Robot mrobot = data.getRobots()[1];
+//        	int i=0;
+//        	for (robots.Robot rob: data.getRobots()){
+//        		if (rob instanceof RobotARoues)
+//        		{
+//        			mrobot = rob;
+//        			break;
+//        		}
+//        		
+//        	}
             Evenement_deplacer evt = new Evenement_deplacer(dateun, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt2 = new Evenement_deplacer(datedeux, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt3 = new Evenement_deplacer(datetrois, mrobot, data.getCarte(), Direction.NORD);
