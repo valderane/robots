@@ -37,7 +37,6 @@ public class RobotAChenilles extends Robot {
 		this.capacite_remplir_ms = 5000;
 		this.capacite_vider_litre = 100;
 		this.capacite_vider_ms = 8000;
-
 		this.setVitesse(vitesse);
 	}
 	
