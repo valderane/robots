@@ -41,14 +41,12 @@ public class TestCarte{
             Plateau2 plateau = new Plateau2(gui, data);
             
             HashMap<Case, Incendie> dico_test = new HashMap<Case, Incendie>();
-            dico_test.put(data.getCarte().getCase(7, 0), data.getIncendies()[0]);
-            dico_test.put(data.getCarte().getCase(7, 1), data.getIncendies()[1]);
             System.out.println( dico_test.get(data.getCarte().getCase(7, 0)) );
             
             Long dateun = (long) 500;
             Long datedeux = (long) 700;
             Long datetrois = (long) 1900;
-        	robots.Robot mrobot = data.getRobots()[1];
+        	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3, 3))[0];
 //        	int i=0;
 //        	for (robots.Robot rob: data.getRobots()){
 //        		if (rob instanceof RobotARoues)
