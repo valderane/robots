@@ -1,7 +1,11 @@
 package evenements;
 
-import Exceptions.Exceptions.Exceptions_remplissage.ReservoirVide;
-import carte.Carte;
+import java.util.HashMap;
+
+import Exceptions.Exceptions.Exceptions_remplissage.PlusDeau;
+import carte.Case;
+import carte.Incendie;
+import io.DonneesSimulation;
 import robots.Robot;
 
 //Le robot deverse son eau pour éteindre l'incendie à la case courante
@@ -46,16 +50,20 @@ import robots.Robot;
 
 public class Evenement_deverser extends Evenement {
 	private Robot robot;
-	private Carte carte;
+	//private Carte carte;
+	private DonneesSimulation data;
 	
 	//prochciane date = date_courante(simulateur) + pas_simulateur
 	
 	//date_evenement + pas 
 	
-	public Evenement_deverser(long date_evenement, Robot robot, Carte carte) {
+	public Evenement_deverser(long date_evenement, Robot robot, /*Carte carte*/ DonneesSimulation donne_simu ) {
 		super(date_evenement);
 		this.robot = robot;
-		this.carte = carte;
+		System.out.println("case courante: " +robot.getPosition_dans_case());
+
+		this.data = donne_simu;
+		//this.carte = carte;
 	}
 
 	@Override
@@ -64,14 +72,28 @@ public class Evenement_deverser extends Evenement {
 		//Le pas doit être en sec
 		//voir si int ca va ou pas.
 		long difference_temps = prochaine_date - this.date;
-		int volume_a_vide = (int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_ms();
-		int volume_vide = robot.deverserEau(volume_a_vide);
+		int volume_a_vider = (int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_ms();
+		int volume_vide = robot.deverserEau(volume_a_vider);
 		/*Le robot n'a plus d'eau -> a prévenir*/
-		if (volume_vide != volume_a_vide)
+		if (volume_vide != volume_a_vider)
 			System.out.println(robot + "plus d'eau");
+		
+		System.out.println("case courante" +robot.getPosition_dans_case());
+		Incendie incendie_en_cours = data.getIncendies(robot.getPosition())[0];
+		try {
+			System.out.println("dico incendie avant deverser:" + data.getIncendies(robot.getPosition())[0]);
+			incendie_en_cours.setIntensite(incendie_en_cours.getIntensite() - volume_vide);
+			System.out.println("dico incendie apres deverser:" + data.getIncendies(robot.getPosition())[0]);
+
+		}
+		/*incendie n'a plus d'intensite*/
+		catch (PlusDeau e) {
+			System.out.println(e);
+			/*dico_incendie.remove(robot.getPosition());*/
+			System.out.println("dico incendie apres deverser:" + data.getIncendies());
+		
+			
+		}
 		/*on baisse intensité incendie #TODO*/
 	}
-	
-	
-
 }

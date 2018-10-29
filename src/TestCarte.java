@@ -14,6 +14,7 @@ import carte.Direction;
 import carte.Incendie;
 import evenements.Evenement;
 import evenements.Evenement_deplacer;
+import evenements.Evenement_deverser;
 import evenements.Simulateur;
 import gui.GUISimulator;
 import gui.Oval;
@@ -34,35 +35,45 @@ public class TestCarte{
         	
         	//lecture des données dans le fichier carteSujet.map
             DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
+         // DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/desertOfDeath-20x20.map");
+         // DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/spiralOfMadness-50x50.map");
+
                     
             // crée la fenêtre graphique dans laquelle dessiner
             GUISimulator gui = new GUISimulator(1000, 1000, Color.BLACK);
             // crée l'invader, en l'associant à la fenêtre graphique précédente
             Plateau2 plateau = new Plateau2(gui, data);
             
-            HashMap<Case, Incendie> dico_test = new HashMap<Case, Incendie>();
-            System.out.println( dico_test.get(data.getCarte().getCase(7, 0)) );
+            
             
             Long dateun = (long) 500;
             Long datedeux = (long) 700;
-            Long datetrois = (long) 1900;
-        	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3, 3))[0];
-//        	int i=0;
-//        	for (robots.Robot rob: data.getRobots()){
-//        		if (rob instanceof RobotARoues)
-//        		{
-//        			mrobot = rob;
-//        			break;
-//        		}
-//        		
-//        	}
+            Long datetrois = (long) 1000;
+            Long datequatre= (long) 1900;
+
+            
+        	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(6,5))[0];
+        	
+
+        	/*Evt deplacer*/
             Evenement_deplacer evt = new Evenement_deplacer(dateun, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt2 = new Evenement_deplacer(datedeux, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt3 = new Evenement_deplacer(datetrois, mrobot, data.getCarte(), Direction.NORD);
 
+            /*Evt intervention*/
+             Evenement_deverser evt_deverserun = new Evenement_deverser(datequatre, mrobot, data);
+           // Evenement_deverser evt_deverserdeux = new Evenement_deverser(datequatre, mrobot, data);
+
+            
+            
+            
+            
             plateau.getSimulateur().ajouteEvenement(evt);
             plateau.getSimulateur().ajouteEvenement(evt2);
             plateau.getSimulateur().ajouteEvenement(evt3);
+            
+             plateau.getSimulateur().ajouteEvenement(evt_deverserun);
+            //plateau.getSimulateur().ajouteEvenement(evt_deverserdeux);
 
 
         

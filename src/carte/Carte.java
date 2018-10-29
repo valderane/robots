@@ -85,7 +85,7 @@ public class Carte{
     		existe = (src.getColonne() - 1) >= 0;
     		break;    		
     	}
-    	System.out.println(existe);
+    	//System.out.println(existe);
         return existe;
         
     }

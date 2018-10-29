@@ -1,8 +1,6 @@
 package robots;
 
 import java.util.zip.DataFormatException;
-
-import Exceptions.Exceptions.Exceptions_remplissage.ReservoirVide;
 import Exceptions.Exceptions_deplacement.ProchaineCaseMauvaiseNature;
 import Exceptions.Exceptions_deplacement.RobotSorsCarte;
 import carte.Carte;
@@ -53,9 +51,9 @@ public abstract class Robot{
     		
     			if (this.appartientTerrainRobot(carte.getVoisin(this.getPosition(), direction).getNature())){
     				
-		    		System.out.println("nature:" + this.getPosition());
-		    		System.out.println("nature au dessus:" + carte.getVoisin(this.getPosition(), direction));
-		    		System.out.println("nature a droite" + carte.getVoisin(this.getPosition(), Direction.EST));
+//		    		System.out.println("nature:" + this.getPosition());
+//		    		System.out.println("nature au dessus:" + carte.getVoisin(this.getPosition(), direction));
+//		    		System.out.println("nature a droite" + carte.getVoisin(this.getPosition(), Direction.EST));
 				
 		    		switch(direction) {
 		 
@@ -79,7 +77,7 @@ public abstract class Robot{
 		    		}
     			}
     			else {
-    				throw new ProchaineCaseMauvaiseNature("Mauvaise nature terrain pour prochaine case");
+    				throw new ProchaineCaseMauvaiseNature(this + ": Mauvaise nature terrain pour prochaine case");
     			}
     	}
     	

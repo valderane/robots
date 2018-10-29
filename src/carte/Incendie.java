@@ -1,12 +1,18 @@
 package carte;
 
+import Exceptions.Exceptions.Exceptions_remplissage.PlusDeau;
+
 public class Incendie {
 
 	private int intensite;
 	private Case position;
 	
 	public Incendie(int intensite, Case position) {
-		this.setIntensite(intensite);
+		try {
+			this.setIntensite(intensite);
+		} catch (PlusDeau e) {
+		  System.out.println(e + "dans creation incendie");
+		}
 		this.setPosition(position);
 	}
 	
@@ -22,9 +28,14 @@ public class Incendie {
 		this.position = position;
 	}
 	
-	public void setIntensite(int intensite) {
-		this.intensite = intensite;
+	public void setIntensite(int intensite) throws PlusDeau {
+		if (intensite <= 0) {
+			throw new PlusDeau(this + "est eteint");
+		}
+		else {
+			this.intensite = intensite;
 	}
+}
 	
 	 @Override
 	public String toString() {

@@ -1,9 +1,6 @@
 import java.awt.Color;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import carte.Carte;
 import carte.Case;
 import carte.Incendie;
@@ -55,8 +52,6 @@ class Plateau2 implements Simulable{
     
     private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
     
-    //itere sur les clefs
-    private Iterator<Long> iterateurkey;
     // 1 seconde
     private int pas_simu_ms;
     
@@ -79,14 +74,17 @@ class Plateau2 implements Simulable{
     
     @Override
     public void next() {
+    	System.out.println("DICO EVT: "+ this.simulateur.getEvenements());
     	//voir comment optimiser
     	//supprimer les clefs à chaque fois pour ne pas tout reparcourir? 
         Long date_courante = this.simulateur.getDateSimulation();
     	Long prochaine_date = this.simulateur.getDateSimulation() + pas_simu_ms;
+    	System.out.println(date_courante + "  " + prochaine_date);
+
     	for(Long ddate :this.simulateur.getEvenements().keySet())
         {
         	if (ddate > date_courante){
-        		if( ddate < prochaine_date){
+        		if( ddate <= prochaine_date){
         			ArrayList<Evenement> evt_a_executer = this.simulateur.getEvenements().get(ddate);
         			for (Evenement evt : evt_a_executer)
         			{
