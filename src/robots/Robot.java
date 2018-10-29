@@ -131,6 +131,15 @@ public abstract class Robot{
 	}
     
     public abstract double getVitesse(NatureTerrain nat);
+    
+    /**
+     * Retourne le temps de parcours de deux cases adjacentes avec chacune une nature donnée.
+     * 
+     * @param nat1 Nature du terrain de la première case
+     * @param nat2 Nature du terrain de la seconde case
+     * @return
+     */
+    public abstract double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2);
 
     
     public abstract void remplirReservoir();

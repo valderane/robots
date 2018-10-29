@@ -26,6 +26,7 @@ import robots.Drone;
 import robots.RobotAChenilles;
 import robots.RobotAPattes;
 import robots.RobotARoues;
+import chemins.Djikstra;
 
 public class TestCarte{
 
@@ -44,6 +45,8 @@ public class TestCarte{
             // crée l'invader, en l'associant à la fenêtre graphique précédente
             Plateau2 plateau = new Plateau2(gui, data);
             
+            
+            Djikstra testPlusCourtChemin = new Djikstra(data.getCarte(), data.getRobots()[0]);
             
             
             Long dateun = (long) 50;

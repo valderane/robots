@@ -48,5 +48,11 @@ public class RobotAPattes extends Robot {
 		return true;
 	}
 
+	@Override
+	public double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

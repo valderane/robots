@@ -91,7 +91,7 @@ public class Carte{
     }
 
     //retourne le voisin de la  case (pas copie)
-    public Case getVoisin(Case src, Direction dir){
+    public Case getVoisin(Case src, Direction dir){	
         
     	Case voisin = null;
     	

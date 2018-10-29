@@ -13,27 +13,49 @@ import java.util.TreeMap;
 import java.util.zip.DataFormatException;
 
 
+/**
+ * @author 
+ *
+ */
 public class DonneesSimulation{
 
     private Carte carte;
     
+	/**
+	 * 
+	 */
 	private HashMap<Case,HashSet<Robot>> robots;
 
+	/**
+	 * 
+	 */
 	private HashMap<Case, HashSet<Incendie>> incendies;
     
+    /**
+     * 
+     */
     public DonneesSimulation(){
     	this.robots = new HashMap<Case, HashSet<Robot>>();
     	this.incendies = new HashMap<Case, HashSet<Incendie>>();
     }
 
+    /**
+     * @return
+     */
     public Carte getCarte() {
     	return this.carte;
     }
     
+    /**
+     * @param c
+     */
     public void setCarte(Carte c) {
     	this.carte = c;
     }
     
+    /**
+     * @param r
+     */
     public void ajouterRobot(Robot r) {
     	Case caseRobot = r.getPosition();
 	
@@ -49,6 +71,10 @@ public class DonneesSimulation{
 		}	
 	}
     
+    /**
+     * @param c
+     * @return
+     */
     public Robot[] getRobots(Case c){
     	if(this.robots.containsKey(c))
     		return this.robots.get(c).toArray(new Robot[0]);
@@ -56,6 +82,9 @@ public class DonneesSimulation{
     		return new Robot[0];
     }
     
+    /**
+     * @return
+     */
     public Robot[] getRobots() {
     	HashSet<Robot> resultat = new HashSet<Robot>();
     	for (HashSet<Robot> setRobot : this.robots.values()) {
@@ -65,6 +94,9 @@ public class DonneesSimulation{
     }
     
     
+    /**
+     * @param incendie
+     */
     public void ajouterIncendie(Incendie incendie) {
     	Case caseIncendie = incendie.getPosition();
 	
@@ -80,6 +112,12 @@ public class DonneesSimulation{
 			this.incendies.put(caseIncendie, incendiesACetteCase);	
 		}	
 	}
+    
+    
+    /**
+     * @param c
+     * @return
+     */
     public Incendie[] getIncendies(Case c){
     	if(this.incendies.containsKey(c))
     		return this.incendies.get(c).toArray(new Incendie[0]);
@@ -87,6 +125,9 @@ public class DonneesSimulation{
     		return new Incendie[0];
     }
     
+    /**
+     * @return
+     */
     public Incendie[] getIncendies() {
     	HashSet<Incendie> resultat = new HashSet<Incendie>();
     	for (HashSet<Incendie> setIncendie : this.incendies.values()) {
@@ -95,6 +136,11 @@ public class DonneesSimulation{
     	return resultat.toArray(new Incendie[0]);
     }
     
+    /**
+     * @param c
+     * @param incendie
+     * @throws IndexOutOfBoundsException
+     */
     public void supprimerIncendie(Case c, Incendie incendie) throws IndexOutOfBoundsException{
     	if(!this.incendies.containsKey(c))
     		throw new IndexOutOfBoundsException("La case n'existe pas");
