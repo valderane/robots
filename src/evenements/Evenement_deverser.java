@@ -66,7 +66,7 @@ public class Evenement_deverser extends Evenement {
 
 	@Override
 	public void execute(long prochaine_date) {
-		System.out.println("case courante: " +robot.getPosition());
+		//System.out.println("case courante: " +robot.getPosition());
 
 		//robot.capacite_litre * pas de temps  / capacite temps 
 		//Le pas doit être en sec
@@ -77,21 +77,21 @@ public class Evenement_deverser extends Evenement {
 		/*Le robot n'a plus d'eau -> a prévenir*/
 		if (volume_vide != volume_a_vider)
 			System.out.println(robot + "plus d'eau");
-		for (Incendie inc: data.getIncendies())
-			{System.out.println(inc);}
-		System.out.println(data.getIncendies(robot.getPosition()));
+		//for (Incendie inc: data.getIncendies())
+		//	{System.out.println(inc);}
+		//System.out.println(data.getIncendies(robot.getPosition()));
 		Incendie incendie_en_cours = data.getIncendies(robot.getPosition())[0];
 		try {
-			System.out.println("dico incendie avant deverser:" + data.getIncendies(robot.getPosition())[0]);
+		//	System.out.println("dico incendie avant deverser:" + data.getIncendies(robot.getPosition())[0]);
 			incendie_en_cours.setIntensite(incendie_en_cours.getIntensite() - volume_vide);
-			System.out.println("dico incendie apres deverser:" + data.getIncendies(robot.getPosition())[0]);
+		//	System.out.println("dico incendie apres deverser:" + data.getIncendies(robot.getPosition())[0]);
 
 		}
 		/*incendie n'a plus d'intensite*/
 		catch (PlusDeau e) {
 			System.out.println(e);
 			/*dico_incendie.remove(robot.getPosition());*/
-			System.out.println("dico incendie apres deverser:" + data.getIncendies());
+			//System.out.println("dico incendie apres deverser:" + data.getIncendies());
 		
 			
 		}

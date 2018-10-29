@@ -47,7 +47,7 @@ public class TestCarte{
             
             
             Long dateun = (long) 50;
-            Long datedeux = (long) 100;
+            Long datedeux = (long) 50;
             Long datetrois = (long) 150;
             Long datequatre= (long) 200;
 
