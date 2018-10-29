@@ -13,7 +13,8 @@ public abstract class Robot{
 	private double position_dans_case;
 	protected Case position;
     /*qqté d'eau max que peut tranqporter le robot*/
-    protected int reservoir_eau = 5000;
+    /*9000 pour test*/
+	protected int reservoir_eau = 9000;
     
 	//capacité vider_litre en capacité vider_ms 
 	protected int capacite_vider_litre;

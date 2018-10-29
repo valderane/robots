@@ -1,9 +1,7 @@
 package evenements;
 
-import java.util.HashMap;
 
 import Exceptions.Exceptions.Exceptions_remplissage.PlusDeau;
-import carte.Case;
 import carte.Incendie;
 import io.DonneesSimulation;
 import robots.Robot;
@@ -50,8 +48,7 @@ import robots.Robot;
 
 public class Evenement_deverser extends Evenement {
 	private Robot robot;
-	//private Carte carte;
-	private DonneesSimulation data;
+		private DonneesSimulation data;
 	
 	//prochciane date = date_courante(simulateur) + pas_simulateur
 	
@@ -61,37 +58,29 @@ public class Evenement_deverser extends Evenement {
 		super(date_evenement);
 		this.robot = robot;
 		this.data = donne_simu;
-		//this.carte = carte;
-	}
+			}
 
 	@Override
 	public void execute(long prochaine_date) {
-		//System.out.println("case courante: " +robot.getPosition());
-
-		//robot.capacite_litre * pas de temps  / capacite temps 
-		//Le pas doit être en sec
-		//voir si int ca va ou pas.
 		long difference_temps = prochaine_date - this.date;
 		int volume_a_vider = (int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_sec();
 		int volume_vide = robot.deverserEau(volume_a_vider);
 		/*Le robot n'a plus d'eau -> a prévenir*/
 		if (volume_vide != volume_a_vider)
 			System.out.println(robot + "plus d'eau");
-		//for (Incendie inc: data.getIncendies())
-		//	{System.out.println(inc);}
-		//System.out.println(data.getIncendies(robot.getPosition()));
+		
+		
+
 		Incendie incendie_en_cours = data.getIncendies(robot.getPosition())[0];
 		try {
-		//	System.out.println("dico incendie avant deverser:" + data.getIncendies(robot.getPosition())[0]);
-			incendie_en_cours.setIntensite(incendie_en_cours.getIntensite() - volume_vide);
-		//	System.out.println("dico incendie apres deverser:" + data.getIncendies(robot.getPosition())[0]);
-
+					incendie_en_cours.setIntensite(incendie_en_cours.getIntensite() - volume_vide);
+		
 		}
 		/*incendie n'a plus d'intensite*/
 		catch (PlusDeau e) {
 			System.out.println(e);
-			/*dico_incendie.remove(robot.getPosition());*/
-			//System.out.println("dico incendie apres deverser:" + data.getIncendies());
+			data.supprimerIncendie(robot.getPosition(), incendie_en_cours);
+		
 		
 			
 		}
