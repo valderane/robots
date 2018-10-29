@@ -137,5 +137,9 @@ public abstract class Robot{
     
     public abstract void setVitesse(double vitesse)  throws DataFormatException;
 
+	public int getReservoir_eau() {
+		return reservoir_eau;
+	}
+
     
 }

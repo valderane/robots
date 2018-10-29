@@ -68,7 +68,7 @@ class Plateau2 implements Simulable{
         this.donneesSimu = donneesSimu;
         this.simulateur = new Simulateur();
         //=1000ms
-        this.pas_simu_sec= 1000;
+        this.pas_simu_sec= 100;
 ;        draw();
     }
     
@@ -83,8 +83,8 @@ class Plateau2 implements Simulable{
 
     	for(Long ddate :this.simulateur.getEvenements().keySet())
         {
-        	if (ddate > date_courante){
-        		if( ddate <= prochaine_date){
+        	if (ddate >= date_courante){
+        		if( ddate < prochaine_date){
         			ArrayList<Evenement> evt_a_executer = this.simulateur.getEvenements().get(ddate);
         			for (Evenement evt : evt_a_executer)
         			{

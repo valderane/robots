@@ -64,16 +64,20 @@ public class Evenement_deverser extends Evenement {
 	public void execute(long prochaine_date) {
 		long difference_temps = prochaine_date - this.date;
 		int volume_a_vider = (int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_sec();
+		//System.out.println("vol_a_vider:" + volume_a_vider+ " difference_temps "+ difference_temps);
+
 		int volume_vide = robot.deverserEau(volume_a_vider);
 		/*Le robot n'a plus d'eau -> a prévenir*/
 		if (volume_vide != volume_a_vider)
-			System.out.println(robot + "plus d'eau");
+			System.out.println("reservoir robot: " + robot.getReservoir_eau() +  " plus d'eau");
 		
 		
 
 		Incendie incendie_en_cours = data.getIncendies(robot.getPosition())[0];
 		try {
 					incendie_en_cours.setIntensite(incendie_en_cours.getIntensite() - volume_vide);
+					System.out.println("volume vidé: " + volume_vide +"a la date: "+ this.getDate());
+					System.out.println("incendie apres_vidage: "+ incendie_en_cours);
 		
 		}
 		/*incendie n'a plus d'intensite*/
