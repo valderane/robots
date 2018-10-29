@@ -60,14 +60,14 @@ public class Evenement_deverser extends Evenement {
 	public Evenement_deverser(long date_evenement, Robot robot, /*Carte carte*/ DonneesSimulation donne_simu ) {
 		super(date_evenement);
 		this.robot = robot;
-		System.out.println("case courante: " +robot.getPosition_dans_case());
-
 		this.data = donne_simu;
 		//this.carte = carte;
 	}
 
 	@Override
 	public void execute(long prochaine_date) {
+		System.out.println("case courante: " +robot.getPosition());
+
 		//robot.capacite_litre * pas de temps  / capacite temps 
 		//Le pas doit être en sec
 		//voir si int ca va ou pas.
@@ -77,8 +77,9 @@ public class Evenement_deverser extends Evenement {
 		/*Le robot n'a plus d'eau -> a prévenir*/
 		if (volume_vide != volume_a_vider)
 			System.out.println(robot + "plus d'eau");
-		
-		System.out.println("case courante" +robot.getPosition_dans_case());
+		for (Incendie inc: data.getIncendies())
+			{System.out.println(inc);}
+		System.out.println(data.getIncendies(robot.getPosition()));
 		Incendie incendie_en_cours = data.getIncendies(robot.getPosition())[0];
 		try {
 			System.out.println("dico incendie avant deverser:" + data.getIncendies(robot.getPosition())[0]);

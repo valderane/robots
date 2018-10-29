@@ -74,12 +74,12 @@ class Plateau2 implements Simulable{
     
     @Override
     public void next() {
-    	System.out.println("DICO EVT: "+ this.simulateur.getEvenements());
+    	//System.out.println("DICO EVT: "+ this.simulateur.getEvenements());
     	//voir comment optimiser
     	//supprimer les clefs à chaque fois pour ne pas tout reparcourir? 
         Long date_courante = this.simulateur.getDateSimulation();
     	Long prochaine_date = this.simulateur.getDateSimulation() + pas_simu_ms;
-    	System.out.println(date_courante + "  " + prochaine_date);
+    	//System.out.println(date_courante + "  " + prochaine_date);
 
     	for(Long ddate :this.simulateur.getEvenements().keySet())
         {
