@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeMap;
+import java.util.zip.DataFormatException;
 
 
 public class DonneesSimulation{
@@ -92,6 +93,13 @@ public class DonneesSimulation{
     		resultat.addAll(setIncendie);
     	}
     	return resultat.toArray(new Incendie[0]);
+    }
+    
+    public void supprimerIncendie(Case c, Incendie incendie) throws IndexOutOfBoundsException{
+    	if(!this.incendies.containsKey(c))
+    		throw new IndexOutOfBoundsException("La case n'existe pas");
+    	
+    	this.incendies.get(c).remove(incendie);
     }
     
 
