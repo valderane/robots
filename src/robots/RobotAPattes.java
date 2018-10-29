@@ -14,7 +14,7 @@ public class RobotAPattes extends Robot {
 		super(c);
 		//this.capacite_remplir_ms = 5000*3600;
 		this.capacite_vider_litre = 10;
-		this.capacite_vider_ms = 1000;
+		this.capacite_vider_sec = 1;
 
 	}
 		

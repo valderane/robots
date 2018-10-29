@@ -46,10 +46,10 @@ public class TestCarte{
             
             
             
-            Long dateun = (long) 500;
-            Long datedeux = (long) 700;
-            Long datetrois = (long) 1000;
-            Long datequatre= (long) 1900;
+            Long dateun = (long) 50;
+            Long datedeux = (long) 100;
+            Long datetrois = (long) 150;
+            Long datequatre= (long) 200;
 
             
         	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(6,5))[0];
@@ -64,15 +64,13 @@ public class TestCarte{
              Evenement_deverser evt_deverserun = new Evenement_deverser(datequatre, mrobot, data);
            // Evenement_deverser evt_deverserdeux = new Evenement_deverser(datequatre, mrobot, data);
 
-            
-            
-            
+        
             
             plateau.getSimulateur().ajouteEvenement(evt);
             plateau.getSimulateur().ajouteEvenement(evt2);
             plateau.getSimulateur().ajouteEvenement(evt3);
             
-             plateau.getSimulateur().ajouteEvenement(evt_deverserun);
+            plateau.getSimulateur().ajouteEvenement(evt_deverserun);
             //plateau.getSimulateur().ajouteEvenement(evt_deverserdeux);
 
 

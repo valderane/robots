@@ -13,13 +13,13 @@ public abstract class Robot{
 	private double position_dans_case;
 	protected Case position;
     /*qqté d'eau max que peut tranqporter le robot*/
-    protected int reservoir_eau;
+    protected int reservoir_eau = 5000;
     
 	//capacité vider_litre en capacité vider_ms 
 	protected int capacite_vider_litre;
-	protected int capacite_vider_ms;
+	protected int capacite_vider_sec;
 	//temps qu'il faut pour remplie tout le reservoir
-    protected int capacite_remplir_ms;
+    protected int capacite_remplir_sec;
 	
     protected double vitesse; 
 
@@ -59,19 +59,19 @@ public abstract class Robot{
 		 
 		    			case NORD:
 		    				System.out.println("direction nord");
-		    				this.position.setLigne(this.position.getLigne() - 1);
-		    				break;
+		    				this.position = carte.getVoisin(this.position, Direction.NORD);
+		 		    		break;
 		    			
 		    			case SUD:
-		    				this.position.setLigne(this.position.getLigne() + 1);
+		    				this.position = carte.getVoisin(this.position, Direction.SUD);
 		    				break;
 		    			
 		    			case EST:
-		    				this.position.setColonne(this.position.getColonne() + 1);
+		    				this.position = carte.getVoisin(this.position, Direction.EST);
 		    				break;
 		
 		    			case OUEST:
-		    				this.position.setColonne(this.position.getColonne()  -1);
+		    				this.position = carte.getVoisin(this.position, Direction.OUEST);
 		    				break;
     	
 		    		}
@@ -121,12 +121,12 @@ public abstract class Robot{
 		return capacite_vider_litre;
 	}
 
-	public int getCapacite_vider_ms() {
-		return capacite_vider_ms;
+	public int getCapacite_vider_sec() {
+		return capacite_vider_sec;
 	}
 
-	public int getCapacite_remplir_ms() {
-		return capacite_remplir_ms;
+	public int getCapacite_remplir_sec() {
+		return capacite_remplir_sec;
 	}
     
     public abstract double getVitesse(NatureTerrain nat);

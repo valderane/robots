@@ -20,18 +20,18 @@ public class Drone extends Robot {
 	
 	public Drone(Case c) {
 		super(c);
-		this.capacite_remplir_ms = 5000*3600;
+		this.capacite_remplir_sec = 60*60;
 		this.capacite_vider_litre = this.reservoir_eau;
-		this.capacite_vider_ms = 30000;
+		this.capacite_vider_sec = 30;
 		this.vitesse = this.VITESSE_PAR_DEFAUT;
 	}
 	
 	public Drone(Case c, int vitesse) throws DataFormatException{
 		super(c);
 
-		this.capacite_remplir_ms = 5000*3600;
+		this.capacite_remplir_sec = 60*60;
 		this.capacite_vider_litre = this.reservoir_eau;
-		this.capacite_vider_ms = 30000;
+		this.capacite_vider_sec= 30;
 		this.setVitesse(vitesse);
 	}
 
