@@ -21,9 +21,9 @@ public class RobotAChenilles extends Robot {
 	public RobotAChenilles(Case c) {
 		super(c);
 		
-		this.capacite_remplir_ms = 5000;
+		this.capacite_remplir_sec = 60*5;
 		this.capacite_vider_litre = 100;
-		this.capacite_vider_ms = 8000;
+		this.capacite_vider_sec = 8;
 
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);
@@ -34,9 +34,9 @@ public class RobotAChenilles extends Robot {
 	
 	public RobotAChenilles(Case c, int vitesse) throws DataFormatException {
 		super(c);
-		this.capacite_remplir_ms = 5000;
+		this.capacite_remplir_sec = 60*5;
 		this.capacite_vider_litre = 100;
-		this.capacite_vider_ms = 8000;
+		this.capacite_vider_sec = 8;
 		this.setVitesse(vitesse);
 	}
 	

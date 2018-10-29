@@ -72,7 +72,7 @@ public class Evenement_deverser extends Evenement {
 		//Le pas doit être en sec
 		//voir si int ca va ou pas.
 		long difference_temps = prochaine_date - this.date;
-		int volume_a_vider = (int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_ms();
+		int volume_a_vider = (int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_sec();
 		int volume_vide = robot.deverserEau(volume_a_vider);
 		/*Le robot n'a plus d'eau -> a prévenir*/
 		if (volume_vide != volume_a_vider)

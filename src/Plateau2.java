@@ -53,7 +53,7 @@ class Plateau2 implements Simulable{
     private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
     
     // 1 seconde
-    private int pas_simu_ms;
+    private int pas_simu_sec;
     
     /**
      * Crée un Invader et le dessine.
@@ -68,7 +68,7 @@ class Plateau2 implements Simulable{
         this.donneesSimu = donneesSimu;
         this.simulateur = new Simulateur();
         //=1000ms
-        this.pas_simu_ms = 1000;
+        this.pas_simu_sec= 1000;
 ;        draw();
     }
     
@@ -78,7 +78,7 @@ class Plateau2 implements Simulable{
     	//voir comment optimiser
     	//supprimer les clefs à chaque fois pour ne pas tout reparcourir? 
         Long date_courante = this.simulateur.getDateSimulation();
-    	Long prochaine_date = this.simulateur.getDateSimulation() + pas_simu_ms;
+    	Long prochaine_date = this.simulateur.getDateSimulation() + pas_simu_sec;
     	//System.out.println(date_courante + "  " + prochaine_date);
 
     	for(Long ddate :this.simulateur.getEvenements().keySet())

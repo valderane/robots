@@ -17,9 +17,9 @@ public abstract class Robot{
     
 	//capacité vider_litre en capacité vider_ms 
 	protected int capacite_vider_litre;
-	protected int capacite_vider_ms;
+	protected int capacite_vider_sec;
 	//temps qu'il faut pour remplie tout le reservoir
-    protected int capacite_remplir_ms;
+    protected int capacite_remplir_sec;
 	
     protected double vitesse; 
 
@@ -121,12 +121,12 @@ public abstract class Robot{
 		return capacite_vider_litre;
 	}
 
-	public int getCapacite_vider_ms() {
-		return capacite_vider_ms;
+	public int getCapacite_vider_sec() {
+		return capacite_vider_sec;
 	}
 
-	public int getCapacite_remplir_ms() {
-		return capacite_remplir_ms;
+	public int getCapacite_remplir_sec() {
+		return capacite_remplir_sec;
 	}
     
     public abstract double getVitesse(NatureTerrain nat);
