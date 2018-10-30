@@ -139,7 +139,11 @@ public abstract class Robot{
      * @param nat2 Nature du terrain de la seconde case
      * @return
      */
-    public abstract double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2);
+    public double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2, int taille_case)
+    {
+    	double vitesse_moyenne = (this.getVitesse(nat1) + this.getVitesse(nat2)) / 2;
+    	return (2*taille_case / vitesse_moyenne);
+    }
 
     
     public abstract void remplirReservoir();
