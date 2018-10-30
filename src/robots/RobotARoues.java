@@ -16,6 +16,7 @@ public class RobotARoues extends Robot {
 	public RobotARoues(Case c) {
 		super(c);
 		this.capacite_remplir_sec = 60*10;
+		this.capacite_remplir_litre = 5000;
 		this.capacite_vider_litre = 100;
 		this.capacite_vider_sec = 5;
 		
@@ -45,11 +46,16 @@ public class RobotARoues extends Robot {
 
 
 	@Override
-	public void remplirReservoir() {
-		// TODO Auto-generated method stub
+	public void remplirReservoir(int vol) {
+		// remplissage du reservoir avec le nombre de litres passé en parametre
+		this.reservoir_eau += vol;
+		//si on remplit jusqu'a deborder, on conserve la capacite max
+		if(this.reservoir_eau >= this.capacite_remplir_litre ) {
+			this.reservoir_eau = this.capacite_remplir_litre;
+			System.out.println("reservoir plein !");
+		}
 		
 	}
-
 
 	@Override
 	public boolean appartientTerrainRobot(NatureTerrain nature) {

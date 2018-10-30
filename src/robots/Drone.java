@@ -20,7 +20,8 @@ public class Drone extends Robot {
 	
 	public Drone(Case c) {
 		super(c);
-		this.capacite_remplir_sec = 60*60;
+		this.capacite_remplir_sec = 60*30;
+		this.capacite_remplir_litre = 10000;
 		this.capacite_vider_litre = this.reservoir_eau;
 		this.capacite_vider_sec = 30;
 		this.vitesse = this.VITESSE_PAR_DEFAUT;
@@ -30,6 +31,7 @@ public class Drone extends Robot {
 		super(c);
 
 		this.capacite_remplir_sec = 60*60;
+		this.capacite_remplir_litre = 10000;
 		this.capacite_vider_litre = this.reservoir_eau;
 		this.capacite_vider_sec= 30;
 		this.setVitesse(vitesse);
@@ -47,11 +49,16 @@ public class Drone extends Robot {
 	public double getVitesse(NatureTerrain nat) {
 		return this.vitesse;
 	}
-
-
+	
 	@Override
-	public void remplirReservoir() {
-		// TODO Auto-generated method stub
+	public void remplirReservoir(int vol) {
+		// remplissage du reservoir avec le nombre de litres passé en parametre
+		this.reservoir_eau += vol;
+		//si on remplit jusqu'a deborder, on conserve la capacite max
+		if(this.reservoir_eau >= this.capacite_remplir_litre ) {
+			this.reservoir_eau = this.capacite_remplir_litre;
+			System.out.println("reservoir plein !");
+		}
 		
 	}
 

@@ -14,16 +14,19 @@ public abstract class Robot{
 	protected Case position;
     /*qqté d'eau max que peut tranqporter le robot*/
     /*9000 pour test*/
-	protected int reservoir_eau = 9000;
+	protected int reservoir_eau = 0;
     
 	//capacité vider_litre en capacité vider_ms 
 	protected int capacite_vider_litre;
 	protected int capacite_vider_sec;
 	//temps qu'il faut pour remplie tout le reservoir
     protected int capacite_remplir_sec;
+    // nombre de litre maximum du reservoir
+    protected int capacite_remplir_litre;
 	
     protected double vitesse; 
 
+    
   
     
     public Robot(Case c){
@@ -125,6 +128,10 @@ public abstract class Robot{
 	public int getCapacite_vider_sec() {
 		return capacite_vider_sec;
 	}
+	
+	public int getCapacite_remplir_litre() {
+		return capacite_vider_litre;
+	}
 
 	public int getCapacite_remplir_sec() {
 		return capacite_remplir_sec;
@@ -141,8 +148,14 @@ public abstract class Robot{
      */
     public abstract double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2);
 
-    
-    public abstract void remplirReservoir();
+    /**
+     * remplir le reservoir d'un robot de vol
+     * si reservoir + vol > reservoir_max, mettre cpacite a capacite_max
+     * 
+     * genere une execption si le robot est deja plein
+     * @param vol
+     */
+    public abstract void remplirReservoir(int vol);
     
     public abstract void setVitesse(double vitesse)  throws DataFormatException;
 

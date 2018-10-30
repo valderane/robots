@@ -12,7 +12,8 @@ public class RobotAPattes extends Robot {
 	
 	public RobotAPattes(Case c) {
 		super(c);
-		//this.capacite_remplir_ms = 5000*3600;
+		this.capacite_remplir_sec = 5000*3600;
+		this.capacite_remplir_litre = 10000;
 		this.capacite_vider_litre = 10;
 		this.capacite_vider_sec = 1;
 
@@ -30,12 +31,13 @@ public class RobotAPattes extends Robot {
 		return this.VITESSE_PAR_DEFAUT;
 	}
 
-
+	
 	@Override
-	public void remplirReservoir() {
+	public void remplirReservoir(int vol) {
 		// TODO Auto-generated method stub
-		
+		System.out.println(" Robot a pate, je ne me remplie pas ^^");
 	}
+	
 	
 	// vitesse ne peut pas changer
 	public void setVitesse(double vitesse) throws DataFormatException{};

@@ -11,6 +11,7 @@ public class RobotAChenilles extends Robot {
 
 	private final double VITESSE_PAR_DEFAUT = 60;
 	private final double VITESSE_MAX = 80;
+	
 
 
 
@@ -23,6 +24,7 @@ public class RobotAChenilles extends Robot {
 		
 		this.capacite_remplir_sec = 60*5;
 		this.capacite_vider_litre = 100;
+		this.capacite_remplir_litre = 2000;
 		this.capacite_vider_sec = 8;
 
 		try {
@@ -36,6 +38,7 @@ public class RobotAChenilles extends Robot {
 		super(c);
 		this.capacite_remplir_sec = 60*5;
 		this.capacite_vider_litre = 100;
+		this.capacite_remplir_litre = 2000;
 		this.capacite_vider_sec = 8;
 		this.setVitesse(vitesse);
 	}
@@ -60,14 +63,19 @@ public class RobotAChenilles extends Robot {
 		
 		return this.vitesse;
 	}
-
-
-
+	
 	@Override
-	public void remplirReservoir() {
-		// TODO Auto-generated method stub
+	public void remplirReservoir(int vol) {
+		// remplissage du reservoir avec le nombre de litres passé en parametre
+		this.reservoir_eau += vol;
+		//si on remplit jusqu'a deborder, on conserve la capacite max
+		if(this.reservoir_eau >= this.capacite_remplir_litre ) {
+			this.reservoir_eau = this.capacite_remplir_litre;
+			System.out.println("reservoir plein !");
+		}
 		
 	}
+
 	
 	@Override
 	public boolean appartientTerrainRobot(NatureTerrain nature) {

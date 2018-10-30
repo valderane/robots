@@ -15,6 +15,7 @@ import carte.Incendie;
 import evenements.Evenement;
 import evenements.Evenement_deplacer;
 import evenements.Evenement_deverser;
+import evenements.Evenement_remplir;
 import evenements.Simulateur;
 import gui.GUISimulator;
 import gui.Oval;
@@ -54,16 +55,22 @@ public class TestCarte{
             Long datetrois = (long) 150;
             Long datequatre= (long) 200;
             Long datecinq= (long) 320;
+            Long date6= (long) 410;
+            Long date7= (long) 500;
+            Long date8= (long) 600;
 
 
             
         	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(6,5))[0];
+        	robots.Robot mrobot2 = data.getRobots(data.getCarte().getCase(4,7))[0];
         	
 
         	/*Evt deplacer*/
             Evenement_deplacer evt = new Evenement_deplacer(dateun, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt2 = new Evenement_deplacer(datedeux, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt3 = new Evenement_deplacer(datetrois, mrobot, data.getCarte(), Direction.NORD);
+            Evenement_deplacer evt4 = new Evenement_deplacer(date6, mrobot, data.getCarte(), Direction.OUEST);
+            Evenement_deplacer evt5 = new Evenement_deplacer(date7, mrobot, data.getCarte(), Direction.OUEST);
 
             /*Evt intervention*/
              Evenement_deverser evt_deverserun = new Evenement_deverser(datequatre, mrobot, data);
@@ -72,8 +79,11 @@ public class TestCarte{
              Evenement_deverser evt_deverserquatre = new Evenement_deverser(datecinq, mrobot, data);
              Evenement_deverser evt_deversercinq = new Evenement_deverser(datecinq, mrobot, data);
 
+             /*Evt remplir*/
+             Evenement_remplir evt_remplir1 = new Evenement_remplir(date8, mrobot, data);
+             
 
-
+             
            // Evenement_deverser evt_deverserdeux = new Evenement_deverser(datequatre, mrobot, data);
 
         
@@ -89,6 +99,11 @@ public class TestCarte{
 
             plateau.getSimulateur().ajouteEvenement(evt_deverserquatre);
             plateau.getSimulateur().ajouteEvenement(evt_deversercinq);
+            
+            plateau.getSimulateur().ajouteEvenement(evt4);
+            plateau.getSimulateur().ajouteEvenement(evt5);
+            plateau.getSimulateur().ajouteEvenement(evt_remplir1);
+            
 
 
             //plateau.getSimulateur().ajouteEvenement(evt_deverserdeux);
