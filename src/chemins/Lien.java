@@ -65,4 +65,9 @@ public class Lien {
 	public double getPoids() {
 		return this.poids;
 	}
+	
+	@Override
+	public String toString() {
+		return "Lien - Case départ : "+this.caseDepart+", Case destination : "+this.caseDestination+", temps parcours : "+this.poids;
+	}
 }

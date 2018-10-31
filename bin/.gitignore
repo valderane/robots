@@ -1,17 +1,11 @@
 /Exceptions/
-/carte/
-/chemins/
-/evenements/
-/io/
-/robots/
-<<<<<<< HEAD
 /Invader.class
 /Plateau2.class
 /TestCarte.class
 /TestInvader.class
 /TestLecteurDonnees.class
-=======
-/io/
 /carte/
 /chemins/
->>>>>>> 557f1c1181f966c49b0eb4d466d7f1391f23cec0
+/evenements/
+/io/
+/robots/
