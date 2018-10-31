@@ -46,10 +46,11 @@ public class TestCarte{
             // crée l'invader, en l'associant à la fenêtre graphique précédente
             Plateau2 plateau = new Plateau2(gui, data);
             
-            System.out.println("Robot : "+ data.getRobots()[1]);
+            System.out.println("Robot : "+ data.getRobots()[2]);
             
-            Djikstra testPlusCourtChemin = new Djikstra(data.getCarte(), data.getRobots()[1]);
-            testPlusCourtChemin.afficherTempsParcours();
+            Djikstra testPlusCourtChemin = new Djikstra(data.getCarte(), data.getRobots()[2]);
+            testPlusCourtChemin.plusCourtChemin(data.getCarte().getCase(0, 0));
+            //testPlusCourtChemin.afficherTempsParcours();
             
             
             Long dateun = (long) 50;

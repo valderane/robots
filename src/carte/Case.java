@@ -33,6 +33,6 @@ public class Case{
     
     @Override
     public String toString() {
-    	return "CASE position = ("+this.ligne+","+this.colonne+"); nature = "+this.nature;
+    	return "CASE position = ("+this.colonne+","+this.ligne+"); nature = "+this.nature;
     }
 }

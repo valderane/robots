@@ -64,15 +64,6 @@ public class Djikstra extends AlgoPlusCourtChemin{
 		this.casesVisitees = new HashSet<Case>();
 		this.tempsParcours = new HashMap<Case, Double>();
 		this.precedents = new HashMap<Case, Case>();
-		
-		//initialise toutes les cases à infini
-		this.initialiserTempsParcours();
-		
-		//calcule tous les temps de parcours en fonction des natures des cases.
-		this.initialiserTempsParcoursEntreCasesAdjacentes();
-		
-		this.plusCourtChemin(this.carte.getCase(0, 0));
-
 	}
 	
 	/**
@@ -106,7 +97,7 @@ public class Djikstra extends AlgoPlusCourtChemin{
 					if(caseVoisine != null) {
 						this.ajouterLien(new Lien(caseActuelle, caseVoisine, dir,
 								this.robot.getTempsParcours(caseActuelle.getNature(), caseVoisine.getNature(), this.carte.getTailleCases())) );
-						System.out.println("ajout case voisine : "+caseVoisine+" direction : "+dir);
+						//System.out.println("ajout case voisine : "+caseVoisine+" direction : "+dir);
 					}
 				}
 			}
@@ -176,6 +167,12 @@ public class Djikstra extends AlgoPlusCourtChemin{
 	@Override
 	public Stack<Direction> plusCourtChemin(Case c) {
 		
+		//initialise toutes les cases à infini
+		this.initialiserTempsParcours();
+		
+		//calcule tous les temps de parcours en fonction des natures des cases.
+		this.initialiserTempsParcoursEntreCasesAdjacentes();
+
 		//On itère tant que la case destination n'a pas été atteinte
 		while(!this.casesVisitees.contains(c)) {
 			Case caseDepart, caseArrivee;
@@ -189,12 +186,55 @@ public class Djikstra extends AlgoPlusCourtChemin{
 			//lors d'une précédente itération.
 			this.casesVisitees.add(caseArrivee);
 			
-			this.tempsParcours.put(caseArrivee, this.tempsParcours.get(caseDepart) + lien.getPoids());
-			
+			//changement de la valeur et du précédent de la case d'arrivée si la nouvelle valeur est inférieure
+			if(this.tempsParcours.get(caseDepart) + lien.getPoids() < this.tempsParcours.get(caseArrivee)){
+				this.tempsParcours.put(caseArrivee, this.tempsParcours.get(caseDepart) + lien.getPoids());
+				this.precedents.put(caseArrivee, caseDepart);
+			}			
 		}
 		
-		return null;
+		return this.construireCheminOptimal(c);
 	}
 	
+	/**
+	 * @param caseDestination
+	 */
+	public void afficherCheminOptimal(Case caseDestination) {
+		Case c = caseDestination;
+		System.out.println("-------- CHEMIN OPTIMAL --------");
+		while(this.precedents.get(c) != null)
+		{
+			
+			System.out.println(c);
+			c = this.precedents.get(c);			
+		}
+	}
+	
+	
+	/** 
+	 * Construit le chemin optimal de directions sous forme de pile. Le tableau des précédents doit
+	 * être préalablement calculé.
+	 * 
+	 * @param caseDestination
+	 * @return
+	 */
+	private Stack<Direction> construireCheminOptimal(Case caseDestination) {
+		Case c = caseDestination;
+		Stack<Direction> directionsCheminOpti = new Stack<Direction>();
+		
+		while(this.precedents.get(c) != null)
+		{			
+			for(Direction dir : Direction.values()) {
+				if(this.carte.getVoisin(this.precedents.get(c), dir) == c) {
+					directionsCheminOpti.push(dir);
+					//System.out.println(dir);
+					break;
+				}		
+			}
+			c = this.precedents.get(c);	
+		}
+	
+		return directionsCheminOpti;
+	}
 	
 }
