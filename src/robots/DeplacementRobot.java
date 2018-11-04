@@ -3,6 +3,7 @@ package robots;
 
 import java.util.Stack;
 
+import Exceptions.exceptions_chemins.AucunCheminPossible;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
@@ -32,7 +33,7 @@ public class DeplacementRobot {
 	private Plateau2 mplateau;
 	
 	/*Vérif copie + cast */
-	public DeplacementRobot(Robot robot, Plateau2 plateau,Carte carte ,Case destination) {
+	public DeplacementRobot(Robot robot, Plateau2 plateau,Carte carte ,Case destination) throws AucunCheminPossible {
 
 		djikstra = new Djikstra(carte,robot);
 		temps_parcours = djikstra.plusCourtChemin(destination).getTempsParcours();
