@@ -2,6 +2,7 @@ package chemins;
 
 import java.util.Stack;
 
+import Exceptions.exceptions_chemins.AucunCheminPossible;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
@@ -36,7 +37,7 @@ public abstract class AlgoPlusCourtChemin {
 	 * @param c Case destination
 	 * @return Le plus court chemin trouvé
 	 */
-	public abstract Chemin plusCourtChemin(Case c);
+	public abstract Chemin plusCourtChemin(Case c) throws AucunCheminPossible;
 		
 	
 	 

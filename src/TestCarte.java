@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.zip.DataFormatException;
 
+import Exceptions.exceptions_chemins.AucunCheminPossible;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
@@ -54,13 +55,22 @@ public class TestCarte{
 
             /** test plus court chemin **/
             Djikstra testPlusCourtChemin = new Djikstra(data.getCarte(), data.getRobots()[2]);
-            Chemin plusCourtChemin = testPlusCourtChemin.plusCourtChemin(data.getCarte().getCase(0, 0));
             
+            try {
+            Chemin plusCourtChemin = testPlusCourtChemin.plusCourtChemin(data.getCarte().getCase(0, 0));
             System.out.println("Temps de parcours : "+ plusCourtChemin.getTempsParcours()+"\nVitesse moyenne : "+plusCourtChemin.getVitesseMoyenne());
+
             
         	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3,3))[0];
         	DeplacementRobot deplacementUn = new DeplacementRobot(mrobot, plateau, data.getCarte(),data.getIncendies()[0].getPosition());
         	deplacementUn.deplace_robot();
+
+
+            }catch(AucunCheminPossible event) {
+            	System.err.println(event);
+            }
+                        
+
             
             
             
