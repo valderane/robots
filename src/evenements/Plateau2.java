@@ -1,11 +1,10 @@
+package evenements;
 import java.awt.Color;
 
 import java.util.ArrayList;
 import carte.Carte;
 import carte.Case;
 import carte.Incendie;
-import evenements.Evenement;
-import evenements.Simulateur;
 import gui.GUISimulator;
 import gui.Oval;
 import gui.Rectangle;
@@ -23,7 +22,7 @@ import robots.RobotARoues;
  * @author 
  *
  */
-class Plateau2 implements Simulable{
+public class Plateau2 implements Simulable{
 
     /** L'interface graphique associée */
     private GUISimulator gui;	
@@ -68,7 +67,7 @@ class Plateau2 implements Simulable{
         this.donneesSimu = donneesSimu;
         this.simulateur = new Simulateur();
         //=1000ms
-        this.pas_simu_sec= 100;
+        this.pas_simu_sec= 1;
 ;        draw();
     }
     
@@ -89,6 +88,7 @@ class Plateau2 implements Simulable{
         			for (Evenement evt : evt_a_executer)
         			{
         				evt.execute(prochaine_date);
+        				System.out.println("execute_evt");
         			}
         			
         		} //on a dépassé date courante.
@@ -204,5 +204,13 @@ class Plateau2 implements Simulable{
 
 	public Simulateur getSimulateur() {
 		return simulateur;
+	}
+
+	public int getTAILLE_CASE() {
+		return TAILLE_CASE;
+	}
+
+	public int getPas_simu_sec() {
+		return pas_simu_sec;
 	}
 }

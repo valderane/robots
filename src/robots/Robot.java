@@ -10,7 +10,6 @@ import carte.NatureTerrain;
 
 public abstract class Robot{
 
-	private double position_dans_case;
 	protected Case position;
     /*qqté d'eau max que peut tranqporter le robot*/
     /*9000 pour test*/
@@ -25,7 +24,8 @@ public abstract class Robot{
     protected int capacite_remplir_litre;
 	
     protected double vitesse; 
-
+    /*la taille des case doit etre > 1*/
+    private int position_dans_case = 0;
     
   
     
@@ -108,16 +108,16 @@ public abstract class Robot{
     }
     	
 
-    public double getPosition_dans_case() {
+    public int getPosition_dans_case() {
 		return position_dans_case;
 	}
 
     
-	public void setPosition_dans_case(double nouvelle_position_dans_case) {
-		if (nouvelle_position_dans_case >= 0.0)
+	public void setPosition_dans_case(int nouvelle_position_dans_case, int taille_case) {
+		if (nouvelle_position_dans_case < taille_case & nouvelle_position_dans_case >= 0)
 			this.position_dans_case = nouvelle_position_dans_case;
 		else
-            throw new IllegalArgumentException("nouvelle_position incorrect : "+ nouvelle_position_dans_case + "< 0"); 
+            throw new IllegalArgumentException("nouvelle_position incorrect : "+ nouvelle_position_dans_case + "< 0 ou > taille_case"); 
 	}
 	
 	

@@ -16,6 +16,7 @@ import evenements.Evenement;
 import evenements.Evenement_deplacer;
 import evenements.Evenement_deverser;
 import evenements.Evenement_remplir;
+import evenements.Plateau2;
 import evenements.Simulateur;
 import gui.GUISimulator;
 import gui.Oval;
@@ -23,7 +24,9 @@ import gui.Rectangle;
 import gui.Simulable;
 import io.DonneesSimulation;
 import io.LecteurDonnees;
+import robots.DeplacementRobot;
 import robots.Drone;
+import robots.Robot;
 import robots.RobotAChenilles;
 import robots.RobotAPattes;
 import robots.RobotARoues;
@@ -55,8 +58,14 @@ public class TestCarte{
             
             System.out.println("Temps de parcours : "+ plusCourtChemin.getTempsParcours()+"\nVitesse moyenne : "+plusCourtChemin.getVitesseMoyenne());
             
+        	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3,3))[0];
+        	DeplacementRobot deplacementUn = new DeplacementRobot(mrobot, plateau, data.getCarte(),data.getIncendies()[0].getPosition());
+        	deplacementUn.deplace_robot();
             
-            Long dateun = (long) 50;
+            
+            
+            
+         /*   Long dateun = (long) 50;
             Long datedeux = (long) 50;
             Long datetrois = (long) 150;
             Long datequatre= (long) 200;
@@ -68,32 +77,32 @@ public class TestCarte{
 
             
         	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(6,5))[0];
-        	robots.Robot mrobot2 = data.getRobots(data.getCarte().getCase(4,7))[0];
+        	robots.Robot mrobot2 = data.getRobots(data.getCarte().getCase(4,7))[0]; */
         	
 
         	/*Evt deplacer*/
-            Evenement_deplacer evt = new Evenement_deplacer(dateun, mrobot, data.getCarte(), Direction.NORD);
+         /*   Evenement_deplacer evt = new Evenement_deplacer(dateun, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt2 = new Evenement_deplacer(datedeux, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt3 = new Evenement_deplacer(datetrois, mrobot, data.getCarte(), Direction.NORD);
             Evenement_deplacer evt4 = new Evenement_deplacer(date6, mrobot, data.getCarte(), Direction.OUEST);
             Evenement_deplacer evt5 = new Evenement_deplacer(date7, mrobot, data.getCarte(), Direction.OUEST);
-
+         */
             /*Evt intervention*/
-             Evenement_deverser evt_deverserun = new Evenement_deverser(datequatre, mrobot, data);
+         /*    Evenement_deverser evt_deverserun = new Evenement_deverser(datequatre, mrobot, data);
              Evenement_deverser evt_deverserdeux = new Evenement_deverser(datequatre, mrobot, data);
              Evenement_deverser evt_deversertrois = new Evenement_deverser(datequatre, mrobot, data);
              Evenement_deverser evt_deverserquatre = new Evenement_deverser(datecinq, mrobot, data);
              Evenement_deverser evt_deversercinq = new Evenement_deverser(datecinq, mrobot, data);
-
+          */
              /*Evt remplir*/
-             Evenement_remplir evt_remplir1 = new Evenement_remplir(date8, mrobot, data);
+         //    Evenement_remplir evt_remplir1 = new Evenement_remplir(date8, mrobot, data);
              
 
              
            // Evenement_deverser evt_deverserdeux = new Evenement_deverser(datequatre, mrobot, data);
 
         
-            
+         /*   
             plateau.getSimulateur().ajouteEvenement(evt);
             plateau.getSimulateur().ajouteEvenement(evt2);
             plateau.getSimulateur().ajouteEvenement(evt3);
@@ -108,12 +117,12 @@ public class TestCarte{
             
             plateau.getSimulateur().ajouteEvenement(evt4);
             plateau.getSimulateur().ajouteEvenement(evt5);
-            plateau.getSimulateur().ajouteEvenement(evt_remplir1);
+            plateau.getSimulateur().ajouteEvenement(evt_remplir1); */
             
 
 
             //plateau.getSimulateur().ajouteEvenement(evt_deverserdeux);
-
+            
 
         
         } catch (FileNotFoundException e) {
