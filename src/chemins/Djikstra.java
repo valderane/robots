@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
+import Exceptions.exceptions_chemins.AucunCheminPossible;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
@@ -95,9 +96,11 @@ public class Djikstra extends AlgoPlusCourtChemin{
 					
 					//Dans le cas où un voisin existe, on ajoute un lien
 					if(caseVoisine != null) {
-						this.ajouterLien(new Lien(caseActuelle, caseVoisine, dir,
+						try {
+							this.ajouterLien(new Lien(caseActuelle, caseVoisine, dir,
 								this.robot.getTempsParcours(caseActuelle.getNature(), caseVoisine.getNature(), this.carte.getTailleCases())) );
 						//System.out.println("ajout case voisine : "+caseVoisine+" direction : "+dir);
+						}catch(AucunCheminPossible event) {} //Aucun lien n'est créé si le robot ne peut pas passer d'une case à l'autre
 					}
 				}
 			}
@@ -164,7 +167,7 @@ public class Djikstra extends AlgoPlusCourtChemin{
 	 * @see chemins.AlgoPlusCourtChemin#plusCourtChemin(carte.Case)
 	 */
 	@Override
-	public Chemin plusCourtChemin(Case c) {
+	public Chemin plusCourtChemin(Case c) throws AucunCheminPossible {
 		
 		//initialise toutes les cases à infini
 		this.initialiserTempsParcours();
@@ -176,6 +179,11 @@ public class Djikstra extends AlgoPlusCourtChemin{
 		while(!this.casesVisitees.contains(c)) {
 			Case caseDepart, caseArrivee;
 			Lien lien = this.choisirLienProchaineIteration();
+			
+			//si aucun lien n'a été trouvé, alors aucun chemin n'existe pour atteindre la case destination
+			if(lien == null)
+				throw new AucunCheminPossible("Aucun chemin n'a été trouvé pour la case "+c);
+			
 			this.retirerLien(lien);
 			
 			caseDepart = lien.getCaseDepart();
@@ -203,7 +211,6 @@ public class Djikstra extends AlgoPlusCourtChemin{
 		System.out.println("-------- CHEMIN OPTIMAL --------");
 		while(this.precedents.get(c) != null)
 		{
-			
 			System.out.println(c);
 			c = this.precedents.get(c);			
 		}

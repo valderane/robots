@@ -3,6 +3,7 @@ package robots;
 import java.util.zip.DataFormatException;
 import Exceptions.Exceptions_deplacement.ProchaineCaseMauvaiseNature;
 import Exceptions.Exceptions_deplacement.RobotSorsCarte;
+import Exceptions.exceptions_chemins.AucunCheminPossible;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
@@ -146,8 +147,12 @@ public abstract class Robot{
      * @param nat2 Nature du terrain de la seconde case
      * @return
      */
-    public double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2, int taille_case)
+    public double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2, int taille_case) throws AucunCheminPossible
     {
+    	if(this.getVitesse(nat1) == 0 || this.getVitesse(nat2) == 0) {
+    		throw new AucunCheminPossible("Chemin impossible");
+    	}
+    	
     	double vitesse_moyenne = (this.getVitesse(nat1) + this.getVitesse(nat2)) / 2;
     	return (2*taille_case / vitesse_moyenne);
     }
