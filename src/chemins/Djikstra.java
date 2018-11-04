@@ -124,7 +124,6 @@ public class Djikstra extends AlgoPlusCourtChemin{
 	 * @param l Lien à retirer
 	 */
 	private void retirerLien(Lien l) {
-		System.out.println(l);
 		this.tempsParcoursEntreCasesAdjacentes.get(l.getCaseDepart()).remove(l);
 	}
 	
@@ -165,7 +164,7 @@ public class Djikstra extends AlgoPlusCourtChemin{
 	 * @see chemins.AlgoPlusCourtChemin#plusCourtChemin(carte.Case)
 	 */
 	@Override
-	public Stack<Direction> plusCourtChemin(Case c) {
+	public Chemin plusCourtChemin(Case c) {
 		
 		//initialise toutes les cases à infini
 		this.initialiserTempsParcours();
@@ -218,23 +217,36 @@ public class Djikstra extends AlgoPlusCourtChemin{
 	 * @param caseDestination
 	 * @return
 	 */
-	private Stack<Direction> construireCheminOptimal(Case caseDestination) {
+	private Chemin construireCheminOptimal(Case caseDestination) {
 		Case c = caseDestination;
-		Stack<Direction> directionsCheminOpti = new Stack<Direction>();
+		Chemin plusCourtChemin = new Chemin();
+		
+		//utile pour calculer la vitesse moyenne ainsi que le temps total
+		int nombreCases = 1;
+		
+		double vitesseTotale = this.robot.getVitesse(c.getNature());
+		double vitesseMoyenne;
 		
 		while(this.precedents.get(c) != null)
 		{			
 			for(Direction dir : Direction.values()) {
 				if(this.carte.getVoisin(this.precedents.get(c), dir) == c) {
-					directionsCheminOpti.push(dir);
-					//System.out.println(dir);
+					
+					//ajout de la vitesse de la case précédente
+					vitesseTotale += this.robot.getVitesse(this.precedents.get(c).getNature());
+					
+					nombreCases +=1;
+					plusCourtChemin.pushDirection(dir);
 					break;
 				}		
 			}
 			c = this.precedents.get(c);	
 		}
-	
-		return directionsCheminOpti;
+		vitesseMoyenne = vitesseTotale/ (double) nombreCases;
+		plusCourtChemin.setVitesseMoyenne(vitesseMoyenne);
+		plusCourtChemin.setTempsParcours(nombreCases * this.carte.getTailleCases() / vitesseMoyenne);
+		
+		return plusCourtChemin;
 	}
 	
 }

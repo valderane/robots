@@ -27,6 +27,7 @@ import robots.Drone;
 import robots.RobotAChenilles;
 import robots.RobotAPattes;
 import robots.RobotARoues;
+import chemins.Chemin;
 import chemins.Djikstra;
 
 public class TestCarte{
@@ -47,10 +48,12 @@ public class TestCarte{
             Plateau2 plateau = new Plateau2(gui, data);
             
             System.out.println("Robot : "+ data.getRobots()[2]);
-            
+
+            /** test plus court chemin **/
             Djikstra testPlusCourtChemin = new Djikstra(data.getCarte(), data.getRobots()[2]);
-            testPlusCourtChemin.plusCourtChemin(data.getCarte().getCase(0, 0));
-            //testPlusCourtChemin.afficherTempsParcours();
+            Chemin plusCourtChemin = testPlusCourtChemin.plusCourtChemin(data.getCarte().getCase(0, 0));
+            
+            System.out.println("Temps de parcours : "+ plusCourtChemin.getTempsParcours()+"\nVitesse moyenne : "+plusCourtChemin.getVitesseMoyenne());
             
             
             Long dateun = (long) 50;

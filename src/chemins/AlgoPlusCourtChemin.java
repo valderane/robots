@@ -34,9 +34,9 @@ public abstract class AlgoPlusCourtChemin {
 	
 	/**
 	 * @param c Case destination
-	 * @return Une pile des directions à prendre
+	 * @return Le plus court chemin trouvé
 	 */
-	public abstract Stack<Direction> plusCourtChemin(Case c);
+	public abstract Chemin plusCourtChemin(Case c);
 		
 	
 	 
