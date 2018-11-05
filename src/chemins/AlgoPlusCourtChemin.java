@@ -2,10 +2,10 @@ package chemins;
 
 import java.util.Stack;
 
-import Exceptions.exceptions_chemins.AucunCheminPossible;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
+import exceptions.exceptionsChemins.AucunCheminPossible;
 import robots.Robot;
 
 /**

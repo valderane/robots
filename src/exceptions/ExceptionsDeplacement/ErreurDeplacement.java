@@ -1,4 +1,4 @@
-package Exceptions.Exceptions_deplacement;
+package exceptions.ExceptionsDeplacement;
 
 public abstract class ErreurDeplacement extends Exception {
     public ErreurDeplacement(String s) {

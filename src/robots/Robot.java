@@ -1,32 +1,33 @@
 package robots;
 
 import java.util.zip.DataFormatException;
-import Exceptions.Exceptions_deplacement.ProchaineCaseMauvaiseNature;
-import Exceptions.Exceptions_deplacement.RobotSorsCarte;
-import Exceptions.exceptions_chemins.AucunCheminPossible;
+
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
 import carte.NatureTerrain;
+import exceptions.ExceptionsDeplacement.ProchaineCaseMauvaiseNature;
+import exceptions.ExceptionsDeplacement.RobotSorsCarte;
+import exceptions.exceptionsChemins.AucunCheminPossible;
 
 public abstract class Robot{
 
 	protected Case position;
     /*qqté d'eau max que peut tranqporter le robot*/
     /*9000 pour test*/
-	protected int reservoir_eau = 0;
+	protected int reservoirEau = 0;
     
 	//capacité vider_litre en capacité vider_ms 
-	protected int capacite_vider_litre;
-	protected int capacite_vider_sec;
+	protected int capaciteViderLitre;
+	protected int capaciteViderSec;
 	//temps qu'il faut pour remplie tout le reservoir
-    protected int capacite_remplir_sec;
+    protected int capaciteRemplirSec;
     // nombre de litre maximum du reservoir
-    protected int capacite_remplir_litre;
+    protected int capaciteRemplirLitre;
 	
     protected double vitesse; 
     /*la taille des case doit etre > 1*/
-    private int position_dans_case = 0;
+    private int positionDansCase = 0;
     
   
     
@@ -55,39 +56,15 @@ public abstract class Robot{
     	if (carte.voisinExiste(this.getPosition(), direction)){
     		
     			if (this.appartientTerrainRobot(carte.getVoisin(this.getPosition(), direction).getNature())){
-    				
-//		    		System.out.println("nature:" + this.getPosition());
-//		    		System.out.println("nature au dessus:" + carte.getVoisin(this.getPosition(), direction));
-//		    		System.out.println("nature a droite" + carte.getVoisin(this.getPosition(), Direction.EST));
-				
-		    		switch(direction) {
-		 
-		    			case NORD:
-		    				System.out.println("direction nord");
-		    				this.position = carte.getVoisin(this.position, Direction.NORD);
-		 		    		break;
-		    			
-		    			case SUD:
-		    				this.position = carte.getVoisin(this.position, Direction.SUD);
-		    				break;
-		    			
-		    			case EST:
-		    				this.position = carte.getVoisin(this.position, Direction.EST);
-		    				break;
-		
-		    			case OUEST:
-		    				this.position = carte.getVoisin(this.position, Direction.OUEST);
-		    				break;
-    	
-		    		}
-    			}
-    			else {
+		    				this.setPosition(carte.getVoisin(this.position, direction));
+		    				
+    			}else {
     				throw new ProchaineCaseMauvaiseNature(this + ": Mauvaise nature terrain pour prochaine case");
     			}
     	}
     	
     	else {
-    		throw new RobotSorsCarte("Robot sors de la carte");
+    		throw new RobotSorsCarte("Robot sort de la carte");
     	}
     	
     	
@@ -95,47 +72,47 @@ public abstract class Robot{
     
     // Retourne la qqté d'eau deversé (en fct du résevoir du robot)
     public int deverserEau(int vol) {
-    	int avant_vidage = this.reservoir_eau;
-    	int apres_vidage = this.reservoir_eau - vol;
+    	int avant_vidage = this.reservoirEau;
+    	int apres_vidage = this.reservoirEau - vol;
     	if (apres_vidage <= 0){
-    		this.reservoir_eau = 0;
+    		this.reservoirEau = 0;
     		/*on a vidé ce qu'il restait*/
     		return avant_vidage;
     	}
     	else {
-    		this.reservoir_eau = apres_vidage;
+    		this.reservoirEau = apres_vidage;
     		return vol;
     	}
     }
     	
 
-    public int getPosition_dans_case() {
-		return position_dans_case;
+    public int getPositionDansCase() {
+		return positionDansCase;
 	}
 
     
-	public void setPosition_dans_case(int nouvelle_position_dans_case, int taille_case) {
-		if (nouvelle_position_dans_case < taille_case & nouvelle_position_dans_case >= 0)
-			this.position_dans_case = nouvelle_position_dans_case;
+	public void setPositionDansCase(int nouvelle_positionDansCase, int taille_case) {
+		if (nouvelle_positionDansCase < taille_case & nouvelle_positionDansCase >= 0)
+			this.positionDansCase = nouvelle_positionDansCase;
 		else
-            throw new IllegalArgumentException("nouvelle_position incorrect : "+ nouvelle_position_dans_case + "< 0 ou > taille_case"); 
+            throw new IllegalArgumentException("nouvelle_position incorrect : "+ nouvelle_positionDansCase + "< 0 ou > taille_case"); 
 	}
 	
 	
-	public int getCapacite_vider_litre() {
-		return capacite_vider_litre;
+	public int getCapaciteViderLitre() {
+		return capaciteViderLitre;
 	}
 
-	public int getCapacite_vider_sec() {
-		return capacite_vider_sec;
+	public int getCapaciteViderSec() {
+		return capaciteViderSec;
 	}
 	
-	public int getCapacite_remplir_litre() {
-		return capacite_vider_litre;
+	public int getCapaciteRemplirLitre() {
+		return capaciteViderLitre;
 	}
 
-	public int getCapacite_remplir_sec() {
-		return capacite_remplir_sec;
+	public int getCapaciteRemplirSec() {
+		return capaciteRemplirSec;
 	}
     
     public abstract double getVitesse(NatureTerrain nat);
@@ -169,7 +146,7 @@ public abstract class Robot{
     public abstract void setVitesse(double vitesse)  throws DataFormatException;
 
 	public int getReservoir_eau() {
-		return reservoir_eau;
+		return this.reservoirEau;
 	}
 
     

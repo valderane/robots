@@ -12,10 +12,10 @@ public class RobotAPattes extends Robot {
 	
 	public RobotAPattes(Case c) {
 		super(c);
-		this.capacite_remplir_sec = 5000*3600;
-		this.capacite_remplir_litre = 10000;
-		this.capacite_vider_litre = 10;
-		this.capacite_vider_sec = 1;
+		this.capaciteRemplirSec = 5000*3600;
+		this.capaciteRemplirLitre = 10000;
+		this.capaciteViderLitre = 10;
+		this.capaciteViderSec = 1;
 
 	}
 		

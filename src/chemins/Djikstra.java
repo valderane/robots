@@ -6,12 +6,10 @@ import java.util.HashSet;
 import java.util.Stack;
 import java.util.Vector;
 
-//import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
-import Exceptions.exceptions_chemins.AucunCheminPossible;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
+import exceptions.exceptionsChemins.AucunCheminPossible;
 import robots.Robot;
 
 /**
@@ -250,9 +248,9 @@ public class Djikstra extends AlgoPlusCourtChemin{
 			c = this.precedents.get(c);	
 		}
 		System.out.println("Nombre de cases : "+nombreCases);
-		vitesseMoyenne = vitesseTotale/ (double) nombreCases;
+		vitesseMoyenne = vitesseTotale/ (double) nombreCases * (1000.0 / 3600.0);
 		plusCourtChemin.setVitesseMoyenne(vitesseMoyenne);
-		plusCourtChemin.setTempsParcours((nombreCases * this.carte.getTailleCases() / vitesseMoyenne) * (1000.0/3600.0));
+		plusCourtChemin.setTempsParcours((nombreCases * this.carte.getTailleCases() / vitesseMoyenne));
 		
 		return plusCourtChemin;
 	}

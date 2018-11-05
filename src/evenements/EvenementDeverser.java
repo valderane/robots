@@ -1,8 +1,8 @@
 package evenements;
 
 
-import Exceptions.Exceptions.Exceptions_remplissage.PlusDeau;
 import carte.Incendie;
+import exceptions.ExceptionsRemplissage.PlusDeau;
 import io.DonneesSimulation;
 import robots.Robot;
 
@@ -46,7 +46,7 @@ import robots.Robot;
 //2 choix: chaque robot vide son réservoir selon ca capacité -> dois connaître le pas de temps 
 
 
-public class Evenement_deverser extends Evenement {
+public class EvenementDeverser extends Evenement {
 	private Robot robot;
 		private DonneesSimulation data;
 	
@@ -54,7 +54,7 @@ public class Evenement_deverser extends Evenement {
 	
 	//date_evenement + pas 
 	
-	public Evenement_deverser(long date_evenement, Robot robot, /*Carte carte*/ DonneesSimulation donne_simu ) {
+	public EvenementDeverser(long date_evenement, Robot robot, /*Carte carte*/ DonneesSimulation donne_simu ) {
 		super(date_evenement);
 		this.robot = robot;
 		this.data = donne_simu;
@@ -63,7 +63,7 @@ public class Evenement_deverser extends Evenement {
 	@Override
 	public void execute(long prochaine_date) {
 		long difference_temps = prochaine_date - this.date;
-		int volume_a_vider = (int)(robot.getCapacite_vider_litre() * difference_temps) / robot.getCapacite_vider_sec();
+		int volume_a_vider = (int)(robot.getCapaciteViderLitre() * difference_temps) / robot.getCapaciteViderSec();
 		//System.out.println("vol_a_vider:" + volume_a_vider+ " difference_temps "+ difference_temps);
 
 		int volume_vide = robot.deverserEau(volume_a_vider);

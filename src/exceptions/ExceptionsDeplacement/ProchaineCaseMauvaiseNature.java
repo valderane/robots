@@ -1,4 +1,4 @@
-package Exceptions.Exceptions_deplacement;
+package exceptions.ExceptionsDeplacement;
 
 public class ProchaineCaseMauvaiseNature extends ErreurDeplacement  {
     public ProchaineCaseMauvaiseNature(String s) {

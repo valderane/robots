@@ -1,4 +1,4 @@
-package Exceptions.exceptions_chemins;
+package exceptions.exceptionsChemins;
 
 public class AucunCheminPossible extends Exception {
 	

@@ -8,11 +8,11 @@ import robots.Drone;
 import robots.Robot;
 import robots.RobotAPattes;
 
-public class Evenement_remplir extends Evenement {
+public class EvenementRemplir extends Evenement {
 	private Robot robot;
 	private DonneesSimulation data;
 	
-	public Evenement_remplir(long date_evenement, Robot robot, /*Carte carte*/ DonneesSimulation donne_simu ) {
+	public EvenementRemplir(long date_evenement, Robot robot, /*Carte carte*/ DonneesSimulation donne_simu ) {
 		super(date_evenement);
 		this.robot = robot;
 		this.data = donne_simu;
@@ -25,7 +25,7 @@ public class Evenement_remplir extends Evenement {
 			// si le robot n'est pas un robot a pattes (les robots a patte ne se remplissent pas )
 			
 			long difference_temps = prochaine_date - this.date;
-			int volume_a_remplir = (int)(robot.getCapacite_remplir_litre() * difference_temps) / robot.getCapacite_remplir_sec();
+			int volume_a_remplir = (int)(robot.getCapaciteRemplirLitre() * difference_temps) / robot.getCapaciteRemplirSec();
 			//System.out.println("vol_a_vider:" + volume_a_vider+ " difference_temps "+ difference_temps);
 			
 			if(this.robot instanceof Drone  ) {
@@ -65,7 +65,7 @@ public class Evenement_remplir extends Evenement {
 					}
 					
 					if(compteur_voisin == 4) {
-						System.out.println("le robot position "+ this.robot.getPosition().toString() +" n'a pas de source de remplissage a proximité");
+						System.out.println("le robot position "+ this.robot.getPosition().toString() +" n'a pas de source de remplissage a proximitï¿½");
 					}
 					
 				}

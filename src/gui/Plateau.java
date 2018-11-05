@@ -56,7 +56,7 @@ public class Plateau implements Simulable{
     private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
     
     // 1 seconde
-    private int pas_simu_sec;
+    private final int PAS_SIMU_EN_SEC = 100;
     
     /**
      * Crée un Invader et le dessine.
@@ -71,7 +71,6 @@ public class Plateau implements Simulable{
         this.donneesSimu = donneesSimu;
         this.simulateur = new Simulateur();
         //=1000ms
-        this.pas_simu_sec = 100;
 ;        draw();
     }
     
@@ -80,19 +79,19 @@ public class Plateau implements Simulable{
     	//System.out.println("DICO EVT: "+ this.simulateur.getEvenements());
     	//voir comment optimiser
     	//supprimer les clefs à chaque fois pour ne pas tout reparcourir? 
-        Long date_courante = this.simulateur.getDateSimulation();
-    	Long prochaine_date = this.simulateur.getDateSimulation() + pas_simu_sec;
+        Long dateCourante = this.simulateur.getDateSimulation();
+    	Long prochaineDate = this.simulateur.getDateSimulation() + this.PAS_SIMU_EN_SEC;
     	
-    	System.out.println(date_courante + "  " + prochaine_date);
+    	System.out.println(dateCourante + "  " + prochaineDate);
 
     	for(Long ddate :this.simulateur.getEvenements().keySet())
         {
-        	if (ddate >= date_courante){
-        		if( ddate < prochaine_date){
-        			ArrayList<Evenement> evt_a_executer = this.simulateur.getEvenements().get(ddate);
-        			for (Evenement evt : evt_a_executer)
+        	if (ddate >= dateCourante){
+        		if( ddate < prochaineDate){
+        			ArrayList<Evenement> evtAExecuter = this.simulateur.getEvenements().get(ddate);
+        			for (Evenement evt : evtAExecuter)
         			{
-        				evt.execute(prochaine_date);
+        				evt.execute(prochaineDate);
         				System.out.println("execute_evt");
         			}
         			
@@ -103,7 +102,7 @@ public class Plateau implements Simulable{
         	}
         }
         draw();
-    	this.simulateur.setDateSimulation(prochaine_date);
+    	this.simulateur.setDateSimulation(prochaineDate);
     }
     //TODO 
     @Override
@@ -174,6 +173,9 @@ public class Plateau implements Simulable{
         Color color;
         int x, y;
         
+        /* Ici, nous n'utilisons pas une méthode robot.getCouleur, car le robot n'a pas connaissance
+         * d'un plateau de jeu. On utilise de ce fait instanceof
+         */
         for (robots.Robot robot : robots) {
         	 if(robot instanceof Drone)
         		 color = this.COULEUR_DRONE;
@@ -216,6 +218,6 @@ public class Plateau implements Simulable{
 	}
 
 	public int getPas_simu_sec() {
-		return pas_simu_sec;
+		return this.PAS_SIMU_EN_SEC;
 	}
 }

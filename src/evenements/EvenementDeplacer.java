@@ -1,20 +1,20 @@
 package evenements;
 
-import Exceptions.Exceptions_deplacement.ProchaineCaseMauvaiseNature;
-import Exceptions.Exceptions_deplacement.RobotSorsCarte;
 import carte.Carte;
 import carte.Direction;
+import exceptions.ExceptionsDeplacement.ProchaineCaseMauvaiseNature;
+import exceptions.ExceptionsDeplacement.RobotSorsCarte;
 import robots.Robot;
 
 //deplace le robot vers la direction donnée une  fois de suite si possible. sinon pour l'instant ne fait rien
-public class Evenement_deplacer extends Evenement{
+public class EvenementDeplacer extends Evenement{
 
 	private Robot robot;
 	private Carte carte;
 	private Direction direction;
 	
 	//Robot pour obtenir robot+case et carte pour obtenir info
-	public Evenement_deplacer(long date, Robot robot, Carte carte, Direction direction) {
+	public EvenementDeplacer(long date, Robot robot, Carte carte, Direction direction) {
 		super(date);
 		this.robot = robot;
 		this.carte = carte;
@@ -35,7 +35,7 @@ public class Evenement_deplacer extends Evenement{
 		//System.out.println(robot);
 		
 		try {
-		robot.deplacer(direction, carte);
+			robot.deplacer(direction, carte);
 		}
 		catch (RobotSorsCarte e) {
 			System.out.println(e);

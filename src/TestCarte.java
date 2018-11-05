@@ -8,16 +8,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.zip.DataFormatException;
 
-import Exceptions.exceptions_chemins.AucunCheminPossible;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
 import carte.Incendie;
 import evenements.Evenement;
-import evenements.Evenement_deplacer;
-import evenements.Evenement_deverser;
-import evenements.Evenement_remplir;
+import evenements.EvenementDeplacer;
+import evenements.EvenementDeverser;
+import evenements.EvenementRemplir;
 import evenements.Simulateur;
+import exceptions.exceptionsChemins.AucunCheminPossible;
 import gui.GUISimulator;
 import gui.Oval;
 import gui.Plateau;
@@ -48,13 +48,14 @@ public class TestCarte{
                     
             // crée la fenêtre graphique dans laquelle dessiner
             GUISimulator gui = new GUISimulator(1000, 1000, Color.BLACK);
+            
             // crée l'invader, en l'associant à la fenêtre graphique précédente
             Plateau plateau = new Plateau(gui, data);
             
             try {
             	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3,3))[0];
             	DeplacementRobot deplacementUn = new DeplacementRobot(mrobot, plateau, data.getCarte(),data.getIncendies()[0].getPosition());
-            	deplacementUn.deplace_robot();
+            	//deplacementUn.deplace_robot();
 
             }catch(AucunCheminPossible event) {
             	System.err.println(event);
