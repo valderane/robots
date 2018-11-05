@@ -17,7 +17,7 @@ import evenements.EvenementDeplacer;
 import evenements.EvenementDeverser;
 import evenements.EvenementRemplir;
 import evenements.Simulateur;
-import exceptions.exceptionsChemins.AucunCheminPossible;
+import exceptions.exceptions_chemins.AucunCheminPossible;
 import gui.GUISimulator;
 import gui.Oval;
 import gui.Plateau;
@@ -54,8 +54,8 @@ public class TestCarte{
             
             try {
             	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3,3))[0];
-            	DeplacementRobot deplacementUn = new DeplacementRobot(mrobot, plateau, data.getCarte(),data.getIncendies()[0].getPosition());
-            	//deplacementUn.deplace_robot();
+            	DeplacementRobot deplacementUn = new DeplacementRobot(mrobot, plateau, data.getCarte());
+            	deplacementUn.deplacer_robot(data.getIncendies()[0].getPosition());
 
             }catch(AucunCheminPossible event) {
             	System.err.println(event);

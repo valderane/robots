@@ -83,7 +83,7 @@ public class Chemin {
 	 * Renvoie la pile de directions à suivre pour atteindre la case voulue
 	 * @return Pile de directions
 	 */
-	public Stack<Direction> getDirection() {
+	public Stack<Direction> getDirections() {
 			return this.directions;
 	}
 }

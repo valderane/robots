@@ -9,7 +9,7 @@ import java.util.Vector;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
-import exceptions.exceptionsChemins.AucunCheminPossible;
+import exceptions.exceptions_chemins.AucunCheminPossible;
 import robots.Robot;
 
 /**

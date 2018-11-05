@@ -6,9 +6,9 @@ import carte.Carte;
 import carte.Case;
 import carte.Direction;
 import carte.NatureTerrain;
-import exceptions.ExceptionsDeplacement.ProchaineCaseMauvaiseNature;
-import exceptions.ExceptionsDeplacement.RobotSorsCarte;
-import exceptions.exceptionsChemins.AucunCheminPossible;
+import exceptions.exceptions_chemins.AucunCheminPossible;
+import exceptions.exceptions_deplacement.ProchaineCaseMauvaiseNature;
+import exceptions.exceptions_deplacement.RobotSorsCarte;
 
 public abstract class Robot{
 

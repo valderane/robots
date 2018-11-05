@@ -213,11 +213,10 @@ public class Plateau implements Simulable{
 		return simulateur;
 	}
 
-	public int getTAILLE_CASE() {
-		return TAILLE_CASE;
-	}
-
-	public int getPas_simu_sec() {
+	/**
+	 * @return
+	 */
+	public int getPasSimulation() {
 		return this.PAS_SIMU_EN_SEC;
 	}
 }

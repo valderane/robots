@@ -2,8 +2,8 @@ package evenements;
 
 import carte.Carte;
 import carte.Direction;
-import exceptions.ExceptionsDeplacement.ProchaineCaseMauvaiseNature;
-import exceptions.ExceptionsDeplacement.RobotSorsCarte;
+import exceptions.exceptions_deplacement.ProchaineCaseMauvaiseNature;
+import exceptions.exceptions_deplacement.RobotSorsCarte;
 import robots.Robot;
 
 //deplace le robot vers la direction donnée une  fois de suite si possible. sinon pour l'instant ne fait rien

@@ -1,6 +1,6 @@
 package carte;
 
-import exceptions.ExceptionsRemplissage.PlusDeau;
+import exceptions.exceptions_remplissage.PlusDeau;
 
 public class Incendie {
 
