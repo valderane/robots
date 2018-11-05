@@ -70,7 +70,8 @@ public class Plateau implements Simulable{
         gui.setSimulable(this);				// association a la gui!
         this.donneesSimu = donneesSimu;
         this.simulateur = new Simulateur();
-        //=1000ms
+        
+        this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.PAS_SIMU_EN_SEC);
 ;        draw();
     }
     

@@ -54,36 +54,36 @@ public class EvenementDeverser extends Evenement {
 	
 	//date_evenement + pas 
 	
-	public EvenementDeverser(long date_evenement, Robot robot, /*Carte carte*/ DonneesSimulation donne_simu ) {
-		super(date_evenement);
+	public EvenementDeverser(long dateEvenement, Robot robot, /*Carte carte*/ DonneesSimulation donneSimu ) {
+		super(dateEvenement);
 		this.robot = robot;
-		this.data = donne_simu;
+		this.data = donneSimu;
 			}
 
 	@Override
-	public void execute(long prochaine_date) {
-		long difference_temps = prochaine_date - this.date;
-		int volume_a_vider = (int)(robot.getCapaciteViderLitre() * difference_temps) / robot.getCapaciteViderSec();
-		//System.out.println("vol_a_vider:" + volume_a_vider+ " difference_temps "+ difference_temps);
+	public void execute(long prochaineDate) {
+		long difference_temps = prochaineDate - this.date;
+		int volumeAVider = (int)(robot.getCapaciteViderLitre() * difference_temps) / robot.getCapaciteViderSec();
+		//System.out.println("vol_a_vider:" + volumeAVider+ " difference_temps "+ difference_temps);
 
-		int volume_vide = robot.deverserEau(volume_a_vider);
+		int volumeVide = robot.deverserEau(volumeAVider);
 		/*Le robot n'a plus d'eau -> a prévenir*/
-		if (volume_vide != volume_a_vider)
-			System.out.println("reservoir robot: " + robot.getReservoir_eau() +  " plus d'eau");
+		if (volumeVide != volumeAVider)
+			System.out.println("reservoir robot: " + robot.getReservoirEau() +  " plus d'eau");
 		
 		
 
-		Incendie incendie_en_cours = data.getIncendies(robot.getPosition())[0];
+		Incendie incendieEnCours = data.getIncendies(robot.getPosition())[0];
 		try {
-					incendie_en_cours.setIntensite(incendie_en_cours.getIntensite() - volume_vide);
-					System.out.println("volume vidé: " + volume_vide +"a la date: "+ this.getDate());
-					System.out.println("incendie apres_vidage: "+ incendie_en_cours);
+					incendieEnCours.setIntensite(incendieEnCours.getIntensite() - volumeVide);
+					System.out.println("volume vidé: " + volumeVide +"a la date: "+ this.getDate());
+					System.out.println("incendie apres_vidage: "+ incendieEnCours);
 		
 		}
 		/*incendie n'a plus d'intensite*/
 		catch (PlusDeau e) {
 			System.out.println(e);
-			data.supprimerIncendie(robot.getPosition(), incendie_en_cours);
+			data.supprimerIncendie(robot.getPosition(), incendieEnCours);
 		
 		
 			

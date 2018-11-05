@@ -54,15 +54,11 @@ public class TestCarte{
             
             try {
             	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3,3))[0];
-            	DeplacementRobot deplacementUn = new DeplacementRobot(mrobot, plateau, data.getCarte());
-            	deplacementUn.deplacer_robot(data.getIncendies()[0].getPosition());
+            	mrobot.deplacer(data.getIncendies()[0].getPosition());
 
             }catch(AucunCheminPossible event) {
             	System.err.println(event);
             }
-                        
-
-            
             
             
             

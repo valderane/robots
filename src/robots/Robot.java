@@ -6,39 +6,85 @@ import carte.Carte;
 import carte.Case;
 import carte.Direction;
 import carte.NatureTerrain;
+import evenements.Simulateur;
 import exceptions.exceptions_chemins.AucunCheminPossible;
 import exceptions.exceptions_deplacement.ProchaineCaseMauvaiseNature;
 import exceptions.exceptions_deplacement.RobotSorsCarte;
 
 public abstract class Robot{
 
+	/**
+	 * TODO
+	 */
 	protected Case position;
+	
     /*qqté d'eau max que peut tranqporter le robot*/
     /*9000 pour test*/
+	/**
+	 * TODO
+	 */
 	protected int reservoirEau = 0;
     
 	//capacité vider_litre en capacité vider_ms 
+	/**
+	 * TODO
+	 */
 	protected int capaciteViderLitre;
+	
+	/**
+	 * TODO
+	 */
 	protected int capaciteViderSec;
+	
 	//temps qu'il faut pour remplie tout le reservoir
-    protected int capaciteRemplirSec;
-    // nombre de litre maximum du reservoir
+    
+	/**
+	 * TODO
+	 */
+	protected int capaciteRemplirSec;
+    
+	// nombre de litre maximum du reservoir
+    /**
+     * TODO
+     */
     protected int capaciteRemplirLitre;
 	
+    /**
+     * TODO
+     */
     protected double vitesse; 
+    
     /*la taille des case doit etre > 1*/
+    /**
+     * TODO
+     */
     private int positionDansCase = 0;
     
   
+    private DeplacementRobot gestionnaireDeplacement;
     
+    /**
+     * @param c
+     */
     public Robot(Case c){
     		this.position = c;
     }
+    
+    
+    public void initialiserGestionnaireDeplacement(Simulateur simulateur, double pasSimulation, Carte carte) {
+    	this.gestionnaireDeplacement = new DeplacementRobot(this, simulateur, pasSimulation, carte);
+    }
 
+    /**
+     * @return
+     */
     public Case getPosition(){
     	return this.position;
     }
 
+    /**
+     * @param c
+     */
     public void setPosition(Case c){
     	this.position = c;
     	//TODO
@@ -65,37 +111,38 @@ public abstract class Robot{
     	
     	else {
     		throw new RobotSorsCarte("Robot sort de la carte");
-    	}
-    	
-    	
+    	}    	
   	}
+    
+    public void deplacer(Case c) throws AucunCheminPossible{
+    	this.gestionnaireDeplacement.deplacer_robot(c);
+    }
     
     // Retourne la qqté d'eau deversé (en fct du résevoir du robot)
     public int deverserEau(int vol) {
-    	int avant_vidage = this.reservoirEau;
-    	int apres_vidage = this.reservoirEau - vol;
-    	if (apres_vidage <= 0){
+    	int avantVidage = this.reservoirEau;
+    	int apresVidage = this.reservoirEau - vol;
+    	if (apresVidage <= 0){
     		this.reservoirEau = 0;
     		/*on a vidé ce qu'il restait*/
-    		return avant_vidage;
+    		return avantVidage;
     	}
     	else {
-    		this.reservoirEau = apres_vidage;
+    		this.reservoirEau = apresVidage;
     		return vol;
     	}
     }
-    	
 
     public int getPositionDansCase() {
 		return positionDansCase;
 	}
 
     
-	public void setPositionDansCase(int nouvelle_positionDansCase, int taille_case) {
-		if (nouvelle_positionDansCase < taille_case & nouvelle_positionDansCase >= 0)
-			this.positionDansCase = nouvelle_positionDansCase;
+	public void setPositionDansCase(int nouvellePositionDansCase, int tailleCase) {
+		if (nouvellePositionDansCase < tailleCase & nouvellePositionDansCase >= 0)
+			this.positionDansCase = nouvellePositionDansCase;
 		else
-            throw new IllegalArgumentException("nouvelle_position incorrect : "+ nouvelle_positionDansCase + "< 0 ou > taille_case"); 
+            throw new IllegalArgumentException("nouvelle_position incorrect : "+ nouvellePositionDansCase + "< 0 ou > taille_case"); 
 	}
 	
 	
@@ -124,14 +171,14 @@ public abstract class Robot{
      * @param nat2 Nature du terrain de la seconde case
      * @return
      */
-    public double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2, int taille_case) throws AucunCheminPossible
+    public double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2, int tailleCase) throws AucunCheminPossible
     {
     	if(this.getVitesse(nat1) == 0 || this.getVitesse(nat2) == 0) {
     		throw new AucunCheminPossible("Chemin impossible");
     	}
     	
-    	double vitesse_moyenne = (this.getVitesse(nat1) + this.getVitesse(nat2)) / 2;
-    	return (2*taille_case / (vitesse_moyenne/3.6));
+    	double vitesseMoyenne = (this.getVitesse(nat1) + this.getVitesse(nat2)) / 2;
+    	return (2*tailleCase / (vitesseMoyenne/3.6));
     }
 
     /**
@@ -145,7 +192,7 @@ public abstract class Robot{
     
     public abstract void setVitesse(double vitesse)  throws DataFormatException;
 
-	public int getReservoir_eau() {
+	public int getReservoirEau() {
 		return this.reservoirEau;
 	}
 

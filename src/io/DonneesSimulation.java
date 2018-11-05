@@ -4,6 +4,7 @@ import carte.Carte;
 import carte.Case;
 import carte.Incendie;
 import evenements.Evenement;
+import evenements.Simulateur;
 import robots.Robot;
 
 import java.util.ArrayList;
@@ -148,5 +149,10 @@ public class DonneesSimulation{
     	this.incendies.get(c).remove(incendie);
     }
     
+    
+    public void initialiserGestionnairesDeplacementsRobots(Simulateur simulateur, double pasSimulation) {
+    	for(Robot robot : this.getRobots())
+    		robot.initialiserGestionnaireDeplacement(simulateur, pasSimulation, this.carte);
+    }
 
 }

@@ -14,5 +14,5 @@ public abstract class Evenement {
 	//parametre: pochaine date (date courante + pas) du simulateur.
 	//besoin pour calculer qtté remplissage + vitesse deplacement.
 	//execute les actions d'un évenement
-	public abstract void execute(long pochaine_date);
+	public abstract void execute(long pochaineDate);
 }

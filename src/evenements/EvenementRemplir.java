@@ -12,29 +12,29 @@ public class EvenementRemplir extends Evenement {
 	private Robot robot;
 	private DonneesSimulation data;
 	
-	public EvenementRemplir(long date_evenement, Robot robot, /*Carte carte*/ DonneesSimulation donne_simu ) {
-		super(date_evenement);
+	public EvenementRemplir(long dateEvenement, Robot robot, /*Carte carte*/ DonneesSimulation donneesSimu ) {
+		super(dateEvenement);
 		this.robot = robot;
-		this.data = donne_simu;
+		this.data = donneesSimu;
 	}
 	
 	@Override
-	public void execute(long prochaine_date) {
+	public void execute(long prochaineDate) {
 		
 		if( !(this.robot instanceof RobotAPattes ) ) {
 			// si le robot n'est pas un robot a pattes (les robots a patte ne se remplissent pas )
 			
-			long difference_temps = prochaine_date - this.date;
-			int volume_a_remplir = (int)(robot.getCapaciteRemplirLitre() * difference_temps) / robot.getCapaciteRemplirSec();
-			//System.out.println("vol_a_vider:" + volume_a_vider+ " difference_temps "+ difference_temps);
+			long differenceTemps = prochaineDate - this.date;
+			int volumeARemplir = (int)(robot.getCapaciteRemplirLitre() * differenceTemps) / robot.getCapaciteRemplirSec();
+			//System.out.println("vol_a_vider:" + volume_a_vider+ " differenceTemps "+ differenceTemps);
 			
 			if(this.robot instanceof Drone  ) {
 	
-				Case ma_case = this.data.getCarte().getCase( this.robot.getPosition().getLigne() , this.robot.getPosition().getColonne());
-				if(ma_case.getNature() == NatureTerrain.EAU) {
+				Case maCase = this.data.getCarte().getCase( this.robot.getPosition().getLigne() , this.robot.getPosition().getColonne());
+				if(maCase.getNature() == NatureTerrain.EAU) {
 					//si une case voisine est de type eau
-					this.robot.remplirReservoir(volume_a_remplir);
-					System.out.println("remplissage du robot drone position "+ this.robot.getPosition().toString() +" d'un volume="+volume_a_remplir+" litres");
+					this.robot.remplirReservoir(volumeARemplir);
+					System.out.println("remplissage du robot drone position "+ this.robot.getPosition().toString() +" d'un volume="+volumeARemplir+" litres");
 				}
 				else {
 					System.out.println("le robot position "+ this.robot.getPosition().toString() +" n'est pas sur une case d'eau !!");
@@ -43,28 +43,28 @@ public class EvenementRemplir extends Evenement {
 			}
 			else {
 				
-				Case voisin_nord = this.data.getCarte().getVoisin(this.robot.getPosition(), Direction.NORD);   
-				Case voisin_sud = this.data.getCarte().getVoisin(this.robot.getPosition(), Direction.SUD);     
-				Case voisin_est = this.data.getCarte().getVoisin(this.robot.getPosition(), Direction.EST);     
-				Case voisin_ouest = this.data.getCarte().getVoisin(this.robot.getPosition(), Direction.OUEST);
+				Case voisinNord = this.data.getCarte().getVoisin(this.robot.getPosition(), Direction.NORD);   
+				Case voisinSud = this.data.getCarte().getVoisin(this.robot.getPosition(), Direction.SUD);     
+				Case voisinEst = this.data.getCarte().getVoisin(this.robot.getPosition(), Direction.EST);     
+				Case voisinOuest = this.data.getCarte().getVoisin(this.robot.getPosition(), Direction.OUEST);
 				
-				Case voisins[] = { voisin_nord, voisin_sud, voisin_est, voisin_ouest  };
+				Case voisins[] = { voisinNord, voisinSud, voisinEst, voisinOuest  };
 				
-				int compteur_voisin = 0;
+				int compteurVoisin = 0;
 				
 				for(int i = 0; i < voisins.length; i++) {
 					
 					if(voisins[i].getNature() == NatureTerrain.EAU) {
 						//si une case voisine est de type eau
-						this.robot.remplirReservoir(volume_a_remplir);
-						System.out.println("remplissage du robot position "+ this.robot.getPosition().toString() +" d'un volume="+volume_a_remplir+" litres");
+						this.robot.remplirReservoir(volumeARemplir);
+						System.out.println("remplissage du robot position "+ this.robot.getPosition().toString() +" d'un volume="+volumeARemplir+" litres");
 						break;
 					}
 					else {
-						compteur_voisin++;
+						compteurVoisin++;
 					}
 					
-					if(compteur_voisin == 4) {
+					if(compteurVoisin == 4) {
 						System.out.println("le robot position "+ this.robot.getPosition().toString() +" n'a pas de source de remplissage a proximit�");
 					}
 					

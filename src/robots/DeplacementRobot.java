@@ -10,6 +10,7 @@ import chemins.Chemin;
 import chemins.Djikstra;
 import evenements.Evenement;
 import evenements.EvenementDeplacer;
+import evenements.Simulateur;
 import exceptions.exceptions_chemins.AucunCheminPossible;
 import gui.Plateau;
 
@@ -46,7 +47,9 @@ public class DeplacementRobot {
 	/**
 	 * 
 	 */
-	private Plateau mplateau;
+	private Simulateur simulateur;
+	
+	private double pasSimulation;
 	
 	/*Vérif copie + cast */
 	/**
@@ -54,11 +57,12 @@ public class DeplacementRobot {
 	 * @param plateau
 	 * @param carte
 	 */
-	public DeplacementRobot(Robot robot, Plateau plateau, Carte carte) {
+	public DeplacementRobot(Robot robot, Simulateur simulateur, double pasSimulation, Carte carte) {
 		this.algoPlusCourtChemin = new Djikstra(carte, robot);
 		this.mrobot = robot;
 		this.mcarte = carte;
-		this.mplateau = plateau;
+		this.simulateur = simulateur;
+		this.pasSimulation = pasSimulation;
 	}
 	
 	
@@ -68,11 +72,10 @@ public class DeplacementRobot {
 		/* Initialisation du plus court chemin */
 		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtChemin(caseDestination);
 		Stack<Direction> pileDirections = plusCourtChemin.getDirections();
-		long tempsCourant = this.mplateau.getSimulateur().getDateSimulation();
+		long tempsCourant = this.simulateur.getDateSimulation();
 		double tempsParcoursChemin = plusCourtChemin.getTempsParcours();
 		double vitesseMoyenne = plusCourtChemin.getVitesseMoyenne();
 
-		double pasSimulation = this.mplateau.getPasSimulation();
 		int tailleCase = this.mcarte.getTailleCases();
 		
 		long tempsCourantInterieur;
@@ -81,7 +84,7 @@ public class DeplacementRobot {
 		int nombreCaseAvanceTotal = 0;
 		
 		/* Distance parcourue en 1 pas de temps*/
-		int distance_pas= (int) ((double) pasSimulation * vitesseMoyenne);
+		int distance_pas= (int) ((double) this.pasSimulation * vitesseMoyenne);
 
 		
 		/** Vincent -- problème : il faudrait partir du tempsCourant et aller jusqu'à tempsCourant + tempsParcoursChemin **/
@@ -106,7 +109,7 @@ public class DeplacementRobot {
 				
 				//System.out.println("on avance de: "+ nbr_case_a_avancer);
 				
-				if (pasSimulation < nbrCasesAAvancer) {
+				if (this.pasSimulation < nbrCasesAAvancer) {
 					System.out.println(nbrCasesAAvancer);
 					/*il faudra tout mettre au meme moment*/
 					throw new IllegalArgumentException("PAS_SIMU < NBR_CASE");
@@ -119,14 +122,14 @@ public class DeplacementRobot {
 				}
 				Direction direction = pileDirections.pop();
 				Evenement e = new EvenementDeplacer(tempsCourantInterieur, mrobot, mcarte, direction);
-				this.mplateau.getSimulateur().ajouteEvenement(e);
+				this.simulateur.ajouteEvenement(e);
 
 				/*on place l'evt au bon endroit*/
 				/* Il faudrait calculer: distance_pas/nbr_case*/
 				/*A voir*/
 				tempsCourantInterieur += 1; 
 			}
-			tempsCourant += pasSimulation;
+			tempsCourant += this.pasSimulation;
 		}
 	}
 
