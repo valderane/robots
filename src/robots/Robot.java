@@ -154,7 +154,7 @@ public abstract class Robot{
     	}
     	
     	double vitesse_moyenne = (this.getVitesse(nat1) + this.getVitesse(nat2)) / 2;
-    	return (2*taille_case / vitesse_moyenne);
+    	return (2*taille_case / (vitesse_moyenne/3.6));
     }
 
     /**

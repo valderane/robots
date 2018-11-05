@@ -37,6 +37,7 @@ public class DeplacementRobot {
 
 		djikstra = new Djikstra(carte,robot);
 		temps_parcours = djikstra.plusCourtChemin(destination).getTempsParcours();
+		System.out.println("tps parcours: " + temps_parcours);
 		/*en m/s*/
 		vitesse_moyenne = (djikstra.plusCourtChemin(destination).getVitesseMoyenne() / 3.6);
 		
@@ -57,7 +58,7 @@ public class DeplacementRobot {
 		long temps_courant_interieur;
 		int nbr_case_a_avancer;
 		int position_dans_case;
-		
+		int nombre_case_avance_total = 0;
 		/*distance parcouru en 1 pas de temps*/
 		int distance_pas= (int) ((double) this.pas_simu * this.vitesse_moyenne);
 
@@ -78,6 +79,7 @@ public class DeplacementRobot {
 			mrobot.setPosition_dans_case(position_dans_case, taille_case);
 			
 			/*Avance du bon nombre de case*/
+			nombre_case_avance_total += nbr_case_a_avancer;
 			for (int i=0; i<nbr_case_a_avancer; i++) {
 				System.out.println("on avance de: "+ nbr_case_a_avancer);
 				if (pas_simu < nbr_case_a_avancer) {
@@ -88,6 +90,7 @@ public class DeplacementRobot {
 				
 				/*pas = 2 sec et tmps de parcours = 7 sec*/
 				if (this.pile_directions.empty()) {
+					System.out.println("PILE VIDE");
 					break;
 				}
 				Direction direction = this.pile_directions.pop();
@@ -100,6 +103,7 @@ public class DeplacementRobot {
 			}
 			temps_courant += pas_simu;
 		}
+	System.out.println("avance totale:" + nombre_case_avance_total);
 	}
 
 }

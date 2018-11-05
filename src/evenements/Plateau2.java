@@ -67,7 +67,7 @@ public class Plateau2 implements Simulable{
         this.donneesSimu = donneesSimu;
         this.simulateur = new Simulateur();
         //=1000ms
-        this.pas_simu_sec= 1;
+        this.pas_simu_sec= 10;
 ;        draw();
     }
     
