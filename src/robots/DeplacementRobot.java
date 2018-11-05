@@ -67,14 +67,29 @@ public class DeplacementRobot {
 	
 	
 	
+	/**
+	 * @param caseDestination
+	 * @throws AucunCheminPossible
+	 * Défnit le nombre d'évenement "déplacer" à utiliser pour arriver sur la case destination.
+	 */
+	/**
+	 * @param caseDestination
+	 * @throws AucunCheminPossible
+	 */
+	/**
+	 * @param caseDestination
+	 * @throws AucunCheminPossible
+	 */
 	public void deplacer_robot(Case caseDestination) throws AucunCheminPossible {
 		
 		/* Initialisation du plus court chemin */
 		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtChemin(caseDestination);
 		Stack<Direction> pileDirections = plusCourtChemin.getDirections();
 		long tempsCourant = this.simulateur.getDateSimulation();
+		long tempsInitial = tempsCourant;
 		double tempsParcoursChemin = plusCourtChemin.getTempsParcours();
 		double vitesseMoyenne = plusCourtChemin.getVitesseMoyenne();
+		//System.out.println("vitesse moyene: " + vitesseMoyenne);
 
 		int tailleCase = this.mcarte.getTailleCases();
 		
@@ -82,14 +97,14 @@ public class DeplacementRobot {
 		int nbrCasesAAvancer;
 		int positionDansCase;
 		int nombreCaseAvanceTotal = 0;
+		int duree_evenement = 0;
 		
 		/* Distance parcourue en 1 pas de temps*/
 		int distance_pas= (int) ((double) this.pasSimulation * vitesseMoyenne);
 
 		
-		/** Vincent -- problème : il faudrait partir du tempsCourant et aller jusqu'à tempsCourant + tempsParcoursChemin **/
-		while (tempsCourant < tempsParcoursChemin) {
-			/*Remet compteur */
+		while (tempsCourant < (tempsInitial + tempsParcoursChemin)) {
+			System.out.println("temps courant: "+tempsCourant + " temps parcours chemin: " + tempsParcoursChemin);
 			tempsCourantInterieur = tempsCourant;
 			positionDansCase = mrobot.getPositionDansCase();
 
@@ -99,27 +114,30 @@ public class DeplacementRobot {
 			 * vérif 1/2 = 0, div entiere*/
 			nbrCasesAAvancer = positionDansCase / tailleCase;
 			
-			/*nouvelle position dans case*/
+			/*nouvelle position dans case (finale)*/
+			/*TODO: expliquer*/
 			positionDansCase = positionDansCase % tailleCase;
 			mrobot.setPositionDansCase(positionDansCase, tailleCase);
 			
 			/*Avance du bon nombre de case*/
 			nombreCaseAvanceTotal += nbrCasesAAvancer;
+			 /* si le pas = et que le nb de case a avancer est de 4 Comme temps discret -> on peut pas couper pour la date des evt. donc on choisit de mettre tout au mm moment dans un next*/ 
+				if (this.pasSimulation < nbrCasesAAvancer) {
+				/*il faudra tout mettre au même moment*/
+					duree_evenement = 0;
+				}
+				else if (nbrCasesAAvancer != 0 & this.pasSimulation >= nbrCasesAAvancer){
+					duree_evenement = (int) (this.pasSimulation) / nbrCasesAAvancer;
+				}
+			/*définit le nombre de case à avancer pour pasDeTemps*/
 			for (int i = 0 ; i < nbrCasesAAvancer ; i++) {
 				
-				//System.out.println("on avance de: "+ nbr_case_a_avancer);
-				
-				if (this.pasSimulation < nbrCasesAAvancer) {
-					System.out.println(nbrCasesAAvancer);
-					/*il faudra tout mettre au meme moment*/
-					throw new IllegalArgumentException("PAS_SIMU < NBR_CASE");
-				}
-				
-				/*pas = 2 sec et tmps de parcours = 7 sec*/
+				/* exemple: pas = 2 sec et tmps de parcours = 7 sec. on devrait avancer, mais non*/
 				if (pileDirections.empty()) {
 					System.out.println("PILE VIDE");
 					break;
 				}
+			
 				Direction direction = pileDirections.pop();
 				Evenement e = new EvenementDeplacer(tempsCourantInterieur, mrobot, mcarte, direction);
 				this.simulateur.ajouteEvenement(e);
@@ -127,10 +145,12 @@ public class DeplacementRobot {
 				/*on place l'evt au bon endroit*/
 				/* Il faudrait calculer: distance_pas/nbr_case*/
 				/*A voir*/
-				tempsCourantInterieur += 1; 
+				tempsCourantInterieur += duree_evenement; 
 			}
+			
 			tempsCourant += this.pasSimulation;
 		}
+		System.out.println("nombre case avance: " + nombreCaseAvanceTotal);
 	}
 
 }

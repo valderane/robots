@@ -37,7 +37,7 @@ public class Plateau implements Simulable{
     
     /** Constantes **/
     
-    private final int TAILLE_CASE = 50;
+    private final int TAILLE_CASE = 20;
     
     private final Color COULEUR_ERREUR = Color.PINK;  
     

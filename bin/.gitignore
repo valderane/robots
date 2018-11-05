@@ -1,12 +1,6 @@
-/Exceptions/
-/Invader.class
-/Plateau2.class
-/TestCarte.class
-/TestInvader.class
-/TestLecteurDonnees.class
+/robots/
 /carte/
 /chemins/
 /evenements/
-/io/
-/robots/
-/Strategie/
+/exceptions/
+/gui/

@@ -41,9 +41,9 @@ public class TestCarte{
         try {
         	
         	//lecture des données dans le fichier carteSujet.map
-            DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
-         // DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/desertOfDeath-20x20.map");
-         // DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/spiralOfMadness-50x50.map");
+          //  DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
+           // DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/desertOfDeath-20x20.map");
+           DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/spiralOfMadness-50x50.map");
 
                     
             // crée la fenêtre graphique dans laquelle dessiner
@@ -53,7 +53,7 @@ public class TestCarte{
             Plateau plateau = new Plateau(gui, data);
             
             try {
-            	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3,3))[0];
+            	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(48,44))[0];
             	mrobot.deplacer(data.getIncendies()[0].getPosition());
 
             }catch(AucunCheminPossible event) {
