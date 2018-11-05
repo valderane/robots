@@ -1,10 +1,14 @@
-package evenements;
+package gui;
+
+
 import java.awt.Color;
 
 import java.util.ArrayList;
 import carte.Carte;
 import carte.Case;
 import carte.Incendie;
+import evenements.Evenement;
+import evenements.Simulateur;
 import gui.GUISimulator;
 import gui.Oval;
 import gui.Rectangle;
@@ -22,7 +26,7 @@ import robots.RobotARoues;
  * @author 
  *
  */
-public class Plateau2 implements Simulable{
+public class Plateau implements Simulable{
 
     /** L'interface graphique associée */
     private GUISimulator gui;	
@@ -61,13 +65,13 @@ public class Plateau2 implements Simulable{
      * Simulable.
      * @param color la couleur de l'invader
      */
-    public Plateau2(GUISimulator gui, DonneesSimulation donneesSimu) {
+    public Plateau(GUISimulator gui, DonneesSimulation donneesSimu) {
         this.gui = gui;
         gui.setSimulable(this);				// association a la gui!
         this.donneesSimu = donneesSimu;
         this.simulateur = new Simulateur();
         //=1000ms
-        this.pas_simu_sec= 10;
+        this.pas_simu_sec = 100;
 ;        draw();
     }
     
@@ -78,7 +82,8 @@ public class Plateau2 implements Simulable{
     	//supprimer les clefs à chaque fois pour ne pas tout reparcourir? 
         Long date_courante = this.simulateur.getDateSimulation();
     	Long prochaine_date = this.simulateur.getDateSimulation() + pas_simu_sec;
-    	//System.out.println(date_courante + "  " + prochaine_date);
+    	
+    	System.out.println(date_courante + "  " + prochaine_date);
 
     	for(Long ddate :this.simulateur.getEvenements().keySet())
         {

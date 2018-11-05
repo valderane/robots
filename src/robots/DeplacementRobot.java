@@ -10,7 +10,7 @@ import carte.Direction;
 import chemins.Djikstra;
 import evenements.Evenement;
 import evenements.Evenement_deplacer;
-import evenements.Plateau2;
+import gui.Plateau;
 
 //SI CA MARCHE PAS ON PASSE EN DISCRET.
 public class DeplacementRobot {
@@ -30,21 +30,23 @@ public class DeplacementRobot {
 	private double vitesse_moyenne;
 	private Case mdestination;
 	private Stack<Direction> pile_directions;
-	private Plateau2 mplateau;
+	private Plateau mplateau;
 	
 	/*Vérif copie + cast */
-	public DeplacementRobot(Robot robot, Plateau2 plateau,Carte carte ,Case destination) throws AucunCheminPossible {
+	public DeplacementRobot(Robot robot, Plateau plateau,Carte carte ,Case destination) throws AucunCheminPossible {
 
 		djikstra = new Djikstra(carte,robot);
 		temps_parcours = djikstra.plusCourtChemin(destination).getTempsParcours();
 		System.out.println("tps parcours: " + temps_parcours);
 		/*en m/s*/
 		vitesse_moyenne = (djikstra.plusCourtChemin(destination).getVitesseMoyenne() / 3.6);
+		System.out.println("Vitesse moyenne : "+vitesse_moyenne);
+		System.out.println(carte.getTailleCases());
 		
 		mrobot = robot;
 		mcarte = carte;
 		temps_courant = plateau.getSimulateur().getDateSimulation();
-		taille_case = plateau.getTAILLE_CASE();
+		taille_case = carte.getTailleCases();
 		pas_simu = plateau.getPas_simu_sec();
 		mplateau = plateau;
 		mdestination = destination;
@@ -70,6 +72,7 @@ public class DeplacementRobot {
 			//System.out.println("position_dans_case = " + position_dans_case + " et taille_case = " + taille_case);
 		//	System.out.println("V moy = "+ vitesse_moyenne);
 			position_dans_case += distance_pas;
+			
 			/*Calcul le nombre de case de déplacement selon le pas (pour un next)
 			 * vérif 1/2 = 0, div entiere*/
 			nbr_case_a_avancer = position_dans_case / taille_case;

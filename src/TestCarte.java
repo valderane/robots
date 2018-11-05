@@ -17,10 +17,10 @@ import evenements.Evenement;
 import evenements.Evenement_deplacer;
 import evenements.Evenement_deverser;
 import evenements.Evenement_remplir;
-import evenements.Plateau2;
 import evenements.Simulateur;
 import gui.GUISimulator;
 import gui.Oval;
+import gui.Plateau;
 import gui.Rectangle;
 import gui.Simulable;
 import io.DonneesSimulation;
@@ -49,22 +49,12 @@ public class TestCarte{
             // crée la fenêtre graphique dans laquelle dessiner
             GUISimulator gui = new GUISimulator(1000, 1000, Color.BLACK);
             // crée l'invader, en l'associant à la fenêtre graphique précédente
-            Plateau2 plateau = new Plateau2(gui, data);
-            
-            System.out.println("Robot : "+ data.getRobots()[2]);
-
-            /** test plus court chemin **/
-            Djikstra testPlusCourtChemin = new Djikstra(data.getCarte(), data.getRobots()[2]);
+            Plateau plateau = new Plateau(gui, data);
             
             try {
-            Chemin plusCourtChemin = testPlusCourtChemin.plusCourtChemin(data.getCarte().getCase(0, 0));
-            System.out.println("Temps de parcours : "+ plusCourtChemin.getTempsParcours()+"\nVitesse moyenne : "+plusCourtChemin.getVitesseMoyenne());
-
-            
-        	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3,3))[0];
-        	DeplacementRobot deplacementUn = new DeplacementRobot(mrobot, plateau, data.getCarte(),data.getIncendies()[0].getPosition());
-        	deplacementUn.deplace_robot();
-
+            	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(3,3))[0];
+            	DeplacementRobot deplacementUn = new DeplacementRobot(mrobot, plateau, data.getCarte(),data.getIncendies()[0].getPosition());
+            	deplacementUn.deplace_robot();
 
             }catch(AucunCheminPossible event) {
             	System.err.println(event);

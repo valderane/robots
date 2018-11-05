@@ -249,9 +249,10 @@ public class Djikstra extends AlgoPlusCourtChemin{
 			}
 			c = this.precedents.get(c);	
 		}
+		System.out.println("Nombre de cases : "+nombreCases);
 		vitesseMoyenne = vitesseTotale/ (double) nombreCases;
 		plusCourtChemin.setVitesseMoyenne(vitesseMoyenne);
-		plusCourtChemin.setTempsParcours(nombreCases * this.carte.getTailleCases() / vitesseMoyenne);
+		plusCourtChemin.setTempsParcours((nombreCases * this.carte.getTailleCases() / vitesseMoyenne) * (1000.0/3600.0));
 		
 		return plusCourtChemin;
 	}
