@@ -62,6 +62,7 @@ public class EvenementDeverser extends Evenement {
 
 	@Override
 	public void execute(long prochaineDate) {
+		
 		long difference_temps = prochaineDate - this.date;
 		int volumeAVider = (int)(robot.getCapaciteViderLitre() * difference_temps) / robot.getCapaciteViderSec();
 		//System.out.println("vol_a_vider:" + volumeAVider+ " difference_temps "+ difference_temps);
@@ -82,7 +83,7 @@ public class EvenementDeverser extends Evenement {
 		}
 		/*incendie n'a plus d'intensite*/
 		catch (PlusDeau e) {
-			System.out.println(e);
+			System.err.println(e);
 			data.supprimerIncendie(robot.getPosition(), incendieEnCours);
 		
 		

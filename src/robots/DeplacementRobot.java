@@ -10,6 +10,7 @@ import chemins.Chemin;
 import chemins.Djikstra;
 import evenements.Evenement;
 import evenements.EvenementDeplacer;
+import evenements.EvenementLibererRobot;
 import evenements.Simulateur;
 import exceptions.exceptions_chemins.AucunCheminPossible;
 import gui.Plateau;
@@ -104,7 +105,6 @@ public class DeplacementRobot {
 
 		
 		while (tempsCourant < (tempsInitial + tempsParcoursChemin)) {
-			System.out.println("temps courant: "+tempsCourant + " temps parcours chemin: " + tempsParcoursChemin);
 			tempsCourantInterieur = tempsCourant;
 			positionDansCase = mrobot.getPositionDansCase();
 
@@ -141,7 +141,7 @@ public class DeplacementRobot {
 				Direction direction = pileDirections.pop();
 				Evenement e = new EvenementDeplacer(tempsCourantInterieur, mrobot, mcarte, direction);
 				this.simulateur.ajouteEvenement(e);
-
+				
 				/*on place l'evt au bon endroit*/
 				/* Il faudrait calculer: distance_pas/nbr_case*/
 				/*A voir*/
@@ -150,7 +150,8 @@ public class DeplacementRobot {
 			
 			tempsCourant += this.pasSimulation;
 		}
-		System.out.println("nombre case avance: " + nombreCaseAvanceTotal);
+
+		this.simulateur.ajouteEvenement(new EvenementLibererRobot(tempsCourant+1, this.mrobot));
 	}
 
 }
