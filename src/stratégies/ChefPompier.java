@@ -33,12 +33,19 @@ public class ChefPompier {
 	}
 
 	public void assignerRobots() {
+		long startTime;
+		long endTime;
+		long duration;
 
 		for (Incendie incendie : this.incendies.keySet().toArray(new Incendie[0])) {
 			Boolean estAffecte = this.incendies.get(incendie);
 
 			if (!estAffecte.booleanValue()) {
 				for (Robot r : this.robots) {
+					System.out.println(r);
+					
+					startTime = System.nanoTime();
+
 					try {
 						// si le robot est libre, on lui assigne l'incendie
 						if (r.isLibre()) {
@@ -48,9 +55,12 @@ public class ChefPompier {
 							break;
 						}
 					} catch (AucunCheminPossible e) {
+						System.out.println(r + " incendie : " + incendie);
 						System.out.println("robot n'a pas trouvé de chemin");
 					}
-
+					endTime = System.nanoTime();
+					duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
+					System.out.println(duration);
 				}
 			}
 		}

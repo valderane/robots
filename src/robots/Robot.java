@@ -186,6 +186,14 @@ public abstract class Robot{
     }
     
     /**
+     * Renvoie la vitesse maximale pouvant être atteinte par le robot
+     * @return vitesse maximale pouvant être atteinte par le robot
+     */
+    public double getVitesseMaximale() {
+    	return this.vitesse;
+    }
+    
+    /**
      * Libère le robot ou le marque comme occupé
      * @param b true si le robot est libre, false sinon
      */
