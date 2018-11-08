@@ -10,6 +10,7 @@ import evenements.Simulateur;
 import exceptions.exceptions_chemins.AucunCheminPossible;
 import exceptions.exceptions_deplacement.ProchaineCaseMauvaiseNature;
 import exceptions.exceptions_deplacement.RobotSorsCarte;
+import io.DonneesSimulation;
 
 public abstract class Robot{
 
@@ -63,6 +64,7 @@ public abstract class Robot{
   
     private boolean libre;
     
+    private DeverserRobot gestionnaireVidage;
     
     private DeplacementRobot gestionnaireDeplacement;
     
@@ -79,6 +81,11 @@ public abstract class Robot{
     	this.gestionnaireDeplacement = new DeplacementRobot(this, simulateur, pasSimulation, carte);
     }
 
+    public void initialiserGestionnaireVidage(Simulateur simulateur, long pasSimulation) {
+    	this.gestionnaireVidage = new DeverserRobot(this, simulateur, pasSimulation);
+    }
+    
+    
     /**
      * @return
      */
@@ -122,20 +129,6 @@ public abstract class Robot{
     	this.gestionnaireDeplacement.deplacer_robot(c);
     }
     
-    // Retourne la qqté d'eau deversé (en fct du résevoir du robot)
-    public int deverserEau(int vol) {
-    	int avantVidage = this.reservoirEau;
-    	int apresVidage = this.reservoirEau - vol;
-    	if (apresVidage <= 0){
-    		this.reservoirEau = 0;
-    		/*on a vidé ce qu'il restait*/
-    		return avantVidage;
-    	}
-    	else {
-    		this.reservoirEau = apresVidage;
-    		return vol;
-    	}
-    }
 
     public int getPositionDansCase() {
 		return positionDansCase;
@@ -186,6 +179,14 @@ public abstract class Robot{
     }
     
     /**
+     * Renvoie la vitesse maximale pouvant être atteinte par le robot
+     * @return vitesse maximale pouvant être atteinte par le robot
+     */
+    public double getVitesseMaximale() {
+    	return this.vitesse;
+    }
+    
+    /**
      * Libère le robot ou le marque comme occupé
      * @param b true si le robot est libre, false sinon
      */
@@ -217,6 +218,8 @@ public abstract class Robot{
 		return this.reservoirEau;
 	}
 	
-
+	public void setReservoirEau(int volume) {
+    	this.reservoirEau = volume;
+	}
     
 }

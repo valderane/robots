@@ -19,8 +19,8 @@ public class EvenementRemplir extends Evenement {
 	}
 	
 	@Override
-	public int execute(long prochaineDate) {
-		
+	public void execute() {
+		int prochaineDate = 0;
 		if( !(this.robot instanceof RobotAPattes ) ) {
 			// si le robot n'est pas un robot a pattes (les robots a patte ne se remplissent pas )
 			
@@ -76,6 +76,5 @@ public class EvenementRemplir extends Evenement {
 		else {
 			System.out.println("robot a pattes, ne se remplit pas");
 		}
-		return 0;
 	}
 }

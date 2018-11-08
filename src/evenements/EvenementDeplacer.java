@@ -25,7 +25,7 @@ public class EvenementDeplacer extends Evenement {
 	// parametre: pochaine date (date courante + pas) du simulateur.
 	// besoin pour calculer qtté remplissage + vitesse deplacement.
 	@Override
-	public int execute(long prochaineDate) {
+	public void execute() {
 		//System.out.println(robot);
 		
 		try {
@@ -39,7 +39,6 @@ public class EvenementDeplacer extends Evenement {
 
 		}
         System.out.println("case courante" + robot.getPosition() +" "+ this.getDate());
-    	return 0;
 
 		}
 	}

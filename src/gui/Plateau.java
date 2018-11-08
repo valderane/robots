@@ -40,7 +40,7 @@ public class Plateau implements Simulable {
 
 	/** Constantes **/
 
-	private final int TAILLE_CASE = 80;
+	private int tailleCasePlateau;
 
 	private final Color COULEUR_ERREUR = Color.PINK;
 
@@ -58,8 +58,7 @@ public class Plateau implements Simulable {
 
 	private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
 
-	// 1 seconde
-	private final int PAS_SIMU_EN_SEC = 150;
+	private int pasSimulationEnSecondes;
 
 	/**
 	 * Crée un Invader et le dessine.
@@ -74,10 +73,40 @@ public class Plateau implements Simulable {
 		gui.setSimulable(this); // association a la gui!
 		this.donneesSimu = donneesSimu;
 		this.simulateur = new Simulateur();
+		this.initialiserPasSimulation();
+		this.initialiserTailleCasePlateau();
 
-		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.PAS_SIMU_EN_SEC);
+		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.pasSimulationEnSecondes);
 		this.chefPompier = new ChefPompier(this.donneesSimu.getRobots(), this.donneesSimu.getIncendies());
 		draw();
+	}
+
+	/**
+	 * Initialise le pas de simulation tel que le robot le plus rapide fasse un
+	 * déplacement à chaque pas
+	 */
+	private void initialiserPasSimulation() {
+
+		double vitesseMaxRobot = -1;
+		int tailleCaseEnMetres = this.donneesSimu.getCarte().getTailleCases();
+
+		for (Robot robot : this.donneesSimu.getRobots())
+			if (robot.getVitesseMaximale() > vitesseMaxRobot)
+				vitesseMaxRobot = robot.getVitesseMaximale();
+
+		/* transformation de la vitesse en m/s avec la division par 3.6 */
+		this.pasSimulationEnSecondes = (int) (tailleCaseEnMetres / (vitesseMaxRobot / 3.6));
+	}
+
+	/**
+	 * Initialise la taille d'une case afin que tout le plateau rentre
+	 */
+	private void initialiserTailleCasePlateau() {
+		if (this.gui.getPanelHeight() < this.gui.getPanelWidth())
+			this.tailleCasePlateau = this.gui.getPanelHeight() / this.donneesSimu.getCarte().getNbLignes();
+		else
+			this.tailleCasePlateau = this.gui.getPanelWidth() / this.donneesSimu.getCarte().getNbLignes();
+
 	}
 
 	@Override
@@ -89,14 +118,14 @@ public class Plateau implements Simulable {
 		this.chefPompier.assignerRobots();
 
 		Long dateCourante = this.simulateur.getDateSimulation();
-		Long prochaineDate = this.simulateur.getDateSimulation() + this.PAS_SIMU_EN_SEC;
+		Long prochaineDate = this.simulateur.getDateSimulation() + this.pasSimulationEnSecondes;
 
 		for (Long ddate : this.simulateur.getEvenements().keySet()) {
 			if (ddate >= dateCourante) {
 				if (ddate < prochaineDate) {
 					ArrayList<Evenement> evtAExecuter = this.simulateur.getEvenements().get(ddate);
 					for (Evenement evt : evtAExecuter) {
-						evt.execute(prochaineDate);
+						evt.execute();
 					}
 
 				} // on a dépassé date courante.
@@ -139,10 +168,10 @@ public class Plateau implements Simulable {
 		Case c;
 
 		for (int lig = 0; lig < nbLigne; lig++) {
-			y = lig * this.TAILLE_CASE + TAILLE_CASE / 2;
+			y = lig * this.tailleCasePlateau + this.tailleCasePlateau / 2;
 
 			for (int col = 0; col < nbCol; col++) {
-				x = col * TAILLE_CASE + TAILLE_CASE / 2;
+				x = col * this.tailleCasePlateau + this.tailleCasePlateau / 2;
 				c = carte.getCase(lig, col);
 
 				switch (c.getNature()) {
@@ -168,14 +197,14 @@ public class Plateau implements Simulable {
 				}
 
 				// x et y sont le centre du rectangle
-				gui.addGraphicalElement(new Rectangle(x, y, this.COULEUR_BORDURE, color, TAILLE_CASE));
+				gui.addGraphicalElement(new Rectangle(x, y, this.COULEUR_BORDURE, color, this.tailleCasePlateau));
 			}
 		}
 	}
 
 	private void dessinerRobots(Robot[] robots) {
 
-		Color color;
+		ImageElement image;
 		int x, y;
 
 		/*
@@ -183,21 +212,28 @@ public class Plateau implements Simulable {
 		 * connaissance d'un plateau de jeu. On utilise de ce fait instanceof
 		 */
 		for (robots.Robot robot : robots) {
+			x = robot.getPosition().getColonne() * this.tailleCasePlateau;
+			y = robot.getPosition().getLigne() * this.tailleCasePlateau;
+
+			image = null;
+
 			if (robot instanceof Drone)
-				color = this.COULEUR_DRONE;
+				image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau, this.tailleCasePlateau,
+						null);
 			else if (robot instanceof RobotAChenilles)
-				color = this.COULEUR_ROBOT_A_CHENILLES;
+				image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+						this.tailleCasePlateau, null);
 			else if (robot instanceof RobotAPattes)
-				color = this.COULEUR_ROBOT_A_PATTES;
+				image = new ImageElement(x, y, "images/robot_a_pattes.png", this.tailleCasePlateau,
+						this.tailleCasePlateau, null);
 			else if (robot instanceof RobotARoues)
-				color = this.COULEUR_ROBOT_A_ROUES;
+				image = new ImageElement(x, y, "images/robot_roues.jpg", this.tailleCasePlateau, this.tailleCasePlateau,
+						null);
 			else
-				color = this.COULEUR_ERREUR;
+				System.err.println("robot non identifié, et donc aucun affichage disponible");
 
-			x = robot.getPosition().getColonne() * TAILLE_CASE + TAILLE_CASE / 2;
-			y = robot.getPosition().getLigne() * TAILLE_CASE + TAILLE_CASE / 2;
-
-			gui.addGraphicalElement(new Oval(x, y, color, color, TAILLE_CASE / 2));
+			if (image != null)
+				gui.addGraphicalElement(image);
 
 		}
 	}
@@ -208,10 +244,11 @@ public class Plateau implements Simulable {
 
 		for (Incendie incendie : incendies) {
 
-			x = incendie.getPosition().getColonne() * TAILLE_CASE + TAILLE_CASE / 2;
-			y = incendie.getPosition().getLigne() * TAILLE_CASE + TAILLE_CASE / 2;
+			x = incendie.getPosition().getColonne() * this.tailleCasePlateau + this.tailleCasePlateau / 2;
+			y = incendie.getPosition().getLigne() * this.tailleCasePlateau + this.tailleCasePlateau / 2;
 
-			gui.addGraphicalElement(new Oval(x, y, this.COULEUR_INCENDIE, this.COULEUR_INCENDIE, TAILLE_CASE / 4));
+			gui.addGraphicalElement(
+					new Oval(x, y, this.COULEUR_INCENDIE, this.COULEUR_INCENDIE, this.tailleCasePlateau / 4));
 		}
 	}
 
@@ -219,10 +256,7 @@ public class Plateau implements Simulable {
 		return simulateur;
 	}
 
-	/**
-	 * @return
-	 */
 	public int getPasSimulation() {
-		return this.PAS_SIMU_EN_SEC;
+		return this.pasSimulationEnSecondes;
 	}
 }

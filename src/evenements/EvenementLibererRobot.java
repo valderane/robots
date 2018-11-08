@@ -24,9 +24,8 @@ public class EvenementLibererRobot extends Evenement {
 	// parametre: pochaine date (date courante + pas) du simulateur.
 	// besoin pour calculer qtté remplissage + vitesse deplacement.
 	@Override
-	public int execute(long prochaineDate) {
+	public void execute() {
 		this.robot.setLibre(true);
-		return 0;
 	}
 
 }
