@@ -39,7 +39,7 @@ public class DeverserRobot {
 	 * Toute les fonction de gestion d'evenement devrait renvoyer le temps courant?
 	 */
 	//marge de manoeuvre temps
-	public void DeverserEau(Incendie incendieEnCours, long tempsCourantChef, DonneesSimulation data ) {
+	public long DeverserEau(Incendie incendieEnCours, long tempsCourantChef, DonneesSimulation data ) {
 		
 		/*c'est le temps courant de la simulation + le temps des actions que le chef robot à prévus avant (pour ce temps de simu)*/
 		double tempsCourant = tempsCourantChef ;
@@ -106,7 +106,7 @@ public class DeverserRobot {
 		}
 		//sinon on continue la boucle
 	}
-
+	return tempsCourantChef;
 			
   }
 		

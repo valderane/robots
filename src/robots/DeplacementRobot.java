@@ -93,7 +93,7 @@ public class DeplacementRobot {
 	 * @throws AucunCheminPossible
 	 */
 	//TODO CHANGER TEMPS_INITIAL
-	public void deplacer_robot(Case caseDestination) throws AucunCheminPossible {
+	public long deplacer_robot(Case caseDestination) throws AucunCheminPossible {
 
 		/* Initialisation du plus court chemin */
 		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtChemin(caseDestination);
@@ -169,8 +169,9 @@ public class DeplacementRobot {
 
 			tempsCourant += this.pasSimulation;
 		}
-
-		this.simulateur.ajouteEvenement(new EvenementLibererRobot(tempsCourant + 1, this.mrobot));
+		/*Normalement faut retourner tempsCourantinterieur?*/
+		this.simulateur.ajouteEvenement(new EvenementLibererRobot(tempsCourant, this.mrobot));
+		return tempsCourant;
 	}
 
 }
