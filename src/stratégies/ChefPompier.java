@@ -1,6 +1,7 @@
 package stratégies;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import carte.Incendie;
@@ -19,48 +20,62 @@ public class ChefPompier {
 
 	private Robot[] robots;
 
+	private HashMap<Robot, HashSet<Incendie>> incendiesNonAtteignables;
+	
+	private final int N = 5;
+	
+	private int iteration;
+
 	/**
 	 * Contient les incendies, et précise s'ils sont déjà affectés
 	 */
 	private HashMap<Incendie, Boolean> incendies;
 
 	public ChefPompier(Robot[] robots, Incendie[] incendies) {
+		this.iteration = 0;
 		this.robots = robots;
+		
+		/* initialisation des incendies */
 		this.incendies = new HashMap<Incendie, Boolean>();
-
+		
 		for (Incendie incendie : incendies)
 			this.incendies.put(incendie, this.NON_AFFECTE);
+
+		this.incendiesNonAtteignables = new HashMap<Robot, HashSet<Incendie>>();
+
+		for (Robot r : this.robots) 
+			this.incendiesNonAtteignables.put(r, new HashSet<Incendie>());
+		this.assignerRobots();
+
+	}
+	
+	public void itererPasSimu() {
+		this.iteration++;
+		if(this.iteration % this.N == 0)
+			this.assignerRobots();
 	}
 
+	
 	public void assignerRobots() {
-		long startTime;
-		long endTime;
-		long duration;
 
 		for (Incendie incendie : this.incendies.keySet().toArray(new Incendie[0])) {
 			Boolean estAffecte = this.incendies.get(incendie);
 
 			if (!estAffecte.booleanValue()) {
 				for (Robot r : this.robots) {
-					System.out.println(r);
-					
-					startTime = System.nanoTime();
 
 					try {
-						// si le robot est libre, on lui assigne l'incendie
-						if (r.isLibre()) {
+						// si le robot est libre et qu'il peut atteindre l'incendie, on lui assigne
+						// l'incendie
+						if (!this.incendiesNonAtteignables.get(r).contains(incendie) && r.isLibre()) {
 							r.deplacer(incendie.getPosition());
 							r.setLibre(false);
 							this.incendies.put(incendie, !this.NON_AFFECTE);
 							break;
 						}
 					} catch (AucunCheminPossible e) {
-						System.out.println(r + " incendie : " + incendie);
-						System.out.println("robot n'a pas trouvé de chemin");
+						this.incendiesNonAtteignables.get(r).add(incendie);
 					}
-					endTime = System.nanoTime();
-					duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
-					System.out.println(duration);
 				}
 			}
 		}

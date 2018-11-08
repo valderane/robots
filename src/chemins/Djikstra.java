@@ -107,8 +107,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 							this.ajouterLien(new Lien(caseActuelle, caseVoisine, dir, this.robot.getTempsParcours(
 									caseActuelle.getNature(), caseVoisine.getNature(), this.carte.getTailleCases())));
 							// System.out.println("ajout case voisine : "+caseVoisine+" direction : "+dir);
-						} catch (AucunCheminPossible event) {
-						} // Aucun lien n'est créé si le robot ne peut pas passer d'une case à l'autre
+						} catch (AucunCheminPossible event) {}// Aucun lien n'est créé si le robot ne peut pas passer d'une case à l'autre
 					}
 				}
 			}
@@ -160,16 +159,19 @@ public class Djikstra extends AlgoPlusCourtChemin {
 		double tempsMin = Double.POSITIVE_INFINITY;
 		Lien lienChoisi = null;
 		for (Case c : this.casesVisitees) {
-			for (Lien l : this.tempsParcoursEntreCasesAdjacentes.get(c)) {
-
-				// on choisit le temps de parcours (lien + poids case départ) le plus faible
-				if (tempsMin > this.tempsParcours.get(c) + l.getPoids()) {
-					tempsMin = this.tempsParcours.get(c) + l.getPoids();
-					lienChoisi = l;
+			for (Lien l : this.tempsParcoursEntreCasesAdjacentes.get(c).toArray(new Lien[0])) {
+				if (this.tempsParcours.get(c) + l.getPoids() < this.tempsParcours.get(l.getCaseDestination())) {
+					// on choisit le temps de parcours (lien + poids case départ) le plus faible
+					if (tempsMin > this.tempsParcours.get(c) + l.getPoids()) {
+						tempsMin = this.tempsParcours.get(c) + l.getPoids();
+						lienChoisi = l;
+					}
 				}
+				// Si le lien n'apporte pas de gain, on le retire
+				else
+					this.retirerLien(l);
 			}
 		}
-
 		return lienChoisi;
 	}
 
@@ -180,6 +182,9 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	 */
 	@Override
 	public Chemin plusCourtChemin(Case c) throws AucunCheminPossible {
+
+		if(!this.robot.appartientTerrainRobot(c.getNature()))
+			throw new AucunCheminPossible("Incendie est sur une case impraticable " + c);
 
 		this.initialiserStructureDeDonnees();
 
@@ -209,13 +214,9 @@ public class Djikstra extends AlgoPlusCourtChemin {
 			// a déjà été rajoutée
 			// lors d'une précédente itération.
 			this.casesVisitees.add(caseArrivee);
+			this.tempsParcours.put(caseArrivee, this.tempsParcours.get(caseDepart) + lien.getPoids());
+			this.precedents.put(caseArrivee, caseDepart);
 
-			// changement de la valeur et du précédent de la case d'arrivée si la nouvelle
-			// valeur est inférieure
-			if (this.tempsParcours.get(caseDepart) + lien.getPoids() < this.tempsParcours.get(caseArrivee)) {
-				this.tempsParcours.put(caseArrivee, this.tempsParcours.get(caseDepart) + lien.getPoids());
-				this.precedents.put(caseArrivee, caseDepart);
-			}
 		}
 
 		return this.construireCheminOptimal(c);
@@ -243,7 +244,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	private Chemin construireCheminOptimal(Case caseDestination) {
 
 		Case c = caseDestination;
-		//System.err.println("Case destination : "+caseDestination);
+		// System.err.println("Case destination : "+caseDestination);
 		Chemin plusCourtChemin = new Chemin();
 
 		// utile pour calculer la vitesse moyenne ainsi que le temps total
@@ -261,14 +262,14 @@ public class Djikstra extends AlgoPlusCourtChemin {
 
 					nombreCases += 1;
 					plusCourtChemin.pushDirection(dir);
- 					break;
+					break;
 				}
 			}
 			c = this.precedents.get(c);
 		}
 
-		
-	//	System.err.println("DJIKSTRA Case destination : "+caseDestination+" Nombre de cases : " + nombreCases);
+		// System.err.println("DJIKSTRA Case destination : "+caseDestination+" Nombre de
+		// cases : " + nombreCases);
 		vitesseMoyenne = vitesseTotale / (double) nombreCases * (1000.0 / 3600.0);
 		plusCourtChemin.setVitesseMoyenne(vitesseMoyenne);
 		plusCourtChemin.setTempsParcours((nombreCases * this.carte.getTailleCases() / vitesseMoyenne));
