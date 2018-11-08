@@ -20,9 +20,11 @@ public class Simulateur {
 	
 	
 	public void ajouteEvenement(Evenement e) {
+		//System.out.println("ajout Evenement : "+e);
 		long date = e.getDate();
 		ArrayList<Evenement> evenementsPourCetteDate;
 	
+		
 		//Si il y a déjà un événement à cette date
 		if(this.evenements.containsKey(date)) {
 			this.evenements.get(date).add(e);

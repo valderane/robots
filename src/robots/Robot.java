@@ -61,6 +61,9 @@ public abstract class Robot{
     private int positionDansCase = 0;
     
   
+    private boolean libre;
+    
+    
     private DeplacementRobot gestionnaireDeplacement;
     
     /**
@@ -68,6 +71,7 @@ public abstract class Robot{
      */
     public Robot(Case c){
     		this.position = c;
+    		this.setLibre(true);
     }
     
     
@@ -110,7 +114,7 @@ public abstract class Robot{
     	}
     	
     	else {
-    		throw new RobotSorsCarte("Robot sort de la carte");
+    		throw new RobotSorsCarte("Robot "+this+" sort de la carte. Case initiale : "+this.getPosition()+", direction : "+ direction);
     	}    	
   	}
     
@@ -180,6 +184,23 @@ public abstract class Robot{
     	double vitesseMoyenne = (this.getVitesse(nat1) + this.getVitesse(nat2)) / 2;
     	return (2*tailleCase / (vitesseMoyenne/3.6));
     }
+    
+    /**
+     * Libère le robot ou le marque comme occupé
+     * @param b true si le robot est libre, false sinon
+     */
+    public void setLibre(boolean b) {
+    	this.libre = b;
+    }
+    
+    /**
+     * Indique si le robot est libre ou pas
+     * @return true si le robot est libre, false sinon
+     */
+    public boolean isLibre() {
+    	return this.libre;
+    }
+    
 
     /**
      * remplir le reservoir d'un robot de vol
@@ -195,6 +216,7 @@ public abstract class Robot{
 	public int getReservoirEau() {
 		return this.reservoirEau;
 	}
+	
 
     
 }

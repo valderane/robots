@@ -65,7 +65,7 @@ public class EvenementDeverser extends Evenement {
 		}
 		/*incendie n'a plus d'intensite*/
 		catch (PlusDeau e) {
-			System.out.println(e);
+			System.err.println(e);
 			data.supprimerIncendie(robot.getPosition(), incendieEnCours);
 			/*Reservoir vide + Plus d'eau*/
 			if (flag == 1) {
