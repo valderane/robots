@@ -80,6 +80,7 @@ public class DeplacementRobot {
 	 * @param caseDestination
 	 * @throws AucunCheminPossible
 	 */
+	//TODO CHANGER TEMPS_INITIAL
 	public void deplacer_robot(Case caseDestination) throws AucunCheminPossible {
 		
 		/* Initialisation du plus court chemin */

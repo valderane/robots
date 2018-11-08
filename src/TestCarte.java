@@ -45,7 +45,7 @@ public class TestCarte{
            // DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/desertOfDeath-20x20.map");
            DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/spiralOfMadness-50x50.map");
 
-                    
+            
             // crée la fenêtre graphique dans laquelle dessiner
             GUISimulator gui = new GUISimulator(1000, 1000, Color.BLACK);
             
@@ -53,6 +53,10 @@ public class TestCarte{
             Plateau plateau = new Plateau(gui, data);
             
             try {
+            	//double caca = 10.7;
+            	//int pipi = 5;
+            	
+            	//System.out.println(caca * pipi);
             	robots.Robot mrobot = data.getRobots(data.getCarte().getCase(48,44))[0];
             	mrobot.deplacer(data.getIncendies()[0].getPosition());
 

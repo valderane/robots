@@ -87,6 +87,7 @@ public class Plateau implements Simulable{
 
     	for(Long ddate :this.simulateur.getEvenements().keySet())
         {
+    		//si le pas de temps est de 1 sec. on est à 3 sec: on éxecute les evt de [3sec,4sec[
         	if (ddate >= dateCourante){
         		if( ddate < prochaineDate){
         			ArrayList<Evenement> evtAExecuter = this.simulateur.getEvenements().get(ddate);
