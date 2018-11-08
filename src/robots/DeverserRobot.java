@@ -65,6 +65,7 @@ public class DeverserRobot {
 			/*L'evenement aura une durée plus courte que prévu car on va moins vider d'eau -> besoin de moins de temps pour vider incendie*/
 			dureeEvenement = incendieEnCours.getIntensite() * this.mrobot.getCapaciteViderSec() / this.mrobot.getCapaciteViderLitre();
 			VolumeAVider = intensite;
+		}
 		
 		if (VolumeAVider > reservoirEau) {
 			/*L'evenement aura une durée plus courte car on va moins vider d'eau -> robot à cours.*/
@@ -106,21 +107,7 @@ public class DeverserRobot {
 		//sinon on continue la boucle
 	}
 
-		
-		
-		
-		
-		//Doit Calculer la duree d'execution maintenant. et l'envoyer a l'evt.
-			//car si on s'arrete a 2.8, on doit le savoir maintenant pour tempsChefRbot
-			//ou alors c'est l'evt qui calcule la duree d'exec et qui renvoie ici.
-			//comme ca on pourra incrementer date chef
-			//TODO
-			//new EvenementDeverser(dateEvenement, robot, donneSimu, prochaineDate)
 			
-		}
+  }
 		
-		
-		
-	}
-
 }

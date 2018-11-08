@@ -115,7 +115,7 @@ public class Plateau implements Simulable {
 		// voir comment optimiser
 		// supprimer les clefs à chaque fois pour ne pas tout reparcourir?
 
-		this.chefPompier.assignerRobots();
+		this.chefPompier.itererPasSimu();
 
 		Long dateCourante = this.simulateur.getDateSimulation();
 		Long prochaineDate = this.simulateur.getDateSimulation() + this.pasSimulationEnSecondes;
