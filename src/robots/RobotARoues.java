@@ -16,9 +16,10 @@ public class RobotARoues extends Robot {
 	public RobotARoues(Case c) {
 		super(c);
 		this.capaciteRemplirSec = 60*10;
-		this.capaciteRemplirLitre = 5000;
+		this.capaciteRemplirLitre = 5000000;
 		this.capaciteViderLitre = 100;
 		this.capaciteViderSec = 5;
+		this.reservoirEau = this.capaciteRemplirLitre;	
 		
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);

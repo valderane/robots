@@ -42,9 +42,9 @@ public class TestCarte{
         try {
         	
         	//lecture des données dans le fichier carteSujet.map
-        	//DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
+        	DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
            // DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/desertOfDeath-20x20.map");
-           DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/spiralOfMadness-50x50.map");
+           //DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/spiralOfMadness-50x50.map");
 
             
             // crée la fenêtre graphique dans laquelle dessiner

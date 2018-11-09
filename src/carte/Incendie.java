@@ -13,6 +13,7 @@ public class Incendie {
 
 			this.setIntensite(intensite);
 			this.setPosition(position);
+			this.setLibre(true);
 	}
 	
 	public Case getPosition() {

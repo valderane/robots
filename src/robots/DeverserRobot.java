@@ -5,6 +5,7 @@ import evenements.Evenement;
 import evenements.EvenementDeverser;
 import evenements.EvenementLibererIncendie;
 import evenements.EvenementLibererRobot;
+import evenements.EvenementSupprimerIncendie;
 import evenements.Simulateur;
 import io.DonneesSimulation;
 
@@ -40,9 +41,10 @@ public class DeverserRobot {
 	 */
 	//marge de manoeuvre temps
 	public long DeverserEau(Incendie incendieEnCours, long tempsCourantChef, DonneesSimulation data ) {
+		System.out.println("Deverser eau");
 		
 		/*c'est le temps courant de la simulation + le temps des actions que le chef robot à prévus avant (pour ce temps de simu)*/
-		double tempsCourant = tempsCourantChef ;
+		long tempsCourant = tempsCourantChef ;
 		long prochaineDate = 0;		
 		long dureeEvenement = 0;
 		int VolumeAVider = 0;
@@ -52,8 +54,7 @@ public class DeverserRobot {
 		while (true) {
 			
 		/*fin évenement théorique*/
-		prochaineDate = (long) (tempsCourantChef + this.pasSimu);
-		
+		prochaineDate = (long) (tempsCourant + this.pasSimu);
 		
 		
 		/*duree evenement théorique = laps de temps pour vider*/
@@ -77,36 +78,40 @@ public class DeverserRobot {
 		intensite -= VolumeAVider;
 		reservoirEau -= VolumeAVider;		
 		/*Vide eau de robot sur incendie*/
-		Evenement e = new EvenementDeverser(tempsCourantChef, this.mrobot, incendieEnCours, reservoirEau, intensite);
+		Evenement e = new EvenementDeverser(tempsCourant, this.mrobot, incendieEnCours, reservoirEau, intensite);
 		this.simulateur.ajouteEvenement(e);
 		//dans tous les cas
-		tempsCourantChef += dureeEvenement;
+		tempsCourant += dureeEvenement;
 
 		//condition d'arret
-		if (intensite == 0 & reservoirEau == 0 ) {
+		if (intensite == 0 && reservoirEau == 0 ) {
 			//supprimer_incendie 
-			data.supprimerIncendie(this.mrobot.getPosition(), incendieEnCours);
+			Evenement suppressionIncendie = new EvenementSupprimerIncendie(tempsCourant, incendieEnCours, data);
+			this.simulateur.ajouteEvenement(suppressionIncendie);
+
 			//laisser robot_occupe
 			break;
 		}
 		else if (intensite == 0) {
 			//supprimer_incendie 
-			data.supprimerIncendie(this.mrobot.getPosition(), incendieEnCours);
+			Evenement suppressionIncendie = new EvenementSupprimerIncendie(tempsCourant, incendieEnCours, data);
+			this.simulateur.ajouteEvenement(suppressionIncendie);
+
 			//désocuper robot
-			Evenement f = new EvenementLibererRobot(tempsCourantChef, this.mrobot);
+			Evenement f = new EvenementLibererRobot(tempsCourant, this.mrobot);
 			this.simulateur.ajouteEvenement(f);
 			break;
 		}
 		else if (reservoirEau == 0) {
-			//laisser robot occuper
+			//laisser robot occupé
 			
 			//liberer_incendie
-			Evenement g = new EvenementLibererIncendie(tempsCourantChef, incendieEnCours);
+			Evenement g = new EvenementLibererIncendie(tempsCourant, incendieEnCours);
 			break;
 		}
 		//sinon on continue la boucle
 	}
-	return tempsCourantChef;
+	return tempsCourant;
 			
   }
 		

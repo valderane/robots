@@ -58,7 +58,7 @@ public class Plateau implements Simulable {
 
 	private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
 
-	private int pasSimulationEnSecondes;
+	private long pasSimulationEnSecondes;
 
 	/**
 	 * Crée un Invader et le dessine.
@@ -77,7 +77,9 @@ public class Plateau implements Simulable {
 		this.initialiserTailleCasePlateau();
 
 		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.pasSimulationEnSecondes);
-		this.chefPompier = new ChefPompier(this.donneesSimu.getRobots(), this.donneesSimu.getIncendies());
+		this.donneesSimu.initialiserGestionnairesVidagesRobots(this.simulateur, this.pasSimulationEnSecondes);
+
+		this.chefPompier = new ChefPompier(this.donneesSimu);
 		draw();
 	}
 
@@ -256,7 +258,7 @@ public class Plateau implements Simulable {
 		return simulateur;
 	}
 
-	public int getPasSimulation() {
+	public long getPasSimulation() {
 		return this.pasSimulationEnSecondes;
 	}
 }

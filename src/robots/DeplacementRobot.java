@@ -170,7 +170,6 @@ public class DeplacementRobot {
 			tempsCourant += this.pasSimulation;
 		}
 		/*Normalement faut retourner tempsCourantinterieur?*/
-		this.simulateur.ajouteEvenement(new EvenementLibererRobot(tempsCourant, this.mrobot));
 		return tempsCourant;
 	}
 

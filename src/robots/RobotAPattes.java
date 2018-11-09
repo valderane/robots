@@ -16,7 +16,6 @@ public class RobotAPattes extends Robot {
 		this.capaciteRemplirLitre = 10000;
 		this.capaciteViderLitre = 10;
 		this.capaciteViderSec = 1;
-
 	}
 		
 	@Override

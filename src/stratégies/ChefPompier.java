@@ -6,6 +6,7 @@ import java.util.Map;
 
 import carte.Incendie;
 import exceptions.exceptions_chemins.AucunCheminPossible;
+import io.DonneesSimulation;
 import robots.Robot;
 
 /**
@@ -16,34 +17,26 @@ import robots.Robot;
  */
 public class ChefPompier {
 
-	private final boolean NON_AFFECTE = false;
-
-	private Robot[] robots;
-
 	private HashMap<Robot, HashSet<Incendie>> incendiesNonAtteignables;
 	
 	private final int N = 5;
 	
 	private int iteration;
+	
+	private DonneesSimulation donneesSimu;
 
 	/**
 	 * Contient les incendies, et précise s'ils sont déjà affectés
 	 */
 	private HashMap<Incendie, Boolean> incendies;
 
-	public ChefPompier(Robot[] robots, Incendie[] incendies) {
+	public ChefPompier(DonneesSimulation data) {
+		this.donneesSimu = data;
 		this.iteration = 0;
-		this.robots = robots;
-		
-		/* initialisation des incendies */
-		this.incendies = new HashMap<Incendie, Boolean>();
-		
-		for (Incendie incendie : incendies)
-			this.incendies.put(incendie, this.NON_AFFECTE);
 
 		this.incendiesNonAtteignables = new HashMap<Robot, HashSet<Incendie>>();
 
-		for (Robot r : this.robots) 
+		for (Robot r : this.donneesSimu.getRobots()) 
 			this.incendiesNonAtteignables.put(r, new HashSet<Incendie>());
 		this.assignerRobots();
 
@@ -58,19 +51,18 @@ public class ChefPompier {
 	
 	public void assignerRobots() {
 
-		for (Incendie incendie : this.incendies.keySet().toArray(new Incendie[0])) {
-			Boolean estAffecte = this.incendies.get(incendie);
-
-			if (!estAffecte.booleanValue()) {
-				for (Robot r : this.robots) {
+		for (Incendie incendie : this.donneesSimu.getIncendies()) {
+			
+			if (incendie.isLibre()) {
+				for (Robot r : this.donneesSimu.getRobots()) {
 
 					try {
 						// si le robot est libre et qu'il peut atteindre l'incendie, on lui assigne
 						// l'incendie
 						if (!this.incendiesNonAtteignables.get(r).contains(incendie) && r.isLibre()) {
-							r.deplacer(incendie.getPosition());
+							r.eteindreIncendie(incendie, this.donneesSimu);
 							r.setLibre(false);
-							this.incendies.put(incendie, !this.NON_AFFECTE);
+							incendie.setLibre(false);
 							break;
 						}
 					} catch (AucunCheminPossible e) {

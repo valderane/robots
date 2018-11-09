@@ -142,11 +142,12 @@ public class DonneesSimulation{
      * @param incendie
      * @throws IndexOutOfBoundsException
      */
-    public void supprimerIncendie(Case c, Incendie incendie) throws IndexOutOfBoundsException{
-    	if(!this.incendies.containsKey(c))
+    public void supprimerIncendie(Incendie incendie) throws IndexOutOfBoundsException{
+    	System.out.println("Suppression de l'incendie");
+    	if(!this.incendies.containsKey(incendie.getPosition()))
     		throw new IndexOutOfBoundsException("La case n'existe pas");
     	
-    	this.incendies.get(c).remove(incendie);
+    	this.incendies.get(incendie.getPosition()).remove(incendie);
     }
     
     
@@ -154,5 +155,12 @@ public class DonneesSimulation{
     	for(Robot robot : this.getRobots())
     		robot.initialiserGestionnaireDeplacement(simulateur, pasSimulation, this.carte);
     }
+    
+    public void initialiserGestionnairesVidagesRobots(Simulateur simulateur, long pasSimulation) {
+    	for(Robot robot : this.getRobots())
+    		robot.initialiserGestionnaireVidage(simulateur, pasSimulation);
+    }
+    
+
 
 }

@@ -5,11 +5,13 @@ import java.util.zip.DataFormatException;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
+import carte.Incendie;
 import carte.NatureTerrain;
 import evenements.Simulateur;
 import exceptions.exceptions_chemins.AucunCheminPossible;
 import exceptions.exceptions_deplacement.ProchaineCaseMauvaiseNature;
 import exceptions.exceptions_deplacement.RobotSorsCarte;
+import io.DonneesSimulation;
 
 public abstract class Robot {
 
@@ -64,7 +66,7 @@ public abstract class Robot {
 
 	private DeplacementRobot gestionnaireDeplacement;
 
-    private DeverserRobot gestionnaireVidage;
+	private DeverserRobot gestionnaireVidage;
 
 	/**
 	 * @param c
@@ -77,10 +79,11 @@ public abstract class Robot {
 	public void initialiserGestionnaireDeplacement(Simulateur simulateur, double pasSimulation, Carte carte) {
 		this.gestionnaireDeplacement = new DeplacementRobot(this, simulateur, pasSimulation, carte);
 	}
-	
-	 public void initialiserGestionnaireVidage(Simulateur simulateur, long pasSimulation) {
-	    	this.gestionnaireVidage = new DeverserRobot(this, simulateur, pasSimulation);
-	    }
+
+	public void initialiserGestionnaireVidage(Simulateur simulateur, long pasSimulation) {
+		this.gestionnaireVidage = new DeverserRobot(this, simulateur, pasSimulation);
+	}
+
 	/**
 	 * @return
 	 */
@@ -122,6 +125,19 @@ public abstract class Robot {
 
 	public void deplacer(Case c) throws AucunCheminPossible {
 		this.gestionnaireDeplacement.deplacer_robot(c);
+	}
+
+	/**
+	 * @param incendie Incendie à éteindre
+	 * @param data     Données de simulation contenant l'incendie à éteindre
+	 */
+	public void eteindreIncendie(Incendie incendie, DonneesSimulation data) throws AucunCheminPossible {
+		long tempsFinEvenement;
+		Case caseDestination = incendie.getPosition();
+
+		tempsFinEvenement = this.gestionnaireDeplacement.deplacer_robot(caseDestination);
+		this.gestionnaireVidage.DeverserEau(incendie, tempsFinEvenement, data);
+
 	}
 
 	/**
@@ -230,8 +246,3 @@ public abstract class Robot {
 	}
 
 }
-
-
-
-    
-    
