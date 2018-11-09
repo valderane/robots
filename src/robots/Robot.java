@@ -136,7 +136,7 @@ public abstract class Robot {
 		Case caseDestination = incendie.getPosition();
 
 		tempsFinEvenement = this.gestionnaireDeplacement.deplacer_robot(caseDestination);
-		this.gestionnaireVidage.DeverserEau(incendie, tempsFinEvenement, data);
+		this.gestionnaireVidage.deverserEau(incendie, tempsFinEvenement, data);
 
 	}
 

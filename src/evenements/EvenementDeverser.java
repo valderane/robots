@@ -24,27 +24,29 @@ public class EvenementDeverser extends Evenement {
 
 	private Incendie incendieEnCours;
 	
-	private int newReservoirEau;
-	
-	private int newIntensite;
+	private int volumeEauDeversee;
+
 	/**
 	 * @param dateEvenement
 	 * @param robot
 	 * @param donneSimu
 	 * @param prochaineDate date du prochain next
 	 */
-	public EvenementDeverser(long dateEvenement, Robot robot, Incendie incendieEnCours, int newReservoirEau, int newIntensite) {
+	public EvenementDeverser(long dateEvenement, Robot robot, Incendie incendieEnCours, int volumeEauDeversee) {
 		super(dateEvenement);
 		this.robot = robot;
 		this.incendieEnCours = incendieEnCours;
-		this.newReservoirEau = newReservoirEau;
-		this.newIntensite = newIntensite;
+		this.volumeEauDeversee = volumeEauDeversee;
 	}
 
 	@Override
 	public void execute() {
-		this.robot.setReservoirEau(this.newReservoirEau);
-		this.incendieEnCours.setIntensite(newIntensite);
+		this.robot.setReservoirEau(this.robot.getReservoirEau()- this.volumeEauDeversee);
+		
+		if(this.incendieEnCours.getIntensite() - this.volumeEauDeversee < 0)
+			this.incendieEnCours.setIntensite(0);
+		else
+			this.incendieEnCours.setIntensite(this.incendieEnCours.getIntensite() - this.volumeEauDeversee);
 
 	}
 }

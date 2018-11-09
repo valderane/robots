@@ -109,7 +109,6 @@ public class DeplacementRobot {
 		long tempsCourantInterieur;
 		int nbrCasesAAvancer;
 		int positionDansCase;
-		int nombreCaseAvanceTotal = 0;
 		int duree_evenement = 0;
 
 		/* Distance parcourue en 1 pas de temps */
@@ -132,8 +131,6 @@ public class DeplacementRobot {
 			positionDansCase = positionDansCase % tailleCase;
 			mrobot.setPositionDansCase(positionDansCase, tailleCase);
 
-			/* Avance du bon nombre de case */
-			nombreCaseAvanceTotal += nbrCasesAAvancer;
 			/*
 			 * si le pas = et que le nb de case a avancer est de 4 Comme temps discret -> on
 			 * peut pas couper pour la date des evt. donc on choisit de mettre tout au mm
