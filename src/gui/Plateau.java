@@ -47,17 +47,31 @@ public class Plateau implements Simulable {
 
 	private final Color COULEUR_ERREUR = Color.PINK;
 
-	private final Color COULEUR_DRONE = Color.decode("#99ff99");
-	private final Color COULEUR_ROBOT_A_ROUES = Color.decode("#cc66ff");
-	private final Color COULEUR_ROBOT_A_CHENILLES = Color.decode("#33cccc");
-	private final Color COULEUR_ROBOT_A_PATTES = Color.decode("#ccc000");
-
-	private final Color COULEUR_TERRAIN_LIBRE = Color.decode("#ffffff");
-	private final Color COULEUR_HABITAT = Color.decode("#ffff99");
-	private final Color COULEUR_ROCHE = Color.decode("#996633");
-	private final Color COULEUR_FORET = Color.decode("#009933");
-	private final Color COULEUR_EAU = Color.decode("#0099ff");
-	private final Color COULEUR_BORDURE = Color.BLACK;
+//	private final Color COULEUR_DRONE = Color.decode("#99ff99");
+//	private final Color COULEUR_ROBOT_A_ROUES = Color.decode("#cc66ff");
+//	private final Color COULEUR_ROBOT_A_CHENILLES = Color.decode("#33cccc");
+//	private final Color COULEUR_ROBOT_A_PATTES = Color.decode("#ccc000");
+//
+//	private final Color COULEUR_TERRAIN_LIBRE = Color.decode("#ffffff");
+//	private final Color COULEUR_HABITAT = Color.decode("#ffff99");
+//	private final Color COULEUR_ROCHE = Color.decode("#996633");
+//	private final Color COULEUR_FORET = Color.decode("#009933");
+//	private final Color COULEUR_EAU = Color.decode("#0099ff");
+//	private final Color COULEUR_BORDURE = Color.BLACK;
+	
+	/**Nature Cases**/
+	private final String IMAGE_EAU = "images/bleu.jpeg";
+	private final String IMAGE_FORET = "images/tree.jpg";
+	private final String IMAGE_ROCHE = "images/rocher.png";
+	private final String IMAGE_TERRAIN_LIBRE = "images/beige.jpg";
+	private final String IMAGE_HABITAT = "images/habitat.jpg";
+	 
+	/**ROBOTS:**/
+	private final String IMAGE_DRONE = "images/drone.jpg";
+	private final String IMAGE_CHENILLE = "images/robot_chenille.png";
+	private final String IMAGE_PATTE = "images/robot_a_pattes.png";
+	private final String IMAGE_ROUE = "images/robot_roues.jpg";
+			
 
 	private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
 
@@ -207,28 +221,28 @@ public class Plateau implements Simulable {
 
 				switch (c.getNature()) {
 				case EAU:
-					image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau,
+					image = new ImageElement(x, y, IMAGE_EAU, this.tailleCasePlateau,
 							this.tailleCasePlateau, null);					
 					break;
 				case FORET:
-					image = new ImageElement(x, y, "images/tree.jpg", this.tailleCasePlateau,
+					image = new ImageElement(x, y, IMAGE_FORET, this.tailleCasePlateau,
 							this.tailleCasePlateau, null);		
 					break;
 				case ROCHE:
-					image = new ImageElement(x, y, "images/rocher.png", this.tailleCasePlateau,
+					image = new ImageElement(x, y, IMAGE_ROCHE, this.tailleCasePlateau,
 							this.tailleCasePlateau, null);			
 					break;
 				case TERRAIN_LIBRE:
-					image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau,
+					image = new ImageElement(x, y, IMAGE_TERRAIN_LIBRE, this.tailleCasePlateau,
 							this.tailleCasePlateau, null);			
 					break;
 				case HABITAT:
-					image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau,
+					image = new ImageElement(x, y, IMAGE_HABITAT, this.tailleCasePlateau,
 							this.tailleCasePlateau, null);								break;
 
 				default:
-					image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau,
-							this.tailleCasePlateau, null);								break;
+					image = null;
+					break;
 				}
 
 				// x et y sont le centre du rectangle
@@ -253,16 +267,16 @@ public class Plateau implements Simulable {
 			image = null;
 
 			if (robot instanceof Drone)
-				image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau, this.tailleCasePlateau,
+				image = new ImageElement(x, y, IMAGE_DRONE, this.tailleCasePlateau, this.tailleCasePlateau,
 						null);
 			else if (robot instanceof RobotAChenilles)
-				image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+				image = new ImageElement(x, y, IMAGE_CHENILLE, this.tailleCasePlateau,
 						this.tailleCasePlateau, null);
 			else if (robot instanceof RobotAPattes)
-				image = new ImageElement(x, y, "images/robot_a_pattes.png", this.tailleCasePlateau,
+				image = new ImageElement(x, y, IMAGE_PATTE, this.tailleCasePlateau,
 						this.tailleCasePlateau, null);
 			else if (robot instanceof RobotARoues)
-				image = new ImageElement(x, y, "images/robot_roues.jpg", this.tailleCasePlateau, this.tailleCasePlateau,
+				image = new ImageElement(x, y, IMAGE_ROUE, this.tailleCasePlateau, this.tailleCasePlateau,
 						null);
 			else
 				System.err.println("robot non identifié, et donc aucun affichage disponible");
