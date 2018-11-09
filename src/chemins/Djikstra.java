@@ -78,15 +78,15 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	 * Initialise toutes les valeurs des cases à infini. La valeur de la case du
 	 * robot est à 0
 	 */
-	private void initialiserTempsParcours() {
+	private void initialiserTempsParcours(Case caseDeDepart) {
 		for (int ligne = 0; ligne < this.carte.getNbLignes(); ++ligne)
 			for (int col = 0; col < this.carte.getNbColonnes(); ++col) {
 				Case caseActuelle = this.carte.getCase(ligne, col);
 				this.tempsParcours.put(caseActuelle, Double.POSITIVE_INFINITY);
 			}
 
-		this.tempsParcours.put(this.robot.getPosition(), 0.0);
-		this.casesVisitees.add(this.robot.getPosition());
+		this.tempsParcours.put(caseDeDepart, 0.0);
+		this.casesVisitees.add(caseDeDepart);
 	}
 
 	/**
@@ -182,21 +182,21 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	 * @see chemins.AlgoPlusCourtChemin#plusCourtChemin(carte.Case)
 	 */
 	@Override
-	public Chemin plusCourtChemin(Case c) throws AucunCheminPossible {
+	public Chemin plusCourtChemin(Case caseDeDepart, Case caseDestination) throws AucunCheminPossible {
 
-		if(!this.robot.appartientTerrainRobot(c.getNature()))
-			throw new AucunCheminPossible("Incendie est sur une case impraticable " + c);
+		if(!this.robot.appartientTerrainRobot(caseDestination.getNature()))
+			throw new AucunCheminPossible("Case destination est une case impraticable " + caseDestination);
 
 		this.initialiserStructureDeDonnees();
 
 		// initialise toutes les cases à infini
-		this.initialiserTempsParcours();
+		this.initialiserTempsParcours(caseDeDepart);
 
 		// calcule tous les temps de parcours en fonction des natures des cases.
 		this.initialiserTempsParcoursEntreCasesAdjacentes();
 
 		// On itère tant que la case destination n'a pas été atteinte
-		while (!this.casesVisitees.contains(c)) {
+		while (!this.casesVisitees.contains(caseDestination)) {
 
 			Case caseDepart, caseArrivee;
 			Lien lien = this.choisirLienProchaineIteration();
@@ -204,7 +204,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 			// si aucun lien n'a été trouvé, alors aucun chemin n'existe pour atteindre la
 			// case destination
 			if (lien == null)
-				throw new AucunCheminPossible("Aucun chemin n'a été trouvé pour la case " + c);
+				throw new AucunCheminPossible("Aucun chemin n'a été trouvé pour la case " + caseDestination);
 
 			this.retirerLien(lien);
 
@@ -220,7 +220,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 
 		}
 
-		return this.construireCheminOptimal(c);
+		return this.construireCheminOptimal(caseDestination);
 	}
 
 	/**
@@ -269,8 +269,6 @@ public class Djikstra extends AlgoPlusCourtChemin {
 			c = this.precedents.get(c);
 		}
 
-		// System.err.println("DJIKSTRA Case destination : "+caseDestination+" Nombre de
-		// cases : " + nombreCases);
 		vitesseMoyenne = vitesseTotale / (double) nombreCases * (1000.0 / 3600.0);
 		plusCourtChemin.setVitesseMoyenne(vitesseMoyenne);
 		plusCourtChemin.setTempsParcours((nombreCases * this.carte.getTailleCases() / vitesseMoyenne));
@@ -279,13 +277,13 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	}
 
 	@Override
-	public Chemin plusCourtCheminVersPointEau() throws AucunCheminPossible {
+	public Chemin plusCourtCheminVersPointEau(Case caseDeDepart) throws AucunCheminPossible {
 
 		Case caseEauTrouvee = null;
 		this.initialiserStructureDeDonnees();
 
 		// initialise toutes les cases à infini
-		this.initialiserTempsParcours();
+		this.initialiserTempsParcours(caseDeDepart);
 
 		// calcule tous les temps de parcours en fonction des natures des cases.
 		this.initialiserTempsParcoursEntreCasesAdjacentes();
@@ -306,8 +304,10 @@ public class Djikstra extends AlgoPlusCourtChemin {
 			caseDepart = lien.getCaseDepart();
 			caseArrivee = lien.getCaseDestination();
 			
-			if(this.robot.estBienPlacePourRemplissage(caseArrivee, this.carte))
+			if(this.robot.estBienPlacePourRemplissage(caseArrivee, this.carte)) {
 				caseEauTrouvee = caseArrivee;
+				System.out.println(caseEauTrouvee);
+			}
 
 			// Ajout de la case d'arrivée du lien aux cases visitées. Peu importe si la case
 			// a déjà été rajoutée

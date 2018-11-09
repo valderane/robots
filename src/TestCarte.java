@@ -25,7 +25,7 @@ import gui.Rectangle;
 import gui.Simulable;
 import io.DonneesSimulation;
 import io.LecteurDonnees;
-import robots.DeplacementRobot;
+import robots.GestionnaireDeplacementRobot;
 import robots.Drone;
 import robots.Robot;
 import robots.RobotAChenilles;

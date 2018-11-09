@@ -37,14 +37,14 @@ public abstract class AlgoPlusCourtChemin {
 	 * @param c Case destination
 	 * @return Le plus court chemin trouvé
 	 */
-	public abstract Chemin plusCourtChemin(Case c) throws AucunCheminPossible;
+	public abstract Chemin plusCourtChemin(Case caseDeDepart, Case caseDestination) throws AucunCheminPossible;
 		
 	/**
 	 * Renvoie le plus court chemin vers le point d'eau le plus proche
 	 * @return Le plus court chemin vers un point d'eau
 	 * @throws AucunCheminPossible
 	 */
-	public abstract Chemin plusCourtCheminVersPointEau() throws AucunCheminPossible;
+	public abstract Chemin plusCourtCheminVersPointEau(Case caseDeDepart) throws AucunCheminPossible;
 	 
 	
 }

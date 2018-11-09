@@ -14,12 +14,11 @@ import evenements.Simulateur;
 import exceptions.exceptions_chemins.AucunCheminPossible;
 import gui.Plateau;
 
-//SI CA MARCHE PAS ON PASSE EN DISCRET.
 /**
  * @author jicquelv
  *
  */
-public class DeplacementRobot {
+public class GestionnaireDeplacementRobot {
 
 	/*
 	 * Plateau: pas + taille_case + temps_courant Djiktra: Pile+temps+vitesse
@@ -54,7 +53,7 @@ public class DeplacementRobot {
 	 * @param plateau
 	 * @param carte
 	 */
-	public DeplacementRobot(Robot robot, Simulateur simulateur, double pasSimulation, Carte carte) {
+	public GestionnaireDeplacementRobot(Robot robot, Simulateur simulateur, double pasSimulation, Carte carte) {
 		this.algoPlusCourtChemin = new Djikstra(carte, robot);
 		this.mrobot = robot;
 		this.mcarte = carte;
@@ -72,11 +71,9 @@ public class DeplacementRobot {
 	public boolean caseEstAccessible(Case caseDestination) {
 		try {
 			// si aucune exception levée, alors un chemin existe
-			this.algoPlusCourtChemin.plusCourtChemin(caseDestination);
-			System.out.println("case est accessible");
+			this.algoPlusCourtChemin.plusCourtChemin(this.mrobot.getPosition(), caseDestination);
 			return true;
 		} catch (AucunCheminPossible event) {
-			System.out.println("case pas accessible");
 			return false;
 		}
 	}
@@ -98,14 +95,20 @@ public class DeplacementRobot {
 	public long deplacer_robot(Case caseDestination, long tempsInitial) throws AucunCheminPossible {
 
 		/* Initialisation du plus court chemin */
-		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtChemin(caseDestination);
+		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtChemin(this.mrobot.getPosition(), caseDestination);
 		return this.deplacerRobot(plusCourtChemin, tempsInitial);
 
 	}
 
 	public long deplacerRobotVersPointDEau(long tempsInitial) throws AucunCheminPossible{
 		
-		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtCheminVersPointEau();
+		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtCheminVersPointEau(this.mrobot.getPosition());
+		return this.deplacerRobot(plusCourtChemin, tempsInitial);
+	}
+	
+	public long deplacerRobotVersPointDEau(Case caseDepartRobot, long tempsInitial) throws AucunCheminPossible{
+		
+		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtCheminVersPointEau(caseDepartRobot);
 		return this.deplacerRobot(plusCourtChemin, tempsInitial);
 	}
 

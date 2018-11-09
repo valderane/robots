@@ -63,10 +63,10 @@ public abstract class Robot {
 	private int positionDansCase = 0;
 
 	private boolean libre;
-
-	private DeplacementRobot gestionnaireDeplacement;
-
-	private DeverserRobot gestionnaireVidage;
+	
+	private GestionnaireDeplacementRobot gestionnaireDeplacement;
+	
+	private GestionnaireReservoirRobot gestionnaireReservoir;
 
 	/**
 	 * @param c
@@ -77,11 +77,11 @@ public abstract class Robot {
 	}
 
 	public void initialiserGestionnaireDeplacement(Simulateur simulateur, double pasSimulation, Carte carte) {
-		this.gestionnaireDeplacement = new DeplacementRobot(this, simulateur, pasSimulation, carte);
+		this.gestionnaireDeplacement = new GestionnaireDeplacementRobot(this, simulateur, pasSimulation, carte);
 	}
 
 	public void initialiserGestionnaireVidage(Simulateur simulateur, long pasSimulation) {
-		this.gestionnaireVidage = new DeverserRobot(this, simulateur, pasSimulation);
+		this.gestionnaireReservoir = new GestionnaireReservoirRobot(this, simulateur);
 	}
 
 	/**
@@ -136,12 +136,13 @@ public abstract class Robot {
 		Case caseDestination = incendie.getPosition();
 
 		tempsFinEvenement = this.gestionnaireDeplacement.deplacer_robot(caseDestination, dateDebutEvenement);
-		tempsFinEvenement = this.gestionnaireVidage.deverserEau(incendie, tempsFinEvenement, data);
+		tempsFinEvenement = this.gestionnaireReservoir.deverserEau(incendie, tempsFinEvenement, data);
 		
 		int nombreExtinctionsNecessaires = (int)Math.ceil( ((double)incendie.getIntensite()) /  this.getVolumeDeverseParExtinction() );
 		if (nombreExtinctionsNecessaires * this.getVolumeDeverseParExtinction() >= this.getReservoirEau()) {
 			try {
-				this.gestionnaireDeplacement.deplacerRobotVersPointDEau(tempsFinEvenement);
+				tempsFinEvenement = this.gestionnaireDeplacement.deplacerRobotVersPointDEau(incendie.getPosition(), tempsFinEvenement);
+				this.gestionnaireReservoir.remplirReservoir(tempsFinEvenement);
 				System.out.println("Déplacement robot vers point d'eau");
 			} catch (AucunCheminPossible e) {
 				System.out.println("Le robot " + this + " n'a pas d'accès à un point d'eau");

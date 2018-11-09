@@ -5,6 +5,7 @@ import evenements.Evenement;
 import evenements.EvenementDeverser;
 import evenements.EvenementLibererIncendie;
 import evenements.EvenementLibererRobot;
+import evenements.EvenementRemplir;
 import evenements.EvenementSupprimerIncendie;
 import evenements.Simulateur;
 import io.DonneesSimulation;
@@ -15,10 +16,9 @@ import io.DonneesSimulation;
  *         bon endroit. Les temps sont théorique sont calculé sur une base de
  *         tous les pas depuis la dateCouranteChef
  */
-public class DeverserRobot {
+public class GestionnaireReservoirRobot {
 
 	private Simulateur simulateur;
-	private long pasSimu;
 	private Robot mrobot;
 
 	/**
@@ -27,9 +27,8 @@ public class DeverserRobot {
 	 * @param simulateur
 	 * @param pasSimulation
 	 */
-	public DeverserRobot(Robot robot, Simulateur simulateur, long pasSimulation) {
+	public GestionnaireReservoirRobot(Robot robot, Simulateur simulateur) {
 
-		this.pasSimu = pasSimulation;
 		this.simulateur = simulateur;
 		this.mrobot = robot;
 	}
@@ -86,6 +85,20 @@ public class DeverserRobot {
 			this.simulateur.ajouteEvenement(g);
 
 		}
+		
+		return tempsCourant;
+	}
+	
+	public long remplirReservoir( long tempsInitial) {
+		long tempsCourant = tempsInitial;
+		
+		EvenementRemplir evenementRemplirReservoir= new EvenementRemplir(tempsCourant, this.mrobot);
+		this.simulateur.ajouteEvenement(evenementRemplirReservoir);	
+		
+		tempsCourant+=this.mrobot.getTempsRemplissage();
+		
+		Evenement f = new EvenementLibererRobot(tempsCourant, this.mrobot);
+		this.simulateur.ajouteEvenement(f);	
 		
 		return tempsCourant;
 	}
