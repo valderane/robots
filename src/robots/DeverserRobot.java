@@ -58,6 +58,7 @@ public class DeverserRobot {
 
 			EvenementDeverser eventDeverser = new EvenementDeverser(tempsCourant, this.mrobot, incendie,
 					volumeEauDeversee);
+			this.simulateur.ajouteEvenement(eventDeverser);
 
 			/* Quelque soit le volume d'eau vidé, l'extinction dure CapaciteVideSec */
 			tempsCourant += this.mrobot.getCapaciteViderSec();

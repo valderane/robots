@@ -251,7 +251,9 @@ public class Plateau implements Simulable {
 
 			gui.addGraphicalElement(
 					new Oval(x, y, this.COULEUR_INCENDIE, this.COULEUR_INCENDIE, this.tailleCasePlateau / 4));
+			gui.addGraphicalElement(new Text(x,y,Color.BLACK, incendie.getIntensite()+""));
 		}
+		
 	}
 
 	public Simulateur getSimulateur() {
