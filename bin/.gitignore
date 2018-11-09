@@ -1,7 +1,13 @@
-/robots/
+/Invader.class
+/TestCarte.class
+/TestInvader.class
+/TestLecteurDonnees.class
 /carte/
 /chemins/
 /evenements/
 /exceptions/
 /gui/
+/io/
+/package-list
+/robots/
 /stratégies/

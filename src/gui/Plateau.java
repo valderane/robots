@@ -1,8 +1,10 @@
 package gui;
 
 import java.awt.Color;
-
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.zip.DataFormatException;
+
 import carte.Carte;
 import carte.Case;
 import carte.Incendie;
@@ -13,6 +15,7 @@ import gui.Oval;
 import gui.Rectangle;
 import gui.Simulable;
 import io.DonneesSimulation;
+import io.LecteurDonnees;
 import robots.Robot;
 import robots.Drone;
 import robots.RobotAChenilles;
@@ -59,6 +62,8 @@ public class Plateau implements Simulable {
 	private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
 
 	private long pasSimulationEnSecondes;
+	
+	private String nomCarte;
 
 	/**
 	 * Crée un Invader et le dessine.
@@ -68,13 +73,14 @@ public class Plateau implements Simulable {
 	 *              Simulable.
 	 * @param color la couleur de l'invader
 	 */
-	public Plateau(GUISimulator gui, DonneesSimulation donneesSimu) {
+	public Plateau(GUISimulator gui, DonneesSimulation donneesSimu, String nomCarte) {
 		this.gui = gui;
 		gui.setSimulable(this); // association a la gui!
 		this.donneesSimu = donneesSimu;
 		this.simulateur = new Simulateur();
 		this.initialiserPasSimulation();
 		this.initialiserTailleCasePlateau();
+		this.nomCarte = nomCarte;
 		
 		draw();
 
@@ -149,7 +155,23 @@ public class Plateau implements Simulable {
 	// TODO
 	@Override
 	public void restart() {
+		try {
+			this.donneesSimu =  LecteurDonnees.creeDonnees(this.nomCarte);
+		} catch (FileNotFoundException | DataFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.simulateur = new Simulateur();
+		this.initialiserPasSimulation();
+		this.initialiserTailleCasePlateau();
+		
 		draw();
+
+
+		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.pasSimulationEnSecondes);
+		this.donneesSimu.initialiserGestionnairesVidagesRobots(this.simulateur, this.pasSimulationEnSecondes);
+
+		this.chefPompier = new ChefPompier(this.donneesSimu, this.simulateur);
 	}
 
 	/**

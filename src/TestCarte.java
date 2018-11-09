@@ -42,15 +42,15 @@ public class TestCarte {
 		try {
 
 			// lecture des données dans le fichier carteSujet.map
-			//DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
+			DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
 			// DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/desertOfDeath-20x20.map");
-			 DonneesSimulation data =  LecteurDonnees.creeDonnees("cartes/spiralOfMadness-50x50.map");
+			 //DonneesSimulation data =  LecteurDonnees.creeDonnees("cartes/spiralOfMadness-50x50.map");
 
 			// crée la fenêtre graphique dans laquelle dessiner
 			GUISimulator gui = new GUISimulator(1000, 1000, Color.BLACK);
 
 			// crée l'invader, en l'associant à la fenêtre graphique précédente
-			Plateau plateau = new Plateau(gui, data);
+			Plateau plateau = new Plateau(gui, data, "cartes/carteSujet.map");
 
 			// try {
 			// double caca = 10.7;
