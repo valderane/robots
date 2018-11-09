@@ -9,6 +9,7 @@ import java.util.Vector;
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
+import carte.NatureTerrain;
 import exceptions.exceptions_chemins.AucunCheminPossible;
 import robots.Robot;
 
@@ -34,25 +35,25 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	/**
 	 * Distances minimale pour atteindre chaque case depuis la case de départ
 	 */
-	protected HashMap<Case, Double> tempsParcours;
+	private HashMap<Case, Double> tempsParcours;
 
 	/**
 	 * Case précédente utilisée pour atteindre chaque case avec le plus court chemin
 	 */
-	protected HashMap<Case, Case> precedents;
+	private HashMap<Case, Case> precedents;
 
 	/**
 	 * Contient les liens non utilisés entre les cases au sens d'un graphe de
 	 * Djikstra. Chaque lien représente le temps de parcours moyen pour passer d'une
 	 * case à l'autre
 	 */
-	protected HashMap<Case, Vector<Lien>> tempsParcoursEntreCasesAdjacentes;
+	private HashMap<Case, Vector<Lien>> tempsParcoursEntreCasesAdjacentes;
 
 	/**
 	 * Cases visitées. Pour l'algorithme de Djikstra, seules ces cases peuvent être
 	 * choisies comme point de départ d'une itération.
 	 */
-	protected HashSet<Case> casesVisitees;
+	private HashSet<Case> casesVisitees;
 
 	/**
 	 * @param carte Carte sur laquelle l'algorithme va être appliqué
@@ -275,6 +276,49 @@ public class Djikstra extends AlgoPlusCourtChemin {
 		plusCourtChemin.setTempsParcours((nombreCases * this.carte.getTailleCases() / vitesseMoyenne));
 
 		return plusCourtChemin;
+	}
+
+	@Override
+	public Chemin plusCourtCheminVersPointEau() throws AucunCheminPossible {
+
+		Case caseEauTrouvee = null;
+		this.initialiserStructureDeDonnees();
+
+		// initialise toutes les cases à infini
+		this.initialiserTempsParcours();
+
+		// calcule tous les temps de parcours en fonction des natures des cases.
+		this.initialiserTempsParcoursEntreCasesAdjacentes();
+
+		// On itère tant que la case destination n'a pas été atteinte
+		while (caseEauTrouvee == null) {
+
+			Case caseDepart, caseArrivee;
+			Lien lien = this.choisirLienProchaineIteration();
+
+			// si aucun lien n'a été trouvé, alors aucun chemin n'existe pour atteindre la
+			// case destination
+			if (lien == null)
+				throw new AucunCheminPossible("Aucun chemin n'a été trouvé pour rejoindre une case d'eau");
+
+			this.retirerLien(lien);
+
+			caseDepart = lien.getCaseDepart();
+			caseArrivee = lien.getCaseDestination();
+			
+			if(this.robot.estBienPlacePourRemplissage(caseArrivee, this.carte))
+				caseEauTrouvee = caseArrivee;
+
+			// Ajout de la case d'arrivée du lien aux cases visitées. Peu importe si la case
+			// a déjà été rajoutée
+			// lors d'une précédente itération.
+			this.casesVisitees.add(caseArrivee);
+			this.tempsParcours.put(caseArrivee, this.tempsParcours.get(caseDepart) + lien.getPoids());
+			this.precedents.put(caseArrivee, caseDepart);
+
+		}
+		
+		return this.construireCheminOptimal(caseEauTrouvee);
 	}
 
 }

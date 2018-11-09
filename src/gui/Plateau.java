@@ -79,7 +79,7 @@ public class Plateau implements Simulable {
 		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.pasSimulationEnSecondes);
 		this.donneesSimu.initialiserGestionnairesVidagesRobots(this.simulateur, this.pasSimulationEnSecondes);
 
-		this.chefPompier = new ChefPompier(this.donneesSimu);
+		this.chefPompier = new ChefPompier(this.donneesSimu, this.simulateur);
 		draw();
 	}
 

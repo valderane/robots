@@ -39,7 +39,12 @@ public abstract class AlgoPlusCourtChemin {
 	 */
 	public abstract Chemin plusCourtChemin(Case c) throws AucunCheminPossible;
 		
-	
+	/**
+	 * Renvoie le plus court chemin vers le point d'eau le plus proche
+	 * @return Le plus court chemin vers un point d'eau
+	 * @throws AucunCheminPossible
+	 */
+	public abstract Chemin plusCourtCheminVersPointEau() throws AucunCheminPossible;
 	 
 	
 }

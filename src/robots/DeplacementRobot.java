@@ -63,17 +63,19 @@ public class DeplacementRobot {
 	}
 
 	/**
-	 * Indique si la case est accessible par le robot. Attention, cela calcule le plus court chemin et peut être couteux!
+	 * Indique si la case est accessible par le robot. Attention, cela calcule le
+	 * plus court chemin et peut être couteux!
+	 * 
 	 * @param caseDestination
 	 * @return
 	 */
 	public boolean caseEstAccessible(Case caseDestination) {
 		try {
-			//si aucune exception levée, alors un chemin existe
+			// si aucune exception levée, alors un chemin existe
 			this.algoPlusCourtChemin.plusCourtChemin(caseDestination);
 			System.out.println("case est accessible");
 			return true;
-		}catch(AucunCheminPossible event) {
+		} catch (AucunCheminPossible event) {
 			System.out.println("case pas accessible");
 			return false;
 		}
@@ -92,16 +94,26 @@ public class DeplacementRobot {
 	 * @param caseDestination
 	 * @throws AucunCheminPossible
 	 */
-	//TODO CHANGER TEMPS_INITIAL
-	public long deplacer_robot(Case caseDestination) throws AucunCheminPossible {
+	// TODO CHANGER TEMPS_INITIAL
+	public long deplacer_robot(Case caseDestination, long tempsInitial) throws AucunCheminPossible {
 
 		/* Initialisation du plus court chemin */
 		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtChemin(caseDestination);
-		Stack<Direction> pileDirections = plusCourtChemin.getDirections();
-		long tempsCourant = this.simulateur.getDateSimulation();
-		long tempsInitial = tempsCourant;
-		double tempsParcoursChemin = plusCourtChemin.getTempsParcours();
-		double vitesseMoyenne = plusCourtChemin.getVitesseMoyenne();
+		return this.deplacerRobot(plusCourtChemin, tempsInitial);
+
+	}
+
+	public long deplacerRobotVersPointDEau(long tempsInitial) throws AucunCheminPossible{
+		
+		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtCheminVersPointEau();
+		return this.deplacerRobot(plusCourtChemin, tempsInitial);
+	}
+
+	private long deplacerRobot(Chemin chemin, long tempsInitial) {
+		Stack<Direction> pileDirections = chemin.getDirections();
+		long tempsCourant = tempsInitial;
+		double tempsParcoursChemin = chemin.getTempsParcours();
+		double vitesseMoyenne = chemin.getVitesseMoyenne();
 		// System.out.println("vitesse moyene: " + vitesseMoyenne);
 
 		int tailleCase = this.mcarte.getTailleCases();
@@ -166,7 +178,7 @@ public class DeplacementRobot {
 
 			tempsCourant += this.pasSimulation;
 		}
-		/*Normalement faut retourner tempsCourantinterieur?*/
+		/* Normalement faut retourner tempsCourantinterieur? */
 		return tempsCourant;
 	}
 

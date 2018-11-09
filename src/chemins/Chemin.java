@@ -86,4 +86,8 @@ public class Chemin {
 	public Stack<Direction> getDirections() {
 			return this.directions;
 	}
+	
+	public Direction[] getTableauDirections() {
+		return null;
+	}
 }

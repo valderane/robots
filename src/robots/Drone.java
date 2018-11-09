@@ -2,6 +2,7 @@ package robots;
 
 import java.util.zip.DataFormatException;
 
+import carte.Carte;
 import carte.Case;
 import carte.NatureTerrain;
 
@@ -81,4 +82,10 @@ public class Drone extends Robot {
 		return true;
 	}
 
+	@Override
+	public boolean estBienPlacePourRemplissage(Case caseRobot, Carte carte) {
+		return (caseRobot.getNature() == NatureTerrain.EAU);
+	}
+
+	
 }

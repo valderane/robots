@@ -123,20 +123,32 @@ public abstract class Robot {
 		}
 	}
 
-	public void deplacer(Case c) throws AucunCheminPossible {
-		this.gestionnaireDeplacement.deplacer_robot(c);
+	public void deplacer(Case c, long dateDebutDeplacement) throws AucunCheminPossible {
+		this.gestionnaireDeplacement.deplacer_robot(c, dateDebutDeplacement);
 	}
 
 	/**
 	 * @param incendie Incendie à éteindre
 	 * @param data     Données de simulation contenant l'incendie à éteindre
 	 */
-	public void eteindreIncendie(Incendie incendie, DonneesSimulation data) throws AucunCheminPossible {
+	public void eteindreIncendie(Incendie incendie, DonneesSimulation data, long dateDebutEvenement) throws AucunCheminPossible {
 		long tempsFinEvenement;
 		Case caseDestination = incendie.getPosition();
 
-		tempsFinEvenement = this.gestionnaireDeplacement.deplacer_robot(caseDestination);
-		this.gestionnaireVidage.deverserEau(incendie, tempsFinEvenement, data);
+		tempsFinEvenement = this.gestionnaireDeplacement.deplacer_robot(caseDestination, dateDebutEvenement);
+		tempsFinEvenement = this.gestionnaireVidage.deverserEau(incendie, tempsFinEvenement, data);
+		
+		int nombreExtinctionsNecessaires = (int)Math.ceil( ((double)incendie.getIntensite()) /  this.getVolumeDeverseParExtinction() );
+		if (nombreExtinctionsNecessaires * this.getVolumeDeverseParExtinction() >= this.getReservoirEau()) {
+			try {
+				this.gestionnaireDeplacement.deplacerRobotVersPointDEau(tempsFinEvenement);
+				System.out.println("Déplacement robot vers point d'eau");
+			} catch (AucunCheminPossible e) {
+				System.out.println("Le robot " + this + " n'a pas d'accès à un point d'eau");
+			}
+		}
+		else
+			System.out.println(this);
 
 	}
 
@@ -166,7 +178,7 @@ public abstract class Robot {
 	public int getVolumeDeverseParExtinction() {
 		return volumeDeverseParExtinction;
 	}
-	
+
 	public void setVolumeDeverseParExtinction(int volume) {
 		this.volumeDeverseParExtinction = volume;
 	}
@@ -174,7 +186,7 @@ public abstract class Robot {
 	public int getTempsVidage() {
 		return tempsVidage;
 	}
-	
+
 	public void setTempsVidage(int temps) {
 		this.tempsVidage = temps;
 	}
@@ -182,7 +194,7 @@ public abstract class Robot {
 	public int getVolumeRemplissage() {
 		return this.volumeRemplissage;
 	}
-	
+
 	public void setVolumeRemplissage(int volume) {
 		this.volumeRemplissage = volume;
 	}
@@ -190,7 +202,7 @@ public abstract class Robot {
 	public int getTempsRemplissage() {
 		return tempsRemplissage;
 	}
-	
+
 	public void setTempsRemplissage(int temps) {
 		this.tempsRemplissage = temps;
 	}
@@ -198,6 +210,7 @@ public abstract class Robot {
 	public double getVitesse() {
 		return this.vitesse;
 	}
+
 	public abstract double getVitesse(NatureTerrain nat);
 
 	/**
@@ -254,9 +267,9 @@ public abstract class Robot {
 	 */
 	public abstract void remplirReservoir(int vol);
 
-	public void setVitesse(double vitesse) throws DataFormatException{
-		if(vitesse < 0)
-			throw(new DataFormatException("Vitesse négative"));
+	public void setVitesse(double vitesse) throws DataFormatException {
+		if (vitesse < 0)
+			throw (new DataFormatException("Vitesse négative"));
 		this.vitesse = vitesse;
 	}
 
@@ -267,5 +280,14 @@ public abstract class Robot {
 	public void setReservoirEau(int reservoirEau) {
 		this.reservoirEau = reservoirEau;
 	}
+
+	/**
+	 * Vérifie si le robot a accès à un point d'eau lorsqu'il se situe sur une case
+	 * 
+	 * @param caseRobot case où le robot se situerait
+	 * @param carte
+	 * @return
+	 */
+	public abstract boolean estBienPlacePourRemplissage(Case caseRobot, Carte carte);
 
 }
