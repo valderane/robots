@@ -306,7 +306,6 @@ public class Djikstra extends AlgoPlusCourtChemin {
 			
 			if(this.robot.estBienPlacePourRemplissage(caseArrivee, this.carte)) {
 				caseEauTrouvee = caseArrivee;
-				System.out.println(caseEauTrouvee);
 			}
 
 			// Ajout de la case d'arrivée du lien aux cases visitées. Peu importe si la case

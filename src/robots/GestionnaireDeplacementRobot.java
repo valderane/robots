@@ -92,8 +92,7 @@ public class GestionnaireDeplacementRobot {
 	 * @throws AucunCheminPossible
 	 */
 	// TODO CHANGER TEMPS_INITIAL
-	public long deplacer_robot(Case caseDestination, long tempsInitial) throws AucunCheminPossible {
-
+	public long deplacerRobot(Case caseDestination, long tempsInitial) throws AucunCheminPossible {
 		/* Initialisation du plus court chemin */
 		Chemin plusCourtChemin = this.algoPlusCourtChemin.plusCourtChemin(this.mrobot.getPosition(), caseDestination);
 		return this.deplacerRobot(plusCourtChemin, tempsInitial);

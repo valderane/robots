@@ -90,7 +90,7 @@ public class RobotAChenilles extends Robot {
 	@Override
 	public boolean estBienPlacePourRemplissage(Case caseRobot, Carte carte) {
 		for (Direction dir : Direction.values()) {
-			if (carte.getVoisin(caseRobot, dir).getNature() == NatureTerrain.EAU)
+			if (carte.getVoisin(caseRobot, dir) != null && carte.getVoisin(caseRobot, dir).getNature() == NatureTerrain.EAU)
 				return true;
 		}
 		return false;

@@ -21,25 +21,20 @@ public class EvenementDeplacer extends Evenement {
 		this.direction = direction;
 	}
 
-
 	// parametre: pochaine date (date courante + pas) du simulateur.
 	// besoin pour calculer qtté remplissage + vitesse deplacement.
 	@Override
 	public void execute() {
-		//System.out.println(robot);
-		
+		// System.out.println(robot);
+
 		try {
 			robot.deplacer(direction, carte);
-		}
-		catch (RobotSorsCarte e) {
+		} catch (RobotSorsCarte e) {
 			System.out.println(e);
-		}
-		catch (ProchaineCaseMauvaiseNature e) {
+		} catch (ProchaineCaseMauvaiseNature e) {
 			System.out.println(e);
 
 		}
-        System.out.println("case courante" + robot.getPosition() +" "+ this.getDate());
 
-		}
 	}
-	
+}

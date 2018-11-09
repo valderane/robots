@@ -98,6 +98,8 @@ public class Plateau implements Simulable {
 
 		/* transformation de la vitesse en m/s avec la division par 3.6 */
 		this.pasSimulationEnSecondes = (int) (tailleCaseEnMetres / (vitesseMaxRobot / 3.6));
+		System.out.println("taille case en metres : "+tailleCaseEnMetres+", vitesse max robot : "+vitesseMaxRobot);
+		System.out.println("Pas simulation : "+pasSimulationEnSecondes);
 	}
 
 	/**
@@ -165,41 +167,47 @@ public class Plateau implements Simulable {
 		int nbLigne = carte.getNbLignes();
 		int nbCol = carte.getNbColonnes();
 		int x, y;
+		
+		ImageElement image;		
 
 		Color color;
 		Case c;
 
 		for (int lig = 0; lig < nbLigne; lig++) {
-			y = lig * this.tailleCasePlateau + this.tailleCasePlateau / 2;
+			y = lig * this.tailleCasePlateau;
 
 			for (int col = 0; col < nbCol; col++) {
-				x = col * this.tailleCasePlateau + this.tailleCasePlateau / 2;
+				x = col * this.tailleCasePlateau ;
 				c = carte.getCase(lig, col);
 
 				switch (c.getNature()) {
 				case EAU:
-					color = this.COULEUR_EAU;
+					image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+							this.tailleCasePlateau, null);					
 					break;
 				case FORET:
-					color = this.COULEUR_FORET;
+					image = new ImageElement(x, y, "images/tree.jpg", this.tailleCasePlateau,
+							this.tailleCasePlateau, null);		
 					break;
 				case ROCHE:
-					color = this.COULEUR_ROCHE;
+					image = new ImageElement(x, y, "images/rocher.png", this.tailleCasePlateau,
+							this.tailleCasePlateau, null);			
 					break;
 				case TERRAIN_LIBRE:
-					color = this.COULEUR_TERRAIN_LIBRE;
+					image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+							this.tailleCasePlateau, null);			
 					break;
 				case HABITAT:
-					color = this.COULEUR_HABITAT;
-					break;
+					image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+							this.tailleCasePlateau, null);								break;
 
 				default:
-					color = this.COULEUR_ERREUR;
-					break;
+					image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+							this.tailleCasePlateau, null);								break;
 				}
 
 				// x et y sont le centre du rectangle
-				gui.addGraphicalElement(new Rectangle(x, y, this.COULEUR_BORDURE, color, this.tailleCasePlateau));
+				gui.addGraphicalElement(image);
 			}
 		}
 	}

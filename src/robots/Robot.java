@@ -124,7 +124,7 @@ public abstract class Robot {
 	}
 
 	public void deplacer(Case c, long dateDebutDeplacement) throws AucunCheminPossible {
-		this.gestionnaireDeplacement.deplacer_robot(c, dateDebutDeplacement);
+		this.gestionnaireDeplacement.deplacerRobot(c, dateDebutDeplacement);
 	}
 
 	/**
@@ -135,7 +135,7 @@ public abstract class Robot {
 		long tempsFinEvenement;
 		Case caseDestination = incendie.getPosition();
 
-		tempsFinEvenement = this.gestionnaireDeplacement.deplacer_robot(caseDestination, dateDebutEvenement);
+		tempsFinEvenement = this.gestionnaireDeplacement.deplacerRobot(caseDestination, dateDebutEvenement);
 		tempsFinEvenement = this.gestionnaireReservoir.deverserEau(incendie, tempsFinEvenement, data);
 		
 		int nombreExtinctionsNecessaires = (int)Math.ceil( ((double)incendie.getIntensite()) /  this.getVolumeDeverseParExtinction() );
@@ -143,7 +143,6 @@ public abstract class Robot {
 			try {
 				tempsFinEvenement = this.gestionnaireDeplacement.deplacerRobotVersPointDEau(incendie.getPosition(), tempsFinEvenement);
 				this.gestionnaireReservoir.remplirReservoir(tempsFinEvenement);
-				System.out.println("Déplacement robot vers point d'eau");
 			} catch (AucunCheminPossible e) {
 				System.out.println("Le robot " + this + " n'a pas d'accès à un point d'eau");
 			}
