@@ -83,7 +83,10 @@ public class DeverserRobot {
 			
 			// laisser robot occupé et libérer incendie
 			Evenement g = new EvenementLibererIncendie(tempsCourant, incendie);
+			this.simulateur.ajouteEvenement(g);
+
 		}
+		
 		return tempsCourant;
 	}
 
