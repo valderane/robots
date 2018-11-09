@@ -9,13 +9,19 @@ public class RobotAPattes extends Robot {
 
 	private final double VITESSE_PAR_DEFAUT = 30.0;
 	private final double VITESSE_SUR_ROCHE = 10.0;
+
+	private final int TEMPS_REMPLISSAGE = -1;
+	private final int VOLUME_REMPLISSAGE = Integer.MAX_VALUE;
+	private final int TEMPS_VIDAGE = 1;
+	private final int VOLUME_DEVERSE_PAR_EXTINCTION = 10;
 	
 	public RobotAPattes(Case c) {
 		super(c);
-		this.capaciteRemplirSec = 5000*3600;
-		this.capaciteRemplirLitre = 10000;
-		this.capaciteViderLitre = 10;
-		this.capaciteViderSec = 1;
+		this.setReservoirEau(VOLUME_REMPLISSAGE);
+		this.setTempsRemplissage(this.TEMPS_REMPLISSAGE);
+		this.setVolumeRemplissage(this.VOLUME_REMPLISSAGE);
+		this.setVolumeDeverseParExtinction(this.VOLUME_DEVERSE_PAR_EXTINCTION);
+		this.setTempsVidage(this.TEMPS_VIDAGE);
 	}
 		
 	@Override

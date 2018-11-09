@@ -25,7 +25,7 @@ public class EvenementRemplir extends Evenement {
 			// si le robot n'est pas un robot a pattes (les robots a patte ne se remplissent pas )
 			
 			long differenceTemps = prochaineDate - this.date;
-			int volumeARemplir = (int)(robot.getCapaciteRemplirLitre() * differenceTemps) / robot.getCapaciteRemplirSec();
+			int volumeARemplir = (int)(robot.getVolumeRemplissage() * differenceTemps) / robot.getTempsRemplissage();
 			//System.out.println("vol_a_vider:" + volume_a_vider+ " differenceTemps "+ differenceTemps);
 			
 			if(this.robot instanceof Drone  ) {

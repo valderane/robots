@@ -47,10 +47,10 @@ public class DeverserRobot {
 		int intensiteIncendie = incendie.getIntensite();
 
 		while (reservoirEau > 0 && intensiteIncendie > 0) {
-			if (reservoirEau < this.mrobot.getCapaciteViderLitre())
+			if (reservoirEau < this.mrobot.getVolumeDeverseParExtinction())
 				volumeEauDeversee = reservoirEau;
 			else
-				volumeEauDeversee = this.mrobot.getCapaciteViderLitre();
+				volumeEauDeversee = this.mrobot.getVolumeDeverseParExtinction();
 			
 
 			intensiteIncendie -= volumeEauDeversee;
@@ -61,7 +61,7 @@ public class DeverserRobot {
 			this.simulateur.ajouteEvenement(eventDeverser);
 
 			/* Quelque soit le volume d'eau vidé, l'extinction dure CapaciteVideSec */
-			tempsCourant += this.mrobot.getCapaciteViderSec();
+			tempsCourant += this.mrobot.getTempsVidage();
 		}
 		// Cas où le robot a réussi à éteindre l'incendie, mais n'a plus d'eau. Il est
 		// donc toujours dans l'état "occupé"

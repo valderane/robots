@@ -8,18 +8,20 @@ import carte.NatureTerrain;
 public class RobotARoues extends Robot {
 
 	private final double VITESSE_PAR_DEFAUT = 80.0;
-	/**
-	 * Attributs
-	 */
+	
+	private final int TEMPS_REMPLISSAGE = 60 * 10;
+	private final int VOLUME_REMPLISSAGE = 500000;
+	private final int TEMPS_VIDAGE = 5;
+	private final int VOLUME_DEVERSE_PAR_EXTINCTION = 100;
 
 	
 	public RobotARoues(Case c) {
 		super(c);
-		this.capaciteRemplirSec = 60*10;
-		this.capaciteRemplirLitre = 5000000;
-		this.capaciteViderLitre = 100;
-		this.capaciteViderSec = 5;
-		this.reservoirEau = this.capaciteRemplirLitre;	
+		this.setReservoirEau(VOLUME_REMPLISSAGE);
+		this.setTempsRemplissage(this.TEMPS_REMPLISSAGE);
+		this.setVolumeRemplissage(this.VOLUME_REMPLISSAGE);
+		this.setVolumeDeverseParExtinction(this.VOLUME_DEVERSE_PAR_EXTINCTION);
+		this.setTempsVidage(this.TEMPS_VIDAGE);
 		
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);
@@ -34,13 +36,13 @@ public class RobotARoues extends Robot {
 		if(vitesse < 0) {
 			 throw new DataFormatException("Vitesse de robot à roues invalide :"+vitesse);
 		}
-		this.vitesse = vitesse;
+		super.setVitesse(vitesse);
 	}
 	
 	@Override
 	public double getVitesse(NatureTerrain nat) {
 		if(nat == NatureTerrain.TERRAIN_LIBRE || nat == NatureTerrain.HABITAT)
-			return this.vitesse;
+			return this.getVitesse();
 		return 0;//vitesse nulle afin d'empêcher les déplacements sur d'autres natures de terrain.
 	}
 
@@ -49,13 +51,12 @@ public class RobotARoues extends Robot {
 	@Override
 	public void remplirReservoir(int vol) {
 		// remplissage du reservoir avec le nombre de litres pass� en parametre
-		this.reservoirEau += vol;
-		//si on remplit jusqu'a deborder, on conserve la capacite max
-		if(this.reservoirEau >= this.capaciteRemplirLitre ) {
-			this.reservoirEau = this.capaciteRemplirLitre;
+		this.setReservoirEau(this.getReservoirEau() + vol);
+		// si on remplit jusqu'a deborder, on conserve la capacite max
+		if (this.getReservoirEau() >= this.getVolumeRemplissage()) {
+			this.setReservoirEau(this.getVolumeRemplissage());
 			System.out.println("reservoir plein !");
 		}
-		
 	}
 
 	@Override

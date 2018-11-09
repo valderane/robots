@@ -11,21 +11,21 @@ public class RobotAChenilles extends Robot {
 
 	private final double VITESSE_PAR_DEFAUT = 60;
 	private final double VITESSE_MAX = 80;
-	
+
+	private final int TEMPS_REMPLISSAGE = 60 * 5;
+	private final int VOLUME_REMPLISSAGE = 2000;
+	private final int TEMPS_VIDAGE = 8;
+	private final int VOLUME_DEVERSE_PAR_EXTINCTION = 100;
 
 
-
-	/**
-	 * attributs
-	 */
-	
 	public RobotAChenilles(Case c) {
 		super(c);
-		
-		this.capaciteRemplirSec = 60*5;
-		this.capaciteViderLitre = 100;
-		this.capaciteRemplirLitre = 2000;
-		this.capaciteViderSec = 8;
+		this.setReservoirEau(VOLUME_REMPLISSAGE);
+		this.setTempsRemplissage(this.TEMPS_REMPLISSAGE);
+		this.setVolumeRemplissage(this.VOLUME_REMPLISSAGE);
+		this.setVolumeDeverseParExtinction(this.VOLUME_DEVERSE_PAR_EXTINCTION);
+		this.setTempsVidage(this.TEMPS_VIDAGE);
+
 
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);
@@ -36,11 +36,18 @@ public class RobotAChenilles extends Robot {
 	
 	public RobotAChenilles(Case c, int vitesse) throws DataFormatException {
 		super(c);
-		this.capaciteRemplirSec = 60*5;
-		this.capaciteViderLitre = 100;
-		this.capaciteRemplirLitre = 2000;
-		this.capaciteViderSec = 8;
-		this.setVitesse(vitesse);
+		this.setReservoirEau(VOLUME_REMPLISSAGE);
+		this.setTempsRemplissage(this.TEMPS_REMPLISSAGE);
+		this.setVolumeRemplissage(this.VOLUME_REMPLISSAGE);
+		this.setVolumeDeverseParExtinction(this.VOLUME_DEVERSE_PAR_EXTINCTION);
+		this.setTempsVidage(this.TEMPS_VIDAGE);
+
+		try {
+			this.setVitesse(vitesse);
+		}catch(DataFormatException e){
+			System.err.println(e);
+		}
+
 	}
 	
 
@@ -49,28 +56,28 @@ public class RobotAChenilles extends Robot {
 		if(vitesse < 0 || vitesse > this.VITESSE_MAX) {
 			 throw new DataFormatException("Vitesse de robot à chenilles invalide :"+vitesse);
 		}
-		this.vitesse = vitesse;
+		super.setVitesse(vitesse);
 	}
 	
 	@Override
 	public double getVitesse(NatureTerrain nat) {
 		
 		if(nat == NatureTerrain.FORET)
-			return this.vitesse * 0.5;
+			return this.getVitesse() * 0.5;
 		
 		if(nat == NatureTerrain.EAU || nat == NatureTerrain.ROCHE)
 			return 0;//ne peut pas se déplacer sur l'eau et la roche
 		
-		return this.vitesse;
+		return this.getVitesse();
 	}
 	
 	@Override
 	public void remplirReservoir(int vol) {
 		// remplissage du reservoir avec le nombre de litres pass� en parametre
-		this.reservoirEau += vol;
-		//si on remplit jusqu'a deborder, on conserve la capacite max
-		if(this.reservoirEau >= this.capaciteRemplirLitre ) {
-			this.reservoirEau = this.capaciteRemplirLitre;
+		this.setReservoirEau(this.getReservoirEau() + vol);
+		// si on remplit jusqu'a deborder, on conserve la capacite max
+		if (this.getReservoirEau() >= this.getVolumeRemplissage()) {
+			this.setReservoirEau(this.getVolumeRemplissage());
 			System.out.println("reservoir plein !");
 		}
 		

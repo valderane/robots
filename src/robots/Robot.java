@@ -18,43 +18,43 @@ public abstract class Robot {
 	/**
 	 * TODO
 	 */
-	protected Case position;
+	private Case position;
 
 	/* qqté d'eau max que peut tranqporter le robot */
 	/* 9000 pour test */
 	/**
 	 * TODO
 	 */
-	protected int reservoirEau = 0;
+	private int reservoirEau = 0;
 
 	// capacité vider_litre en capacité vider_ms
 	/**
 	 * TODO
 	 */
-	protected int capaciteViderLitre;
+	private int volumeDeverseParExtinction;
 
 	/**
 	 * TODO
 	 */
-	protected int capaciteViderSec;
+	private int tempsVidage;
 
 	// temps qu'il faut pour remplie tout le reservoir
 
 	/**
 	 * TODO
 	 */
-	protected int capaciteRemplirSec;
+	private int tempsRemplissage;
 
 	// nombre de litre maximum du reservoir
 	/**
 	 * TODO
 	 */
-	protected int capaciteRemplirLitre;
+	private int volumeRemplissage;
 
 	/**
 	 * TODO
 	 */
-	protected double vitesse;
+	private double vitesse;
 
 	/* la taille des case doit etre > 1 */
 	/**
@@ -163,22 +163,41 @@ public abstract class Robot {
 					"nouvelle_position incorrect : " + nouvellePositionDansCase + "< 0 ou > taille_case");
 	}
 
-	public int getCapaciteViderLitre() {
-		return capaciteViderLitre;
+	public int getVolumeDeverseParExtinction() {
+		return volumeDeverseParExtinction;
+	}
+	
+	public void setVolumeDeverseParExtinction(int volume) {
+		this.volumeDeverseParExtinction = volume;
 	}
 
-	public int getCapaciteViderSec() {
-		return capaciteViderSec;
+	public int getTempsVidage() {
+		return tempsVidage;
+	}
+	
+	public void setTempsVidage(int temps) {
+		this.tempsVidage = temps;
 	}
 
-	public int getCapaciteRemplirLitre() {
-		return capaciteViderLitre;
+	public int getVolumeRemplissage() {
+		return this.volumeRemplissage;
+	}
+	
+	public void setVolumeRemplissage(int volume) {
+		this.volumeRemplissage = volume;
 	}
 
-	public int getCapaciteRemplirSec() {
-		return capaciteRemplirSec;
+	public int getTempsRemplissage() {
+		return tempsRemplissage;
+	}
+	
+	public void setTempsRemplissage(int temps) {
+		this.tempsRemplissage = temps;
 	}
 
+	public double getVitesse() {
+		return this.vitesse;
+	}
 	public abstract double getVitesse(NatureTerrain nat);
 
 	/**
@@ -235,7 +254,11 @@ public abstract class Robot {
 	 */
 	public abstract void remplirReservoir(int vol);
 
-	public abstract void setVitesse(double vitesse) throws DataFormatException;
+	public void setVitesse(double vitesse) throws DataFormatException{
+		if(vitesse < 0)
+			throw(new DataFormatException("Vitesse négative"));
+		this.vitesse = vitesse;
+	}
 
 	public int getReservoirEau() {
 		return this.reservoirEau;
