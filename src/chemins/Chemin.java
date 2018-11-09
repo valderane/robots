@@ -16,17 +16,17 @@ public class Chemin {
 	/**
 	 * Pile de directions à suivre à partir de la case initiale pour atteindre la case de destination
 	 */
-	protected  Stack<Direction> directions;
+	private  Stack<Direction> directions;
 	
 	/**
 	 * Temps pour parcourir tout le chemin
 	 */
-	protected double tempsParcours;
+	private double tempsParcours;
 	
 	/**
 	 * Vitesse moyenne du robot
 	 */
-	protected double vitesseMoyenne;
+	private double vitesseMoyenne;
 	
 	
 	/**

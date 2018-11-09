@@ -1,15 +1,12 @@
 package chemins;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Stack;
 import java.util.Vector;
 
 import carte.Carte;
 import carte.Case;
 import carte.Direction;
-import carte.NatureTerrain;
 import exceptions.exceptions_chemins.AucunCheminPossible;
 import robots.Robot;
 
@@ -79,9 +76,9 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	 * robot est à 0
 	 */
 	private void initialiserTempsParcours(Case caseDeDepart) {
-		for (int ligne = 0; ligne < this.carte.getNbLignes(); ++ligne)
-			for (int col = 0; col < this.carte.getNbColonnes(); ++col) {
-				Case caseActuelle = this.carte.getCase(ligne, col);
+		for (int ligne = 0; ligne < this.getCarte().getNbLignes(); ++ligne)
+			for (int col = 0; col < this.getCarte().getNbColonnes(); ++col) {
+				Case caseActuelle = this.getCarte().getCase(ligne, col);
 				this.tempsParcours.put(caseActuelle, Double.POSITIVE_INFINITY);
 			}
 
@@ -94,19 +91,19 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	 */
 	private void initialiserTempsParcoursEntreCasesAdjacentes() {
 		Case caseActuelle, caseVoisine;
-		for (int ligne = 0; ligne < this.carte.getNbLignes(); ++ligne)
-			for (int col = 0; col < this.carte.getNbColonnes(); ++col) {
-				caseActuelle = this.carte.getCase(ligne, col);
+		for (int ligne = 0; ligne < this.getCarte().getNbLignes(); ++ligne)
+			for (int col = 0; col < this.getCarte().getNbColonnes(); ++col) {
+				caseActuelle = this.getCarte().getCase(ligne, col);
 
 				// vérification des voisins pour chaque direction
 				for (Direction dir : Direction.values()) {
-					caseVoisine = this.carte.getVoisin(caseActuelle, dir);
+					caseVoisine = this.getCarte().getVoisin(caseActuelle, dir);
 
 					// Dans le cas où un voisin existe, on ajoute un lien
 					if (caseVoisine != null) {
 						try {
-							this.ajouterLien(new Lien(caseActuelle, caseVoisine, dir, this.robot.getTempsParcours(
-									caseActuelle.getNature(), caseVoisine.getNature(), this.carte.getTailleCases())));
+							this.ajouterLien(new Lien(caseActuelle, caseVoisine, dir, this.getRobot().getTempsParcours(
+									caseActuelle.getNature(), caseVoisine.getNature(), this.getCarte().getTailleCases())));
 							// System.out.println("ajout case voisine : "+caseVoisine+" direction : "+dir);
 						} catch (AucunCheminPossible event) {}// Aucun lien n'est créé si le robot ne peut pas passer d'une case à l'autre
 					}
@@ -184,7 +181,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	@Override
 	public Chemin plusCourtChemin(Case caseDeDepart, Case caseDestination) throws AucunCheminPossible {
 
-		if(!this.robot.appartientTerrainRobot(caseDestination.getNature()))
+		if(!this.getRobot().appartientTerrainRobot(caseDestination.getNature()))
 			throw new AucunCheminPossible("Case destination est une case impraticable " + caseDestination);
 
 		this.initialiserStructureDeDonnees();
@@ -251,15 +248,15 @@ public class Djikstra extends AlgoPlusCourtChemin {
 		// utile pour calculer la vitesse moyenne ainsi que le temps total
 		int nombreCases = 1;
 
-		double vitesseTotale = this.robot.getVitesse(c.getNature());
+		double vitesseTotale = this.getRobot().getVitesse(c.getNature());
 		double vitesseMoyenne;
 
 		while (this.precedents.get(c) != null) {
 			for (Direction dir : Direction.values()) {
-				if (this.carte.getVoisin(this.precedents.get(c), dir) == c) {
+				if (this.getCarte().getVoisin(this.precedents.get(c), dir) == c) {
 
 					// ajout de la vitesse de la case précédente
-					vitesseTotale += this.robot.getVitesse(this.precedents.get(c).getNature());
+					vitesseTotale += this.getRobot().getVitesse(this.precedents.get(c).getNature());
 
 					nombreCases += 1;
 					plusCourtChemin.pushDirection(dir);
@@ -271,7 +268,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 
 		vitesseMoyenne = vitesseTotale / (double) nombreCases * (1000.0 / 3600.0);
 		plusCourtChemin.setVitesseMoyenne(vitesseMoyenne);
-		plusCourtChemin.setTempsParcours((nombreCases * this.carte.getTailleCases() / vitesseMoyenne));
+		plusCourtChemin.setTempsParcours((nombreCases * this.getCarte().getTailleCases() / vitesseMoyenne));
 
 		return plusCourtChemin;
 	}
@@ -304,7 +301,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 			caseDepart = lien.getCaseDepart();
 			caseArrivee = lien.getCaseDestination();
 			
-			if(this.robot.estBienPlacePourRemplissage(caseArrivee, this.carte)) {
+			if(this.getRobot().estBienPlacePourRemplissage(caseArrivee, this.getCarte())) {
 				caseEauTrouvee = caseArrivee;
 			}
 

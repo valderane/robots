@@ -17,12 +17,12 @@ public abstract class AlgoPlusCourtChemin {
 	/**
 	 * Carte sur laquelle l'algorithme va être appliqué
 	 */
-	protected Carte carte;
+	private Carte carte;
 	
 	/**
 	 * Robot qui se déplace
 	 */
-	protected Robot robot;
+	private Robot robot;
 	
 	/**
 	 * @param carte Carte sur laquelle l'algorithme va être appliqué
@@ -33,6 +33,14 @@ public abstract class AlgoPlusCourtChemin {
 		this.robot = robot;
 	}
 	
+	public Carte getCarte() {
+		return carte;
+	}
+
+	public Robot getRobot() {
+		return robot;
+	}
+
 	/**
 	 * @param c Case destination
 	 * @return Le plus court chemin trouvé

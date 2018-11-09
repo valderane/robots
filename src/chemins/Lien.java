@@ -12,22 +12,22 @@ public class Lien {
 	/**
 	 * noeud d'arrivée du lien
 	 */
-	protected Case caseDestination;
+	private Case caseDestination;
 	
 	/**
 	 * noeud de départ du lien
 	 */
-	protected Case caseDepart;
+	private Case caseDepart;
 
 	/**
 	 * Indique quelle direction a été prise pour atteindre la case destination
 	 */
-	protected Direction direction;
+	private Direction direction;
 	
 	/**
 	 * Poids du lien
 	 */
-	protected double poids;
+	private double poids;
 	
 	/**
 	 * @param caseDestination

@@ -75,12 +75,15 @@ public class Plateau implements Simulable {
 		this.simulateur = new Simulateur();
 		this.initialiserPasSimulation();
 		this.initialiserTailleCasePlateau();
+		
+		draw();
+
 
 		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.pasSimulationEnSecondes);
 		this.donneesSimu.initialiserGestionnairesVidagesRobots(this.simulateur, this.pasSimulationEnSecondes);
 
 		this.chefPompier = new ChefPompier(this.donneesSimu, this.simulateur);
-		draw();
+
 	}
 
 	/**
@@ -182,7 +185,7 @@ public class Plateau implements Simulable {
 
 				switch (c.getNature()) {
 				case EAU:
-					image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+					image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau,
 							this.tailleCasePlateau, null);					
 					break;
 				case FORET:
@@ -194,15 +197,15 @@ public class Plateau implements Simulable {
 							this.tailleCasePlateau, null);			
 					break;
 				case TERRAIN_LIBRE:
-					image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+					image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau,
 							this.tailleCasePlateau, null);			
 					break;
 				case HABITAT:
-					image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+					image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau,
 							this.tailleCasePlateau, null);								break;
 
 				default:
-					image = new ImageElement(x, y, "images/robot_chenille.png", this.tailleCasePlateau,
+					image = new ImageElement(x, y, "images/drone.jpg", this.tailleCasePlateau,
 							this.tailleCasePlateau, null);								break;
 				}
 
