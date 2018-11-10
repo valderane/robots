@@ -65,10 +65,10 @@ public class Plateau implements Simulable {
 	private final String IMAGE_FORET = "images/tree.jpg";
 	private final String IMAGE_ROCHE = "images/rocher.png";
 	private final String IMAGE_TERRAIN_LIBRE = "images/beige.jpg";
-	private final String IMAGE_HABITAT = "images/habitat.jpg";
+	private final String IMAGE_HABITAT = "images/habitat.png";
 	 
 	/**ROBOTS:**/
-	private final String IMAGE_DRONE = "images/drone.jpg";
+	private final String IMAGE_DRONE = "images/drone.png";
 	private final String IMAGE_CHENILLE = "images/robot_chenille.png";
 	private final String IMAGE_PATTE = "images/robot_a_pattes.png";
 	private final String IMAGE_ROUE = "images/robot_roues.jpg";
@@ -79,6 +79,8 @@ public class Plateau implements Simulable {
 	private long pasSimulationEnSecondes;
 	
 	private String nomCarte;
+	
+	private int animation = 0;
 
 	/**
 	 * Crée un Invader et le dessine.
@@ -264,6 +266,7 @@ public class Plateau implements Simulable {
 		for (robots.Robot robot : robots) {
 			x = robot.getPosition().getColonne() * this.tailleCasePlateau;
 			y = robot.getPosition().getLigne() * this.tailleCasePlateau;
+			int jauge;
 
 			image = null;
 
@@ -282,8 +285,13 @@ public class Plateau implements Simulable {
 			else
 				System.err.println("robot non identifié, et donc aucun affichage disponible");
 
-			if (image != null)
+			if (image != null) {
 				gui.addGraphicalElement(image);
+				
+				jauge = robot.getReservoirEau() * (this.tailleCasePlateau - 20) / robot.getVolumeRemplissage(); ;
+				gui.addGraphicalElement(new Rectangle(x + 25, y + 10, Color.WHITE, Color.BLUE, jauge, 5 ));
+			}
+				
 
 		}
 	}
@@ -291,15 +299,31 @@ public class Plateau implements Simulable {
 	private void dessinerIncendies(Incendie[] incendies) {
 
 		int x, y;
+		ImageElement image;
+		int jaugeFeu;
+		
+		int indiceImage = this.animation%5 + 1; //indice de l'image a afficher
 
 		for (Incendie incendie : incendies) {
 
-			x = incendie.getPosition().getColonne() * this.tailleCasePlateau + this.tailleCasePlateau / 2;
-			y = incendie.getPosition().getLigne() * this.tailleCasePlateau + this.tailleCasePlateau / 2;
-
+			x = incendie.getPosition().getColonne() * this.tailleCasePlateau + this.tailleCasePlateau / 2 - 25;
+			y = incendie.getPosition().getLigne() * this.tailleCasePlateau + 5;
+			jaugeFeu = incendie.getIntensite() * this.tailleCasePlateau / incendie.getIntensiteInit() ;
+			image = new ImageElement(x, y, "images/feu"+indiceImage+".png", jaugeFeu , jaugeFeu,
+					null);
+			
+			gui.addGraphicalElement(image); // dessine l'incendie			
+			
+			/*
 			gui.addGraphicalElement(
 					new Oval(x, y, this.COULEUR_INCENDIE, this.COULEUR_INCENDIE, this.tailleCasePlateau / 4));
 			gui.addGraphicalElement(new Text(x,y,Color.BLACK, incendie.getIntensite()+""));
+			*/
+		}
+		
+		this.animation++;
+		if(this.animation > 5) {
+			this.animation = 0;
 		}
 		
 	}

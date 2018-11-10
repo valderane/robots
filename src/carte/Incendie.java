@@ -5,6 +5,7 @@ import exceptions.exceptions_remplissage.PlusDeau;
 public class Incendie {
 
 	private int intensite;
+	private int intensiteInit;
 	private Case position;
     private boolean libre;
 
@@ -12,6 +13,7 @@ public class Incendie {
 	public Incendie(int intensite, Case position) {
 
 			this.setIntensite(intensite);
+			this.setIntensiteInit(intensite);
 			this.setPosition(position);
 			this.setLibre(true);
 	}
@@ -24,12 +26,20 @@ public class Incendie {
 		return this.intensite;
 	}
 	
+	public int getIntensiteInit() {
+		return this.intensiteInit;
+	}
+	
 	public void setPosition(Case position) {
 		this.position = position;
 	}
 	
 	public void setIntensite(int intensite){
 		this.intensite = intensite;
+	}
+	
+	public void setIntensiteInit(int intensite){
+		this.intensiteInit = intensite;
 	}
 
 	
