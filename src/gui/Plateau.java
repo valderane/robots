@@ -71,7 +71,7 @@ public class Plateau implements Simulable {
 	private final String IMAGE_DRONE = "images/drone.png";
 	private final String IMAGE_CHENILLE = "images/robot_chenille.png";
 	private final String IMAGE_PATTE = "images/robot_a_pattes.png";
-	private final String IMAGE_ROUE = "images/robot_roues.jpg";
+	private final String IMAGE_ROUE = "images/robot_roues.png";
 			
 
 	private final Color COULEUR_INCENDIE = Color.decode("#ff0000");
