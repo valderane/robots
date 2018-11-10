@@ -147,7 +147,7 @@ public abstract class Robot {
 				System.out.println("Le robot " + this + " n'a pas d'accès à un point d'eau");
 			}
 		}
-	
+
 
 	}
 

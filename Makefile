@@ -23,7 +23,7 @@
 
 CARTE ?= cartes/carteSujet.map
 
-all: testInvader testCarte
+all: testInvader testCarte testCarteOut testCarteMauvaiseNature
 
 testInvader:
 	javac -d bin -classpath lib/gui.jar -sourcepath src src/TestInvader.java
@@ -33,6 +33,12 @@ testInvader:
 
 testCarte:
 	javac -d bin -classpath lib/gui.jar -sourcepath src src/TestCarte.java
+
+testCarteOut:
+	javac -d bin -classpath lib/gui.jar -sourcepath src src/TestCarteOut.java
+
+testCarteMauvaiseNature:
+	javac -d bin -classpath lib/gui.jar -sourcepath src src/TestMauvaiseNature.java
 
 
 # Execution:
@@ -48,6 +54,13 @@ exeInvader:
 
 exeCarte:
 	java -classpath bin:lib/gui.jar TestCarte $(CARTE)
+
+exeCarteOut:
+	java -classpath bin:lib/gui.jar TestCarteOut ./cartes/carteSujet.map
+
+exeMauvaiseNature:
+	java -classpath bin:lib/gui.jar TestMauvaiseNature ./cartes/carteSujet.map
+
 
 clean:
 	rm -rf bin/*.class
