@@ -203,7 +203,7 @@ public class LecteurDonnees {
                     + "Attendu: nature altitude [valeur_specifique]");
         }
 
-        System.out.println();
+        //System.out.println();
     }
 
 

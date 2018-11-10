@@ -65,7 +65,7 @@ public class Plateau implements Simulable {
 	private final String IMAGE_FORET = "images/tree.jpg";
 	private final String IMAGE_ROCHE = "images/rocher.png";
 	private final String IMAGE_TERRAIN_LIBRE = "images/beige.jpg";
-	private final String IMAGE_HABITAT = "images/habitat.png";
+	private final String IMAGE_HABITAT = "images/habitat.jpg";
 	 
 	/**ROBOTS:**/
 	private final String IMAGE_DRONE = "images/drone.png";
