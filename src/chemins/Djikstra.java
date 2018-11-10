@@ -143,7 +143,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	 */
 	public void afficherTempsParcours() {
 		for (Case c : this.tempsParcoursEntreCasesAdjacentes.keySet()) {
-			System.out.println("Case de départ " + c);
+			//System.out.println("Case de départ " + c);
 			for (Lien l : this.tempsParcoursEntreCasesAdjacentes.get(c)) {
 				System.out.println("Case arrivée : " + l.getCaseDestination() + ", temps parcours : " + l.getPoids());
 			}
@@ -225,9 +225,9 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	 */
 	public void afficherCheminOptimal(Case caseDestination) {
 		Case c = caseDestination;
-		System.out.println("-------- CHEMIN OPTIMAL --------");
+		//System.out.println("-------- CHEMIN OPTIMAL --------");
 		while (this.precedents.get(c) != null) {
-			System.out.println(c);
+			//System.out.println(c);
 			c = this.precedents.get(c);
 		}
 	}

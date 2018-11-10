@@ -21,31 +21,33 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-all: testInvader testLecture testCarte
+CARTE ?= cartes/carteSujet.map
+
+all: testInvader testCarte
 
 testInvader:
 	javac -d bin -classpath lib/gui.jar -sourcepath src src/TestInvader.java
 
-testLecture:
-	javac -d bin -sourcepath src src/TestLecteurDonnees.java
+# testLecture:
+# 	javac -d bin -sourcepath src src/TestLecteurDonnees.java
 
 testCarte:
-	javac -d bin -sourcepath src src/TestCarte.java
-	
+	javac -d bin -classpath lib/gui.jar -sourcepath src src/TestCarte.java
+
 
 # Execution:
 # on peut taper directement la ligne de commande :
 #   > java -classpath bin:bin/gui.jar TestInvader
 # ou bien lancer l'execution en passant par ce Makefile:
 #   > make exeInvader
-exeInvader: 
+exeInvader:
 	java -classpath bin:lib/gui.jar TestInvader
 
-exeLecture: 
-	java -classpath bin TestLecteurDonnees cartes/carteSujet.map
+# exeLecture:
+# 	java -classpath bin TestLecteurDonnees cartes/carteSujet.map
 
-exeCarte: 
-	java -classpath bin TestCarte
+exeCarte:
+	java -classpath bin:lib/gui.jar TestCarte $(CARTE)
 
 clean:
 	rm -rf bin/*.class

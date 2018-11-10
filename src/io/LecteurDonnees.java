@@ -214,7 +214,7 @@ public class LecteurDonnees {
         ignorerCommentaires();
         try {
             int nbIncendies = scanner.nextInt();
-            System.out.println("Nb d'incendies = " + nbIncendies);
+            //System.out.println("Nb d'incendies = " + nbIncendies);
             for (int i = 0; i < nbIncendies; i++) {
                 lireIncendie(i);
             }
@@ -232,7 +232,7 @@ public class LecteurDonnees {
         ignorerCommentaires();
         try {
             int nbIncendies = scanner.nextInt();
-            System.out.println("Nb d'incendies = " + nbIncendies);
+           // System.out.println("Nb d'incendies = " + nbIncendies);
             for (int i = 0; i < nbIncendies; i++) {
                 ecrireIncendie(i, donnees);
             }
@@ -273,7 +273,7 @@ public class LecteurDonnees {
 
     private void ecrireIncendie(int i, DonneesSimulation donnees) throws DataFormatException {
         ignorerCommentaires();
-        System.out.print("Incendie " + i + ": ");
+       // System.out.print("Incendie " + i + ": ");
 
         try {
             int lig = scanner.nextInt();
@@ -287,8 +287,8 @@ public class LecteurDonnees {
 
             Incendie incendie = new Incendie(intensite, donnees.getCarte().getCase(lig, col));    
             donnees.ajouterIncendie(incendie);
-            System.out.println("position = (" + lig + "," + col
-                    + ");\t intensite = " + intensite);
+            //System.out.println("position = (" + lig + "," + col
+            //        + ");\t intensite = " + intensite);
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format d'incendie invalide. "
@@ -304,7 +304,7 @@ public class LecteurDonnees {
         ignorerCommentaires();
         try {
             int nbRobots = scanner.nextInt();
-            System.out.println("Nb de robots = " + nbRobots);
+            //System.out.println("Nb de robots = " + nbRobots);
             for (int i = 0; i < nbRobots; i++) {
                 lireRobot(i);
             }
@@ -323,7 +323,7 @@ public class LecteurDonnees {
         try {
             int nbRobots = scanner.nextInt();
 
-            System.out.println("Nb de robots = " + nbRobots);
+           // System.out.println("Nb de robots = " + nbRobots);
             for (int i = 0; i < nbRobots; i++) {
                 ecrireRobot(i, donnees);
             }

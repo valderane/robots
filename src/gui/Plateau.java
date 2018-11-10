@@ -124,8 +124,8 @@ public class Plateau implements Simulable {
 
 		/* transformation de la vitesse en m/s avec la division par 3.6 */
 		this.pasSimulationEnSecondes = (int) (tailleCaseEnMetres / (vitesseMaxRobot / 3.6));
-		System.out.println("taille case en metres : "+tailleCaseEnMetres+", vitesse max robot : "+vitesseMaxRobot);
-		System.out.println("Pas simulation : "+pasSimulationEnSecondes);
+		//System.out.println("taille case en metres : "+tailleCaseEnMetres+", vitesse max robot : "+vitesseMaxRobot);
+		//System.out.println("Pas simulation : "+pasSimulationEnSecondes);
 	}
 
 	/**

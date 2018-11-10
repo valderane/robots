@@ -102,7 +102,7 @@ public class DonneesSimulation{
     	Case caseIncendie = incendie.getPosition();
 	
 		//Si il y a déjà un événement à cette date
-    	System.out.println(caseIncendie);
+    	//System.out.println(caseIncendie);
 		if(this.incendies.containsKey(caseIncendie)) {
 			this.incendies.get(caseIncendie).add(incendie);
 		}
@@ -143,7 +143,7 @@ public class DonneesSimulation{
      * @throws IndexOutOfBoundsException
      */
     public void supprimerIncendie(Incendie incendie) throws IndexOutOfBoundsException{
-    	System.out.println("Suppression de l'incendie");
+    	//System.out.println("Suppression de l'incendie");
     	if(!this.incendies.containsKey(incendie.getPosition()))
     		throw new IndexOutOfBoundsException("La case n'existe pas");
     	
