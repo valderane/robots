@@ -1,4 +1,5 @@
 import java.awt.Color;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +32,7 @@ import robots.Robot;
 import robots.RobotAChenilles;
 import robots.RobotAPattes;
 import robots.RobotARoues;
-import stratégies.ChefPompier;
+import strategies.ChefPompier;
 import chemins.Chemin;
 import chemins.Djikstra;
 

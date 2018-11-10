@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
@@ -21,7 +22,7 @@ import robots.Drone;
 import robots.RobotAChenilles;
 import robots.RobotAPattes;
 import robots.RobotARoues;
-import stratégies.ChefPompier;
+import strategies.ChefPompier;
 
 /**
  * Représente le plateau de jeu
