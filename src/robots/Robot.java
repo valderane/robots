@@ -81,7 +81,7 @@ public abstract class Robot {
 	}
 
 	public void initialiserGestionnaireVidage(Simulateur simulateur, long pasSimulation) {
-		this.gestionnaireReservoir = new GestionnaireReservoirRobot(this, simulateur);
+		this.gestionnaireReservoir = new GestionnaireReservoirRobot(this, simulateur, pasSimulation);
 	}
 
 	/**

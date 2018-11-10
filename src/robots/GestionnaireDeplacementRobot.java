@@ -128,7 +128,7 @@ public class GestionnaireDeplacementRobot {
 		/* Distance parcourue en 1 pas de temps */
 		int distance_pas = (int) ((double) this.pasSimulation * vitesseMoyenne);
 
-		while (tempsCourant < (tempsInitial + tempsParcoursChemin)) {
+		 while (tempsCourant < (tempsInitial + tempsParcoursChemin)) {
 			tempsCourantInterieur = tempsCourant;
 			positionDansCase = mrobot.getPositionDansCase();
 

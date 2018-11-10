@@ -20,6 +20,7 @@ public class GestionnaireReservoirRobot {
 
 	private Simulateur simulateur;
 	private Robot mrobot;
+	private long pasSimulation;
 
 	/**
 	 * @param robot
@@ -27,10 +28,11 @@ public class GestionnaireReservoirRobot {
 	 * @param simulateur
 	 * @param pasSimulation
 	 */
-	public GestionnaireReservoirRobot(Robot robot, Simulateur simulateur) {
+	public GestionnaireReservoirRobot(Robot robot, Simulateur simulateur, long pasSimulation) {
 
 		this.simulateur = simulateur;
 		this.mrobot = robot;
+		this.pasSimulation = pasSimulation;
 	}
 
 	/**
@@ -91,12 +93,18 @@ public class GestionnaireReservoirRobot {
 	
 	public long remplirReservoir( long tempsInitial) {
 		long tempsCourant = tempsInitial;
+		EvenementRemplir evenementRemplirReservoir;
 		
-		EvenementRemplir evenementRemplirReservoir= new EvenementRemplir(tempsCourant, this.mrobot);
-		this.simulateur.ajouteEvenement(evenementRemplirReservoir);	
-		
-		tempsCourant+=this.mrobot.getTempsRemplissage();
-		
+		int nombreEvenementsRemplissage = (int)Math.ceil( ((double)this.mrobot.getTempsRemplissage() )/ this.pasSimulation);
+		int volumeUnEvenementRemplissage = (int)Math.ceil( ((double)this.mrobot.getVolumeRemplissage() )/ nombreEvenementsRemplissage);
+		for(int i = 0 ; i < nombreEvenementsRemplissage ; ++i)
+		{
+			tempsCourant += this.pasSimulation;
+			evenementRemplirReservoir= new EvenementRemplir(tempsCourant, this.mrobot, volumeUnEvenementRemplissage);
+			this.simulateur.ajouteEvenement(evenementRemplirReservoir);			
+
+			
+		}
 		Evenement f = new EvenementLibererRobot(tempsCourant, this.mrobot);
 		this.simulateur.ajouteEvenement(f);	
 		
