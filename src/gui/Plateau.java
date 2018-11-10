@@ -1,7 +1,7 @@
 package gui;
 
 import java.awt.Color;
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
@@ -101,12 +101,29 @@ public class Plateau implements Simulable {
 		
 		draw();
 
+		this.prechargerImages("images/");
 
 		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.pasSimulationEnSecondes);
 		this.donneesSimu.initialiserGestionnairesVidagesRobots(this.simulateur, this.pasSimulationEnSecondes);
 
 		this.chefPompier = new ChefPompier(this.donneesSimu, this.simulateur);
 
+	}
+	
+	/** Précharge toutes les images contenues dans un dossier
+	 * @param nomDossier Nom du dossier contenant toutes les images. Attention, le nom doit finir par "/"
+	 * 
+	 */
+	private void prechargerImages(String nomDossier) {
+		ImageElement img;
+		File[] files = new File(nomDossier).listFiles();
+		for (File file : files) {
+		    if (file.isFile()) {
+		    	img = new ImageElement(0, 0, nomDossier+file.getName(), 1 , 1, null);
+				
+				gui.addGraphicalElement(img);
+		    }
+		}
 	}
 
 	/**
@@ -289,7 +306,7 @@ public class Plateau implements Simulable {
 				gui.addGraphicalElement(image);
 				
 				jauge = robot.getReservoirEau() * (this.tailleCasePlateau - 20) / robot.getVolumeRemplissage(); ;
-				gui.addGraphicalElement(new Rectangle(x + 25, y + 10, Color.WHITE, Color.BLUE, jauge, 5 ));
+				gui.addGraphicalElement(new Rectangle(x + this.tailleCasePlateau/2, y, Color.WHITE, Color.BLUE, jauge, 5 ));
 			}
 				
 
@@ -322,7 +339,7 @@ public class Plateau implements Simulable {
 		}
 		
 		this.animation++;
-		if(this.animation > 5) {
+		if(this.animation >= 5) {
 			this.animation = 0;
 		}
 		
