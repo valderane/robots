@@ -164,7 +164,7 @@ public class GestionnaireDeplacementRobot {
 				 * non
 				 */
 				if (pileDirections.empty()) {
-					System.out.println("PILE VIDE");
+					//System.out.println("PILE VIDE");
 					break;
 				}
 

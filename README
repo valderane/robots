@@ -14,3 +14,9 @@ Ensimag 2A POO - TP 2018/19
 - doc: la documentation (API) des classes de l'interface graphique contenues dans gui.jar. Point d'entrée: index.html
 
 - Makefile: quelques explications sur la compilation en ligne, notamment la notion de classpath et l'utilisation de gui.jar
+
+-COMPILATION:
+1) make
+2)
+ -make exeCarte #lance la carte sujet par defaut.
+ -make exeCarte CARTE=cartes/{nom_de_la_carte} #lance la carte nom_de_la_carte

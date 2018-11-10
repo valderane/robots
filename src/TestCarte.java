@@ -40,11 +40,17 @@ public class TestCarte {
 
 	
 	public static void main(String[] args) {
-
+		if (args.length == 0) {
+			System.err.println("RENTRER NOM CARTE EN PARAMETRES");
+		}
+		else {
 		try {
+			System.err.println(args[0]);
 			// lecture des données dans le fichier carteSujet.map
 			//DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/carteSujet.map");
-			 DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/desertOfDeath-20x20.map");
+			// DonneesSimulation data = LecteurDonnees.creeDonnees("cartes/desertOfDeath-20x20");
+			 DonneesSimulation data = LecteurDonnees.creeDonnees(args[0]);
+
 			 //DonneesSimulation data =  LecteurDonnees.creeDonnees("cartes/spiralOfMadness-50x50.map");
 
 			
@@ -53,7 +59,7 @@ public class TestCarte {
 			GUISimulator gui = new GUISimulator(1000, 1000, Color.BLACK);
 
 			// crée l'invader, en l'associant à la fenêtre graphique précédente
-			Plateau plateau = new Plateau(gui, data, "cartes/desertOfDeath-20x20.map");
+			Plateau plateau = new Plateau(gui, data, args[0]);
 
 		
 			/*
@@ -65,7 +71,7 @@ public class TestCarte {
 		} catch (DataFormatException e) {
 			System.out.println("\n\t**format du fichier " + args[0] + " invalide: " + e.getMessage());
 		}
-
+		}
 	}
 
 }
