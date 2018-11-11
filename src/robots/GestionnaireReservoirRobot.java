@@ -11,10 +11,9 @@ import evenements.Simulateur;
 import io.DonneesSimulation;
 
 /**
- * @author emmanuel Programe la suite d'évenement jusqu'à éteindre un incendie
- *         ou jusqu'a ce que le robot vide son réservoir Le robot est déjà au
- *         bon endroit. Les temps sont théorique sont calculé sur une base de
- *         tous les pas depuis la dateCouranteChef
+ *@author Equipe 23
+ *
+ * Gère le vidage et remplissage pour un robot donné.
  */
 public class GestionnaireReservoirRobot {
 
@@ -36,10 +35,13 @@ public class GestionnaireReservoirRobot {
 	}
 
 	/**
+	 * Pour un robot et un incendie donné:  Programme la suite d'évenements jusqu'à éteindre un incendie
+	 * ou jusqu'a ce que le robot vide son réservoir Le robot est déjà au
+	 *bon endroit.
+	 *Quand le robot à finit d'éteindre un incendie, si il lui reste de l'eau on le replace dans un état "libre".
+	 * Sinon, on le laisse occupé, et on libère l"incendie.
 	 * @param incendieEnCours
-	 * @param tempsCourantChef en sec. (Ex: Si on deplace de t0 à 48 sec on doit
-	 *                         savoir ou on en est. Toute les fonction de gestion
-	 *                         d'evenement devrait renvoyer le temps courant?
+	 * @param tempsCourantChef 
 	 */
 	public long deverserEau(Incendie incendie, long tempsInitial, DonneesSimulation data) {
 		long tempsCourant = tempsInitial;
@@ -91,6 +93,10 @@ public class GestionnaireReservoirRobot {
 		return tempsCourant;
 	}
 	
+	/**
+	 * programme la suite d'évenement pour remplir le réservoir d'un robot.
+	 * 
+	 * **/
 	public long remplirReservoir( long tempsInitial) {
 		long tempsCourant = tempsInitial;
 		EvenementRemplir evenementRemplirReservoir;
