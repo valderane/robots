@@ -47,18 +47,6 @@ public class Plateau implements Simulable {
 	private int tailleCasePlateau;
 
 	private final Color COULEUR_ERREUR = Color.PINK;
-
-//	private final Color COULEUR_DRONE = Color.decode("#99ff99");
-//	private final Color COULEUR_ROBOT_A_ROUES = Color.decode("#cc66ff");
-//	private final Color COULEUR_ROBOT_A_CHENILLES = Color.decode("#33cccc");
-//	private final Color COULEUR_ROBOT_A_PATTES = Color.decode("#ccc000");
-//
-//	private final Color COULEUR_TERRAIN_LIBRE = Color.decode("#ffffff");
-//	private final Color COULEUR_HABITAT = Color.decode("#ffff99");
-//	private final Color COULEUR_ROCHE = Color.decode("#996633");
-//	private final Color COULEUR_FORET = Color.decode("#009933");
-//	private final Color COULEUR_EAU = Color.decode("#0099ff");
-//	private final Color COULEUR_BORDURE = Color.BLACK;
 	
 	/**Nature Cases**/
 	private final String IMAGE_EAU = "images/bleu.jpeg";
@@ -104,7 +92,7 @@ public class Plateau implements Simulable {
 		this.prechargerImages("images/");
 
 		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.pasSimulationEnSecondes);
-		this.donneesSimu.initialiserGestionnairesVidagesRobots(this.simulateur, this.pasSimulationEnSecondes);
+		this.donneesSimu.initialiserGestionnairesReservoirsRobots(this.simulateur, this.pasSimulationEnSecondes);
 
 		this.chefPompier = new ChefPompier(this.donneesSimu, this.simulateur);
 
@@ -192,7 +180,6 @@ public class Plateau implements Simulable {
 		try {
 			this.donneesSimu =  LecteurDonnees.creeDonnees(this.nomCarte);
 		} catch (FileNotFoundException | DataFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.simulateur = new Simulateur();
@@ -203,7 +190,7 @@ public class Plateau implements Simulable {
 
 
 		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.pasSimulationEnSecondes);
-		this.donneesSimu.initialiserGestionnairesVidagesRobots(this.simulateur, this.pasSimulationEnSecondes);
+		this.donneesSimu.initialiserGestionnairesReservoirsRobots(this.simulateur, this.pasSimulationEnSecondes);
 
 		this.chefPompier = new ChefPompier(this.donneesSimu, this.simulateur);
 	}

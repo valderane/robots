@@ -11,23 +11,12 @@ import exceptions.exceptions_chemins.AucunCheminPossible;
 import robots.Robot;
 
 /**
- * @author 
- *
- */
-/**
- * @author jicquelv
- *
- */
-/**
- * @author jicquelv
+ * Algorithme de plus court chemin. Se base sur l'algorithme de Djikstra
+ * 
+ * @author Equipe 23
  *
  */
 public class Djikstra extends AlgoPlusCourtChemin {
-
-	/**
-	 * Constante utilisée pour marquer les liens non parcourus
-	 */
-	private final int INFINI = -1;
 
 	/**
 	 * Distances minimale pour atteindre chaque case depuis la case de départ
@@ -87,7 +76,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	}
 
 	/**
-	 * @return
+	 * Initialise le temps de parcours entre cases adjacentes sous forme de liens pondérés.
 	 */
 	private void initialiserTempsParcoursEntreCasesAdjacentes() {
 		Case caseActuelle, caseVoisine;
@@ -102,17 +91,20 @@ public class Djikstra extends AlgoPlusCourtChemin {
 					// Dans le cas où un voisin existe, on ajoute un lien
 					if (caseVoisine != null) {
 						try {
-							this.ajouterLien(new Lien(caseActuelle, caseVoisine, dir, this.getRobot().getTempsParcours(
-									caseActuelle.getNature(), caseVoisine.getNature(), this.getCarte().getTailleCases())));
+							this.ajouterLien(new Lien(caseActuelle, caseVoisine, dir,
+									this.getRobot().getTempsParcours(caseActuelle.getNature(), caseVoisine.getNature(),
+											this.getCarte().getTailleCases())));
 							// System.out.println("ajout case voisine : "+caseVoisine+" direction : "+dir);
-						} catch (AucunCheminPossible event) {}// Aucun lien n'est créé si le robot ne peut pas passer d'une case à l'autre
+						} catch (AucunCheminPossible event) {
+						} // Aucun lien n'est créé si le robot ne peut pas passer d'une case à l'autre
 					}
 				}
 			}
 	}
 
 	/**
-	 * @param l
+	 * Ajoute un lien au graphe de Djikstra
+	 * @param l Lien à ajouter
 	 */
 	private void ajouterLien(Lien l) {
 		Vector<Lien> liens;
@@ -143,7 +135,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	 */
 	public void afficherTempsParcours() {
 		for (Case c : this.tempsParcoursEntreCasesAdjacentes.keySet()) {
-			//System.out.println("Case de départ " + c);
+			// System.out.println("Case de départ " + c);
 			for (Lien l : this.tempsParcoursEntreCasesAdjacentes.get(c)) {
 				System.out.println("Case arrivée : " + l.getCaseDestination() + ", temps parcours : " + l.getPoids());
 			}
@@ -151,7 +143,9 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	}
 
 	/**
+	 * Choisit le lien de la prochaine itération, et supprime les liens inutiles.
 	 * 
+	 * @return Le lien de la prochaine itération.
 	 */
 	private Lien choisirLienProchaineIteration() {
 		double tempsMin = Double.POSITIVE_INFINITY;
@@ -181,7 +175,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	@Override
 	public Chemin plusCourtChemin(Case caseDeDepart, Case caseDestination) throws AucunCheminPossible {
 
-		if(!this.getRobot().appartientTerrainRobot(caseDestination.getNature()))
+		if (!this.getRobot().appartientTerrainRobot(caseDestination.getNature()))
 			throw new AucunCheminPossible("Case destination est une case impraticable " + caseDestination);
 
 		this.initialiserStructureDeDonnees();
@@ -221,13 +215,15 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	}
 
 	/**
+	 * Affiche le chemin optimal sous forme de suite de cases
+	 * 
 	 * @param caseDestination
 	 */
 	public void afficherCheminOptimal(Case caseDestination) {
 		Case c = caseDestination;
-		//System.out.println("-------- CHEMIN OPTIMAL --------");
+		System.out.println("-------- CHEMIN OPTIMAL --------");
 		while (this.precedents.get(c) != null) {
-			//System.out.println(c);
+			System.out.println(c);
 			c = this.precedents.get(c);
 		}
 	}
@@ -236,8 +232,8 @@ public class Djikstra extends AlgoPlusCourtChemin {
 	 * Construit le chemin optimal de directions sous forme de pile. Le tableau des
 	 * précédents doit être préalablement calculé.
 	 * 
-	 * @param caseDestination
-	 * @return
+	 * @param caseDestination case destination du chemin
+	 * @return le chemin optimal
 	 */
 	private Chemin construireCheminOptimal(Case caseDestination) {
 
@@ -273,6 +269,11 @@ public class Djikstra extends AlgoPlusCourtChemin {
 		return plusCourtChemin;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see chemins.AlgoPlusCourtChemin#plusCourtCheminVersPointEau(carte.Case)
+	 */
 	@Override
 	public Chemin plusCourtCheminVersPointEau(Case caseDeDepart) throws AucunCheminPossible {
 
@@ -300,8 +301,8 @@ public class Djikstra extends AlgoPlusCourtChemin {
 
 			caseDepart = lien.getCaseDepart();
 			caseArrivee = lien.getCaseDestination();
-			
-			if(this.getRobot().estBienPlacePourRemplissage(caseArrivee, this.getCarte())) {
+
+			if (this.getRobot().estBienPlacePourRemplissage(caseArrivee, this.getCarte())) {
 				caseEauTrouvee = caseArrivee;
 			}
 
@@ -313,7 +314,7 @@ public class Djikstra extends AlgoPlusCourtChemin {
 			this.precedents.put(caseArrivee, caseDepart);
 
 		}
-		
+
 		return this.construireCheminOptimal(caseEauTrouvee);
 	}
 

@@ -1,36 +1,29 @@
 package evenements;
 
-
 import carte.Incendie;
-import exceptions.exceptions_remplissage.PlusDeau;
-import exceptions.exceptions_remplissage.PlusDeauEtReservoirVide;
-import exceptions.exceptions_remplissage.ReservoirVide;
-import io.DonneesSimulation;
 import robots.Robot;
 
-
-
 /**
- * @author emmanuel
- *Calcule la quantité d'eau à déverser en fonction du robot et du laps de temps entre la date de l'évenement et la
- *date du prochain next.
+ * Deverse un volume d'eau sur un incendie à une certaine date.
+ * 
+ * @author Equipe 23
+ * 
  */
 public class EvenementDeverser extends Evenement {
-	
-	/**
-	 * 
-	 */
+
 	private Robot robot;
 
 	private Incendie incendieEnCours;
-	
+
 	private int volumeEauDeversee;
 
 	/**
-	 * @param dateEvenement
-	 * @param robot
-	 * @param donneSimu
-	 * @param prochaineDate date du prochain next
+	 * Constructeur
+	 * 
+	 * @param dateEvenement     date de l'événement
+	 * @param robot             Robot qui déverse de l'eau
+	 * @param incendieEnCours   Incendie sur lequel l'eau va être déversée
+	 * @param volumeEauDeversee Volume d'eau déversé
 	 */
 	public EvenementDeverser(long dateEvenement, Robot robot, Incendie incendieEnCours, int volumeEauDeversee) {
 		super(dateEvenement);
@@ -39,15 +32,17 @@ public class EvenementDeverser extends Evenement {
 		this.volumeEauDeversee = volumeEauDeversee;
 	}
 
+	/* (non-Javadoc)
+	 * @see evenements.Evenement#execute()
+	 */
 	@Override
 	public void execute() {
-		this.robot.setReservoirEau(this.robot.getReservoirEau()- this.volumeEauDeversee);
-		
-		if( (this.incendieEnCours.getIntensite() - this.volumeEauDeversee) < 0)
+		this.robot.setReservoirEau(this.robot.getReservoirEau() - this.volumeEauDeversee);
+
+		if ((this.incendieEnCours.getIntensite() - this.volumeEauDeversee) < 0)
 			this.incendieEnCours.setIntensite(0);
 		else
 			this.incendieEnCours.setIntensite(this.incendieEnCours.getIntensite() - this.volumeEauDeversee);
 
 	}
 }
-

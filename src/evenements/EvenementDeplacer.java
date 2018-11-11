@@ -6,14 +6,24 @@ import exceptions.exceptions_deplacement.ProchaineCaseMauvaiseNature;
 import exceptions.exceptions_deplacement.RobotSorsCarte;
 import robots.Robot;
 
-//deplace le robot vers la direction donnée une  fois de suite si possible. sinon pour l'instant ne fait rien
+/**
+ * Deplace le robot vers la direction donnée à une certaine date.
+ * 
+ * @author Equipe 23
+ *
+ */
 public class EvenementDeplacer extends Evenement {
 
 	private Robot robot;
 	private Carte carte;
 	private Direction direction;
 
-	// Robot pour obtenir robot+case et carte pour obtenir info
+	/**
+	 * @param date      Date de l'événement
+	 * @param robot     Robot à déplacer
+	 * @param carte     Carte
+	 * @param direction Direction à emprunter
+	 */
 	public EvenementDeplacer(long date, Robot robot, Carte carte, Direction direction) {
 		super(date);
 		this.robot = robot;
@@ -21,12 +31,11 @@ public class EvenementDeplacer extends Evenement {
 		this.direction = direction;
 	}
 
-	// parametre: pochaine date (date courante + pas) du simulateur.
-	// besoin pour calculer qtté remplissage + vitesse deplacement.
+	/* (non-Javadoc)
+	 * @see evenements.Evenement#execute()
+	 */
 	@Override
 	public void execute() {
-		// System.out.println(robot);
-
 		try {
 			robot.deplacer(direction, carte);
 		} catch (RobotSorsCarte e) {

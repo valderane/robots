@@ -13,74 +13,82 @@ import exceptions.exceptions_deplacement.ProchaineCaseMauvaiseNature;
 import exceptions.exceptions_deplacement.RobotSorsCarte;
 import io.DonneesSimulation;
 
+/**
+ * Robot pouvant se déplacer sur la carte, remplir son réservoir et éteindre des
+ * incendies.
+ * 
+ * @author
+ *
+ */
 public abstract class Robot {
 
-	/**
-	 * TODO
-	 */
 	private Case position;
 
-	/* qqté d'eau max que peut tranqporter le robot */
-	/* 9000 pour test */
 	/**
-	 * TODO
+	 * Volume d'eau que contient le réservoir.
 	 */
-	private int reservoirEau = 0;
+	private int reservoirEau;
 
-	// capacité vider_litre en capacité vider_ms
 	/**
-	 * TODO
+	 * Volume d'eau déversée en une extinction.
 	 */
 	private int volumeDeverseParExtinction;
 
-	/**
-	 * TODO
-	 */
 	private int tempsVidage;
 
-	// temps qu'il faut pour remplie tout le reservoir
-
-	/**
-	 * TODO
-	 */
 	private int tempsRemplissage;
 
-	// nombre de litre maximum du reservoir
-	/**
-	 * TODO
-	 */
 	private int volumeRemplissage;
 
-	/**
-	 * TODO
-	 */
 	private double vitesse;
 
-	/* la taille des case doit etre > 1 */
 	/**
-	 * TODO
+	 * Position du robot dans la case. Utile pour calculer les déplacements.
 	 */
-	private int positionDansCase = 0;
+	private int positionDansCase;
 
+	/**
+	 * Indique si le robot est libre pour aller éteindre un incendie
+	 */
 	private boolean libre;
-	
+
+	/**
+	 * Classe gérant les déplacements du robot.
+	 */
 	private GestionnaireDeplacementRobot gestionnaireDeplacement;
-	
+
+	/**
+	 * Classe gérant le réservoir du robot.
+	 */
 	private GestionnaireReservoirRobot gestionnaireReservoir;
 
 	/**
-	 * @param c
+	 * Constructeur de robot
+	 * 
+	 * @param c Case où est situé le robot
 	 */
 	public Robot(Case c) {
 		this.position = c;
 		this.setLibre(true);
+		this.positionDansCase = 0;
 	}
 
+	/**
+	 * @param simulateur
+	 * @param pasSimulation
+	 * @param carte
+	 */
 	public void initialiserGestionnaireDeplacement(Simulateur simulateur, double pasSimulation, Carte carte) {
 		this.gestionnaireDeplacement = new GestionnaireDeplacementRobot(this, simulateur, pasSimulation, carte);
 	}
 
-	public void initialiserGestionnaireVidage(Simulateur simulateur, long pasSimulation) {
+	/**
+	 * Initialise le gestionnaire de réservoir du robot
+	 * 
+	 * @param simulateur    Simulateur du plateau en cours
+	 * @param pasSimulation Pas de simulation du plateau
+	 */
+	public void initialiserGestionnaireReservoir(Simulateur simulateur, long pasSimulation) {
 		this.gestionnaireReservoir = new GestionnaireReservoirRobot(this, simulateur, pasSimulation);
 	}
 
@@ -96,15 +104,25 @@ public abstract class Robot {
 	 */
 	public void setPosition(Case c) {
 		this.position = c;
-		// TODO
 	}
 
-	// TODO: on vérifie que le robot peut aller sur le terrain "nature".
-	// chaque robot à ses terrains
+	/**
+	 * Indique si le robot peut se déplacer sur une certaine nature de terrain
+	 * 
+	 * @param Nature nature du terrain en question
+	 * @return true si le robot peut se déplacer, false sinon
+	 */
 	public abstract boolean appartientTerrainRobot(NatureTerrain nature);
-	// Pour vérifier, doit être en connaissance de la carte.
 
-	// deplace le robot si il a le droit. Sinon ne fait rien.
+	/**
+	 * Déplace un robot d'une case dans une direction donnée
+	 * 
+	 * @param direction Direction à emprunter
+	 * @param carte     Carte sur laquelle le robot se déplace
+	 * @throws RobotSorsCarte              Si le robot sort de la carte
+	 * @throws ProchaineCaseMauvaiseNature Si le robot ne peut pas se déplacer sur
+	 *                                     la case suivante
+	 */
 	public void deplacer(Direction direction, Carte carte) throws RobotSorsCarte, ProchaineCaseMauvaiseNature {
 		// Verification qu'on peut le déplacer (case existe + bonne nature)
 		if (carte.voisinExiste(this.getPosition(), direction)) {
@@ -131,23 +149,25 @@ public abstract class Robot {
 	 * @param incendie Incendie à éteindre
 	 * @param data     Données de simulation contenant l'incendie à éteindre
 	 */
-	public void eteindreIncendie(Incendie incendie, DonneesSimulation data, long dateDebutEvenement) throws AucunCheminPossible {
+	public void eteindreIncendie(Incendie incendie, DonneesSimulation data, long dateDebutEvenement)
+			throws AucunCheminPossible {
 		long tempsFinEvenement;
 		Case caseDestination = incendie.getPosition();
 
 		tempsFinEvenement = this.gestionnaireDeplacement.deplacerRobot(caseDestination, dateDebutEvenement);
 		tempsFinEvenement = this.gestionnaireReservoir.deverserEau(incendie, tempsFinEvenement, data);
-		
-		int nombreExtinctionsNecessaires = (int)Math.ceil( ((double)incendie.getIntensite()) /  this.getVolumeDeverseParExtinction() );
+
+		int nombreExtinctionsNecessaires = (int) Math
+				.ceil(((double) incendie.getIntensite()) / this.getVolumeDeverseParExtinction());
 		if (nombreExtinctionsNecessaires * this.getVolumeDeverseParExtinction() >= this.getReservoirEau()) {
 			try {
-				tempsFinEvenement = this.gestionnaireDeplacement.deplacerRobotVersPointDEau(incendie.getPosition(), tempsFinEvenement);
+				tempsFinEvenement = this.gestionnaireDeplacement.deplacerRobotVersPointDEau(incendie.getPosition(),
+						tempsFinEvenement);
 				this.gestionnaireReservoir.remplirReservoir(tempsFinEvenement);
 			} catch (AucunCheminPossible e) {
 				System.out.println("Le robot " + this + " n'a pas d'accès à un point d'eau");
 			}
 		}
-
 
 	}
 
@@ -156,7 +176,7 @@ public abstract class Robot {
 	 * plus court chemin et peut être couteux!
 	 * 
 	 * @param caseDestination
-	 * @return
+	 * @return true si la case est accessible
 	 */
 	public boolean caseEstAccessible(Case caseDestination) {
 		return this.gestionnaireDeplacement.caseEstAccessible(caseDestination);
@@ -218,7 +238,7 @@ public abstract class Robot {
 	 * 
 	 * @param nat1 Nature du terrain de la première case
 	 * @param nat2 Nature du terrain de la seconde case
-	 * @return
+	 * @return le temps de parcours
 	 */
 	public double getTempsParcours(NatureTerrain nat1, NatureTerrain nat2, int tailleCase) throws AucunCheminPossible {
 		if (this.getVitesse(nat1) == 0 || this.getVitesse(nat2) == 0) {
@@ -284,8 +304,9 @@ public abstract class Robot {
 	 * Vérifie si le robot a accès à un point d'eau lorsqu'il se situe sur une case
 	 * 
 	 * @param caseRobot case où le robot se situerait
-	 * @param carte
-	 * @return
+	 * @param carte     Carte où le robot se situe
+	 * @return true si le robot est bien placée depuis la caseRobot pour remplir son
+	 *         réservoir
 	 */
 	public abstract boolean estBienPlacePourRemplissage(Case caseRobot, Carte carte);
 
