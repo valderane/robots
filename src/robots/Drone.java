@@ -7,7 +7,7 @@ import carte.Case;
 import carte.NatureTerrain;
 
 /**
- * 
+ * Se déplace sur tout type de terrain, et vide son réservoir en une extinction
  * 
  * @author Equipe 23
  *

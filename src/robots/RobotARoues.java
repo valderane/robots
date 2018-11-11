@@ -7,6 +7,12 @@ import carte.Case;
 import carte.Direction;
 import carte.NatureTerrain;
 
+/**
+ * Ne peut se déplacer uniquement que sur les terrains libres et les habitats. 
+ * 
+ * @author Equipe 23
+ *
+ */
 public class RobotARoues extends Robot {
 
 	private final double VITESSE_PAR_DEFAUT = 80.0;
@@ -16,6 +22,10 @@ public class RobotARoues extends Robot {
 	private final int TEMPS_VIDAGE = 5;
 	private final int VOLUME_DEVERSE_PAR_EXTINCTION = 100;
 
+	/**
+	 * Constructeur
+	 * @param c Position du robot
+	 */
 	public RobotARoues(Case c) {
 		super(c);
 		this.setReservoirEau(VOLUME_REMPLISSAGE);

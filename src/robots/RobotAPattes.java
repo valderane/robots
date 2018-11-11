@@ -7,6 +7,13 @@ import carte.Case;
 import carte.Direction;
 import carte.NatureTerrain;
 
+/**
+ * Est ralenti sur la roche, ne peut pas se déplacer sur l'eau. A un réservoir à
+ * poudre (infini).
+ * 
+ * @author Equipe 23
+ *
+ */
 public class RobotAPattes extends Robot {
 
 	private final double VITESSE_PAR_DEFAUT = 30.0;
@@ -18,8 +25,9 @@ public class RobotAPattes extends Robot {
 	private final int VOLUME_DEVERSE_PAR_EXTINCTION = 10;
 
 	/**
-	 * Constructeur du robot 
-	 * @param c Case du robot
+	 * Constructeur du robot
+	 * 
+	 * @param c Position du robot
 	 */
 	public RobotAPattes(Case c) {
 		super(c);
@@ -44,12 +52,12 @@ public class RobotAPattes extends Robot {
 
 	@Override
 	public void remplirReservoir(int vol) {
-		// TODO Auto-generated method stub
-		System.out.println(" Robot a pate, je ne me remplie pas ^^");
+		System.out.println(" Robot a patte, je ne me remplis pas ^^");
 	}
 
 	@Override
-	public void setVitesse(double vitesse) throws DataFormatException {};
+	public void setVitesse(double vitesse) throws DataFormatException {
+	};
 
 	@Override
 	public boolean appartientTerrainRobot(NatureTerrain nature) {

@@ -7,6 +7,13 @@ import carte.Case;
 import carte.Direction;
 import carte.NatureTerrain;
 
+/**
+ * Ne peut pas se déplacer sur l'eau et la roche, et a une vitesse réduite de
+ * moitié en forêt
+ * 
+ * @author Equipe 23
+ *
+ */
 public class RobotAChenilles extends Robot {
 
 	private final double VITESSE_PAR_DEFAUT = 60;
@@ -17,6 +24,9 @@ public class RobotAChenilles extends Robot {
 	private final int TEMPS_VIDAGE = 8;
 	private final int VOLUME_DEVERSE_PAR_EXTINCTION = 100;
 
+	/**
+	 * @param c
+	 */
 	public RobotAChenilles(Case c) {
 		super(c);
 		this.setReservoirEau(VOLUME_REMPLISSAGE);
@@ -90,7 +100,8 @@ public class RobotAChenilles extends Robot {
 	@Override
 	public boolean estBienPlacePourRemplissage(Case caseRobot, Carte carte) {
 		for (Direction dir : Direction.values()) {
-			if (carte.getVoisin(caseRobot, dir) != null && carte.getVoisin(caseRobot, dir).getNature() == NatureTerrain.EAU)
+			if (carte.getVoisin(caseRobot, dir) != null
+					&& carte.getVoisin(caseRobot, dir).getNature() == NatureTerrain.EAU)
 				return true;
 		}
 		return false;

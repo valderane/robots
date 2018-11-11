@@ -17,7 +17,7 @@ import io.DonneesSimulation;
  * Robot pouvant se déplacer sur la carte, remplir son réservoir et éteindre des
  * incendies.
  * 
- * @author
+ * @author Equipe 23
  *
  */
 public abstract class Robot {
@@ -141,13 +141,13 @@ public abstract class Robot {
 		}
 	}
 
-	public void deplacer(Case c, long dateDebutDeplacement) throws AucunCheminPossible {
-		this.gestionnaireDeplacement.deplacerRobot(c, dateDebutDeplacement);
-	}
-
+	
 	/**
-	 * @param incendie Incendie à éteindre
-	 * @param data     Données de simulation contenant l'incendie à éteindre
+	 * Déplace le robot jusqu'à l'incendie, éteint l'incendie, puis remplit le robot si besoin à partir d'une certaine date.
+	 * @param incendie Incendie à eteindre.
+	 * @param data Données de simulation auquelles appartient l'incendie.
+	 * @param dateDebutEvenement date de l'événement
+	 * @throws AucunCheminPossible Aucun chemin pour rejoindre l'incendie
 	 */
 	public void eteindreIncendie(Incendie incendie, DonneesSimulation data, long dateDebutEvenement)
 			throws AucunCheminPossible {
@@ -165,7 +165,7 @@ public abstract class Robot {
 						tempsFinEvenement);
 				this.gestionnaireReservoir.remplirReservoir(tempsFinEvenement);
 			} catch (AucunCheminPossible e) {
-				System.out.println("Le robot " + this + " n'a pas d'accès à un point d'eau");
+				System.err.println("Le robot " + this + " n'a pas d'accès à un point d'eau");
 			}
 		}
 
