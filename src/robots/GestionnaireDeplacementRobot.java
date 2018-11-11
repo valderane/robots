@@ -15,15 +15,11 @@ import exceptions.exceptions_chemins.AucunCheminPossible;
 import gui.Plateau;
 
 /**
- * @author jicquelv
+ * @author Equipe 23
+ * Gère les déplacement d'un robot.
  *
  */
 public class GestionnaireDeplacementRobot {
-
-	/*
-	 * Plateau: pas + taille_case + temps_courant Djiktra: Pile+temps+vitesse
-	 * moyenne Case visé
-	 */
 
 	/**
 	 * 
@@ -45,10 +41,16 @@ public class GestionnaireDeplacementRobot {
 	 */
 	private Simulateur simulateur;
 
+	/**
+	 * 
+	 */
 	private double pasSimulation;
 
-	/* Vérif copie + cast */
 	/**
+	 * Gère les évenement de déplacements d'un robot.
+	 * L'algorithme de Djiksra donne une pile de direction à suivre pour arriver jusqu'à l'incendie ou point d'eau
+	 * En fonction de la vitesse moyenne du robot et du pas on obtient la fréquence de changemment de case pour le robot
+	 * 
 	 * @param robot
 	 * @param plateau
 	 * @param carte
@@ -111,12 +113,17 @@ public class GestionnaireDeplacementRobot {
 		return this.deplacerRobot(plusCourtChemin, tempsInitial);
 	}
 
+	
+	/**
+	 * @param chemin :contient la pile de directions et le temps de parcours
+	 * @param tempsInitial: temps de début des évenements de déplacement.
+	 * @return
+	 */
 	private long deplacerRobot(Chemin chemin, long tempsInitial) {
 		Stack<Direction> pileDirections = chemin.getDirections();
 		long tempsCourant = tempsInitial;
 		double tempsParcoursChemin = chemin.getTempsParcours();
 		double vitesseMoyenne = chemin.getVitesseMoyenne();
-		// System.out.println("vitesse moyene: " + vitesseMoyenne);
 
 		int tailleCase = this.mcarte.getTailleCases();
 
@@ -125,7 +132,6 @@ public class GestionnaireDeplacementRobot {
 		int positionDansCase;
 		int duree_evenement = 0;
 
-		/* Distance parcourue en 1 pas de temps */
 		int distance_pas = (int) ((double) this.pasSimulation * vitesseMoyenne);
 
 		 while (tempsCourant < (tempsInitial + tempsParcoursChemin)) {
@@ -134,24 +140,14 @@ public class GestionnaireDeplacementRobot {
 
 			positionDansCase += distance_pas;
 
-			/*
-			 * Calcul le nombre de case de déplacement selon le pas (pour un next) vérif 1/2
-			 * = 0, div entiere
-			 */
+			
 			nbrCasesAAvancer = positionDansCase / tailleCase;
 
-			/* nouvelle position dans case (finale) */
-			/* TODO: expliquer */
 			positionDansCase = positionDansCase % tailleCase;
 			mrobot.setPositionDansCase(positionDansCase, tailleCase);
 
-			/*
-			 * si le pas = et que le nb de case a avancer est de 4 Comme temps discret -> on
-			 * peut pas couper pour la date des evt. donc on choisit de mettre tout au mm
-			 * moment dans un next
-			 */
+			
 			if (this.pasSimulation < nbrCasesAAvancer) {
-				/* il faudra tout mettre au même moment */
 				duree_evenement = 0;
 			} else if (nbrCasesAAvancer != 0 & this.pasSimulation >= nbrCasesAAvancer) {
 				duree_evenement = (int) (this.pasSimulation) / nbrCasesAAvancer;
@@ -159,10 +155,7 @@ public class GestionnaireDeplacementRobot {
 			/* définit le nombre de case à avancer pour pasDeTemps */
 			for (int i = 0; i < nbrCasesAAvancer; i++) {
 
-				/*
-				 * exemple: pas = 2 sec et tmps de parcours = 7 sec. on devrait avancer, mais
-				 * non
-				 */
+				
 				if (pileDirections.empty()) {
 					//System.out.println("PILE VIDE");
 					break;
@@ -172,15 +165,12 @@ public class GestionnaireDeplacementRobot {
 				Evenement e = new EvenementDeplacer(tempsCourantInterieur, mrobot, mcarte, direction);
 				this.simulateur.ajouteEvenement(e);
 
-				/* on place l'evt au bon endroit */
-				/* Il faudrait calculer: distance_pas/nbr_case */
-				/* A voir */
+				
 				tempsCourantInterieur += duree_evenement;
 			}
 
 			tempsCourant += this.pasSimulation;
 		}
-		/* Normalement faut retourner tempsCourantinterieur? */
 		return tempsCourant;
 	}
 

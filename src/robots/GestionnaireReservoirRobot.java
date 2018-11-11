@@ -11,7 +11,9 @@ import evenements.Simulateur;
 import io.DonneesSimulation;
 
 /**
- * Gère le vidage / remplissage pour un robot donné.
+ *@author Equipe 23
+ *
+ * Gère le vidage et remplissage pour un robot donné.
  */
 public class GestionnaireReservoirRobot {
 

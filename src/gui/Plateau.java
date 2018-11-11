@@ -27,7 +27,7 @@ import strategies.ChefPompier;
 /**
  * Représente le plateau de jeu
  * 
- * @author
+ * @author Equipe 23
  *
  */
 
@@ -36,10 +36,19 @@ public class Plateau implements Simulable {
 	/** L'interface graphique associée */
 	private GUISimulator gui;
 
+	/**
+	 * 
+	 */
 	private DonneesSimulation donneesSimu;
 
+	/**
+	 * 
+	 */
 	private Simulateur simulateur;
 
+	/**
+	 * 
+	 */
 	private ChefPompier chefPompier;
 
 	/** Constantes **/
@@ -70,13 +79,17 @@ public class Plateau implements Simulable {
 	
 	private int animation = 0;
 
+
 	/**
-	 * Crée un Invader et le dessine.
-	 * 
-	 * @param gui   l'interface graphique associée, dans laquelle se fera le dessin
-	 *              et qui enverra les messages via les méthodes héritées de
-	 *              Simulable.
-	 * @param color la couleur de l'invader
+	 * @param gui
+	 * @param donneesSimu
+	 * @param nomCarte Carte affiché par l'interface graphique.
+	 * Le plateau permet de lier les données à l'interface graphique qui représente le carte donnée en paramètre.
+	 */
+	/**
+	 * @param gui
+	 * @param donneesSimu
+	 * @param nomCarte
 	 */
 	public Plateau(GUISimulator gui, DonneesSimulation donneesSimu, String nomCarte) {
 		this.gui = gui;
@@ -88,7 +101,7 @@ public class Plateau implements Simulable {
 		this.nomCarte = nomCarte;
 		
 		draw();
-
+		
 		this.prechargerImages("images/");
 
 		this.donneesSimu.initialiserGestionnairesDeplacementsRobots(this.simulateur, this.pasSimulationEnSecondes);
@@ -129,8 +142,7 @@ public class Plateau implements Simulable {
 
 		/* transformation de la vitesse en m/s avec la division par 3.6 */
 		this.pasSimulationEnSecondes = (int) (tailleCaseEnMetres / (vitesseMaxRobot / 3.6));
-		//System.out.println("taille case en metres : "+tailleCaseEnMetres+", vitesse max robot : "+vitesseMaxRobot);
-		//System.out.println("Pas simulation : "+pasSimulationEnSecondes);
+		
 	}
 
 	/**
@@ -143,13 +155,12 @@ public class Plateau implements Simulable {
 			this.tailleCasePlateau = this.gui.getPanelWidth() / this.donneesSimu.getCarte().getNbLignes();
 
 	}
-
+	/**
+	 *méthode permetant d'avancer de le temps courant de pasSimulationEnSeconde, et d'éxecuter tous les évenements correspondants. (non éxécutés et de date antérieure). 
+	 * 
+	 * **/
 	@Override
 	public void next() {
-		// System.out.println("DICO EVT: "+ this.simulateur.getEvenements());
-		// voir comment optimiser
-		// supprimer les clefs à chaque fois pour ne pas tout reparcourir?
-
 		this.chefPompier.itererPasSimu();
 
 		Long dateCourante = this.simulateur.getDateSimulation();
@@ -174,7 +185,9 @@ public class Plateau implements Simulable {
 		this.simulateur.setDateSimulation(prochaineDate);
 	}
 
-	// TODO
+	/**
+	 * méthode permettant de recommencer la simulation.
+	 * **/
 	@Override
 	public void restart() {
 		try {
@@ -318,11 +331,7 @@ public class Plateau implements Simulable {
 			
 			gui.addGraphicalElement(image); // dessine l'incendie			
 			
-			/*
-			gui.addGraphicalElement(
-					new Oval(x, y, this.COULEUR_INCENDIE, this.COULEUR_INCENDIE, this.tailleCasePlateau / 4));
-			gui.addGraphicalElement(new Text(x,y,Color.BLACK, incendie.getIntensite()+""));
-			*/
+		
 		}
 		
 		this.animation++;
