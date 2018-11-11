@@ -17,6 +17,10 @@ public class RobotAPattes extends Robot {
 	private final int TEMPS_VIDAGE = 1;
 	private final int VOLUME_DEVERSE_PAR_EXTINCTION = 10;
 
+	/**
+	 * Constructeur du robot 
+	 * @param c Case du robot
+	 */
 	public RobotAPattes(Case c) {
 		super(c);
 		this.setReservoirEau(VOLUME_REMPLISSAGE);
@@ -44,9 +48,8 @@ public class RobotAPattes extends Robot {
 		System.out.println(" Robot a pate, je ne me remplie pas ^^");
 	}
 
-	// vitesse ne peut pas changer
-	public void setVitesse(double vitesse) throws DataFormatException {
-	};
+	@Override
+	public void setVitesse(double vitesse) throws DataFormatException {};
 
 	@Override
 	public boolean appartientTerrainRobot(NatureTerrain nature) {

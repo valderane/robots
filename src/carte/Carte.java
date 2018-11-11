@@ -2,20 +2,38 @@ package carte;
 
 import carte.Case;
 
+/** La carte contient des cases de plusieurs natures. Elle ne contient pas directement les robots, chaque robot a connaissance de la case où il se situe, mais
+ * pas de la carte 
+ * @author 
+ *
+ */
 public class Carte {
 
+	/**
+	 * Taille de chaque case en mètre.
+	 */
 	private int tailleCases;
 	private int nbLignes;
 	private int nbColonnes;
 
 	private Case[][] cases;
 
+	/**
+	 * COnstructeur par défaut.
+	 */
 	public Carte() {
 		this.setTailleCases(0);
 		this.setNbLignes(0);
 		this.setNbColonnes(0);
 	}
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param nbLignes Nombre de lignes de la carte
+	 * @param nbColonnes Nombre de colonnes de la carte
+	 * @param tailleCases Taille de chaque case en mètre
+	 */
 	public Carte(int nbLignes, int nbColonnes, int tailleCases) {
 		this.setTailleCases(tailleCases);
 		this.setNbLignes(nbLignes);
@@ -65,6 +83,12 @@ public class Carte {
 		this.tailleCases = tailleCases;
 	}
 
+	/**
+	 * Indique si il existe un voisin en partant de la case src avec la direction dir.
+	 * @param src Case de départ
+	 * @param dir Direction à prendre
+	 * @return true si un voisin existe, false sinon
+	 */
 	public boolean voisinExiste(Case src, Direction dir) {
 		boolean existe = false;
 
@@ -82,12 +106,16 @@ public class Carte {
 			existe = (src.getColonne() - 1) >= 0;
 			break;
 		}
-		// System.out.println(existe);
 		return existe;
 
 	}
 
-	// retourne le voisin de la case (pas copie)
+	/**
+	 * Retourne le voisin de la case en prenant une certaine direction
+	 * @param src Case de départ
+	 * @param dir Direction à prendre
+	 * @return Le voisin s'il existe, null sinon
+	 */
 	public Case getVoisin(Case src, Direction dir) {
 
 		Case voisin = null;

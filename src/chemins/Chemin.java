@@ -5,11 +5,10 @@ import java.util.Stack;
 import carte.Direction;
 
 /**
- * @author 
- * 
  * Chemin représenté par une suite de directions, d'un temps de parcours et d'une vitesse moyenne pour le réaliser.
  * A noter qu'un chemin a été calculé pour un robot en particulier.
- *
+ * 
+ * @author Equipe 23
  */
 public class Chemin { 
 	
@@ -86,8 +85,5 @@ public class Chemin {
 	public Stack<Direction> getDirections() {
 			return this.directions;
 	}
-	
-	public Direction[] getTableauDirections() {
-		return null;
-	}
+
 }

@@ -6,6 +6,12 @@ import carte.Carte;
 import carte.Case;
 import carte.NatureTerrain;
 
+/**
+ * 
+ * 
+ * @author Equipe 23
+ *
+ */
 public class Drone extends Robot {
 
 	/**
@@ -18,9 +24,10 @@ public class Drone extends Robot {
 	private final int TEMPS_VIDAGE = 30;
 
 	/**
-	 * Attributs
+	 * Constructeur
+	 * 
+	 * @param c Position du drone
 	 */
-
 	public Drone(Case c) {
 		super(c);
 		this.setReservoirEau(VOLUME_REMPLISSAGE);
@@ -28,7 +35,7 @@ public class Drone extends Robot {
 		this.setVolumeRemplissage(this.VOLUME_REMPLISSAGE);
 		this.setVolumeDeverseParExtinction(this.getReservoirEau());
 		this.setTempsVidage(this.TEMPS_VIDAGE);
-		
+
 		try {
 			this.setVitesse(this.VITESSE_PAR_DEFAUT);
 		} catch (DataFormatException e) {
@@ -36,6 +43,15 @@ public class Drone extends Robot {
 		}
 	}
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param c       Position du drone
+	 * @param vitesse vitesse du drone
+	 * 
+	 * @throws DataFormatException Renvoyée si la vitesse ne respecte pas les
+	 *                             contraintes
+	 */
 	public Drone(Case c, int vitesse) throws DataFormatException {
 		super(c);
 		this.setReservoirEau(VOLUME_REMPLISSAGE);
@@ -43,7 +59,7 @@ public class Drone extends Robot {
 		this.setVolumeRemplissage(this.VOLUME_REMPLISSAGE);
 		this.setVolumeDeverseParExtinction(this.getReservoirEau());
 		this.setTempsVidage(this.TEMPS_VIDAGE);
-		
+
 		try {
 			this.setVitesse(vitesse);
 		} catch (DataFormatException e) {
@@ -59,11 +75,14 @@ public class Drone extends Robot {
 	}
 
 	@Override
-	// Vitesse constante
 	public double getVitesse(NatureTerrain nat) {
+		// Vitesse constante
 		return this.getVitesse();
 	}
 
+	/* (non-Javadoc)
+	 * @see robots.Robot#remplirReservoir(int)
+	 */
 	@Override
 	public void remplirReservoir(int vol) {
 		// remplissage du reservoir avec le nombre de litres pass� en parametre
@@ -76,16 +95,22 @@ public class Drone extends Robot {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see robots.Robot#appartientTerrainRobot(carte.NatureTerrain)
+	 */
 	@Override
-	// le drone peut aller partout
 	public boolean appartientTerrainRobot(NatureTerrain nature) {
+		// le drone peut aller partout
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see robots.Robot#estBienPlacePourRemplissage(carte.Case, carte.Carte)
+	 */
 	@Override
 	public boolean estBienPlacePourRemplissage(Case caseRobot, Carte carte) {
+		//se remplit sur une case d'eau
 		return (caseRobot.getNature() == NatureTerrain.EAU);
 	}
 
-	
 }

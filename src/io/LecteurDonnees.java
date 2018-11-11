@@ -17,22 +17,8 @@ import carte.Incendie;
 /**
  * Lecteur de cartes au format spectifié dans le sujet.
  * Les données sur les cases, robots puis incendies sont lues dans le fichier,
- * puis simplement affichées.
- * A noter: pas de vérification sémantique sur les valeurs numériques lues.
- *
- * IMPORTANT:
- *
- * Cette classe ne fait que LIRE les infos et les afficher.
- * A vous de modifier ou d'ajouter des méthodes, inspirées de celles présentes
- * (ou non), qui CREENT les objets au moment adéquat pour construire une
- * instance de la classe DonneesSimulation à partir d'un fichier.
- *
- * Vous pouvez par exemple ajouter une méthode qui crée et retourne un objet
- * contenant toutes les données lues:
- *    public static DonneesSimulation creeDonnees(String fichierDonnees);
- * Et faire des méthode creeCase(), creeRobot(), ... qui lisent les données,
- * créent les objets adéquats et les ajoutent ds l'instance de
- * DonneesSimulation.
+ * puis simplement affichées, ou transférées dans des données de simulation.
+
  */
 public class LecteurDonnees {
 
@@ -179,7 +165,7 @@ public class LecteurDonnees {
     }
 
     /**
-     * Lit et stocke les donnees d'une case dans une class DonneesSimulation.
+     * Lit et stocke les donnees d'une case dans une classe DonneesSimulation.
      */
     private void ecrireCase(int lig, int col, DonneesSimulation donnees) throws DataFormatException {
         ignorerCommentaires();

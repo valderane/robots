@@ -4,7 +4,10 @@ import carte.Case;
 import carte.Direction;
 
 /**
- * @author 
+ * Représente un lien pondéré du point de vue des graphe. Possède une case de destination, de départ,
+ * la direction pour atteindre la case de destination et le poids du lien.
+ * 
+ * @author Equipe 23
  *
  */
 public class Lien {
@@ -30,9 +33,12 @@ public class Lien {
 	private double poids;
 	
 	/**
-	 * @param caseDestination
-	 * @param direction
-	 * @param poids
+	 * Constructeur de la classe
+	 * 
+	 * @param caseDepart case de départ du lien
+	 * @param caseDestination case de destination du lien
+	 * @param direction direction pour atteindre la case de destination depuis la case de départ
+	 * @param poids le poids du lien
 	 */
 	public Lien(Case caseDepart, Case caseDestination, Direction direction, double poids) {
 		this.caseDepart = caseDepart;
@@ -41,23 +47,15 @@ public class Lien {
 		this.poids = poids;
 	}
 	
-	/**
-	 * @return
-	 */
+
 	public Case getCaseDepart() {
 		return this.caseDepart;
 	}
-	
-	/**
-	 * @return
-	 */
+
 	public Case getCaseDestination() {
 		return this.caseDestination;
 	}
 	
-	/**
-	 * @return
-	 */
 	public Direction getDirection() {
 		return this.direction;
 	}
