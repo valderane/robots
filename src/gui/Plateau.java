@@ -323,9 +323,10 @@ public class Plateau implements Simulable {
 
 		for (Incendie incendie : incendies) {
 
-			x = incendie.getPosition().getColonne() * this.tailleCasePlateau + this.tailleCasePlateau / 2 - 25;
-			y = incendie.getPosition().getLigne() * this.tailleCasePlateau + 5;
+		
 			jaugeFeu = incendie.getIntensite() * this.tailleCasePlateau / incendie.getIntensiteInit() ;
+			x = incendie.getPosition().getColonne() * this.tailleCasePlateau + (this.tailleCasePlateau - jaugeFeu) / 2;
+			y = incendie.getPosition().getLigne() * this.tailleCasePlateau + (this.tailleCasePlateau - jaugeFeu) / 2;
 			image = new ImageElement(x, y, "images/feu"+indiceImage+".png", jaugeFeu , jaugeFeu,
 					null);
 			
