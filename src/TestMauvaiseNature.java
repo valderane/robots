@@ -28,7 +28,7 @@ public class TestMauvaiseNature {
 							 System.err.println( mrobot + "sort de la carte.");
 							 break;
 						} catch (ProchaineCaseMauvaiseNature e) {
-							 System.err.println(mrobot + "ne supporte pas cette nature de terrain");
+							 System.err.println(mrobot + " en "+mrobot.getPosition()+" va direction "+Direction.OUEST+ " mais il ne supporte pas la nature: "+  data.getCarte().getVoisin(mrobot.getPosition(), Direction.OUEST).getNature());
 							 break;
 						}
 			 }

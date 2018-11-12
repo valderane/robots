@@ -28,7 +28,7 @@ public class TestCarteOut {
 						try {
 							mrobot.deplacer(Direction.SUD, data.getCarte());
 						} catch (RobotSorsCarte e) {
-							 System.err.println( mrobot + "sort de la carte.");
+							 System.err.println( mrobot + " sort de la carte. Est en: " + mrobot.getPosition()  + "et essaye d'aller au SUD");
 							 break;
 						} catch (ProchaineCaseMauvaiseNature e) {
 							 System.err.println(e);
