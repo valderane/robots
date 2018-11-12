@@ -20,6 +20,8 @@ public class TestMauvaiseNature {
 			
 			 DonneesSimulation data = LecteurDonnees.creeDonnees(args[0]);
 			 Robot mrobot = data.getRobots(data.getCarte().getCase(6, 5))[0];
+			 System.out.println(args[0]+" de taille: " + data.getCarte());
+
 			 while (true) {
 					 
 						try {

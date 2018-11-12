@@ -1,6 +1,8 @@
 /Invader.class
 /TestCarte.class
+/TestCarteOut.class
 /TestInvader.class
+/TestMauvaiseNature.class
 /carte/
 /chemins/
 /evenements/
@@ -10,5 +12,3 @@
 /package-list
 /robots/
 /strategies/
-/TestCarteOut.class
-/TestMauvaiseNature.class

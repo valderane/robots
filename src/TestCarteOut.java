@@ -19,16 +19,17 @@ public class TestCarteOut {
 		}
 		else {
 		try {
-			System.err.println(args[0]);
+			//System.err.println(args[0]);
 			
 			 DonneesSimulation data = LecteurDonnees.creeDonnees(args[0]);
 			 Robot mrobot = data.getRobots(data.getCarte().getCase(3, 3))[0];
+			 System.out.println(args[0]+" de taille: " + data.getCarte());
 			 while (true) {
 					 
 						try {
 							mrobot.deplacer(Direction.SUD, data.getCarte());
 						} catch (RobotSorsCarte e) {
-							 System.err.println( mrobot + " sort de la carte. Est en: " + mrobot.getPosition()  + "et essaye d'aller au SUD");
+							 System.err.println( mrobot + " sort de la carte. Est en: " + mrobot.getPosition()  + " et essaye d'aller au SUD");
 							 break;
 						} catch (ProchaineCaseMauvaiseNature e) {
 							 System.err.println(e);

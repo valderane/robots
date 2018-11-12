@@ -140,5 +140,9 @@ public class Carte {
 
 		return voisin;
 	}
+	@Override
+	public String toString() {
+		return this.nbLignes+ "*"+ this.nbColonnes;
+	}
 
 }
